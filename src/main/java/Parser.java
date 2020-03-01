@@ -1,5 +1,3 @@
-package textAdventureGame;
-
 import java.util.Scanner;
 
 public class Parser {

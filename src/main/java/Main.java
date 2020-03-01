@@ -1,5 +1,24 @@
+import java.util.Scanner;
+
 public class Main {
-    public static void main (String[] args){
-        System.out.println("Welcome to Software Design");
-    }
+	
+	Parser gameParser;
+	Player gamePlayer;
+	
+	Main(){
+		gameParser = new Parser();
+		gamePlayer = new Player();
+	}
+	
+	void startGame() {
+		Scanner scanner = new Scanner(System.in);
+		while(true) {
+			gameParser.parse(scanner.nextLine());
+		}
+	}
+	
+	public static void main(String args[]) {
+		new Main().startGame();
+	}
+
 }
