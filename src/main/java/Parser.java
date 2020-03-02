@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Parser {
 
 	public void parse(String string) {
+
 		Scanner commandScanner = new Scanner(string);
 		if (commandScanner.hasNext()) {
 			String command = commandScanner.next();
@@ -12,7 +13,7 @@ public class Parser {
 				System.out.println("what do you want to " + command + "?");
 				return;
 			} else {
-				arg = commandScanner.nextLine().trim().replaceAll(" +", " ");
+				arg = commandScanner.nextLine().trim().replaceAll(" +", " "); // replace all multiple spaces with a single one
 			}
 			
 			switch (command) {
@@ -31,13 +32,26 @@ public class Parser {
 			
 		} else {
 			System.out.println("command expected");
-			return;
 		}
-		
 	}
 	
 	private void move(String arg) {
-		System.out.println("moved " + arg);
+		switch (arg) {
+			case "north":
+				System.out.println("moved " + arg);
+				break;
+			case "east":
+				System.out.println("moved " + arg);
+				break;
+			case "south":
+				System.out.println("moved " + arg);
+				break;
+			case "west":
+				System.out.println("moved " + arg);
+				break;
+			default:
+				System.out.println("direction not recognised, choose north, east, south or west.");
+		}
 	}
 	
 	private void kill(String arg) {
