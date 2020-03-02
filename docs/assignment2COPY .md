@@ -172,7 +172,7 @@ A *Coordinate* is a very simple class to group together an <u>x</u> and <u>y</u>
 
 *Coordinate* has very simple relations. *Coordinate* is contained in exactly 1 *Player*, or exactly 1 *Map*. There can exist any number of coordinates, however, these coordinates must be unique and their references can not be shared upon the *Map* and *Player*.
 
-<h5 id="Parser">Parser FIXME!</h5>
+<h5 id="Parser">Parser</h5>
 
 A *Parser* will take an input from the standardIn, and seperate it into a list of actions and a list of items. This will give a way to convert from the complex semantics of language into a form that the parser can try to parse. The *Parser* expects an input in the form <action\> <items/prepositions...*>. More information on this can be found under features. 
 
@@ -192,7 +192,7 @@ A *Parser* will take an input from the standardIn, and seperate it into a list o
 
 Each *Player* will have their own *Parser*. When the *Player* is terminated, the *Parser* will also be terminated. Each *Player* can have at most 1 *Parser*, and each *Parser*, can have at most 1 *Player*
 
-<h5 id="Printer">Printer FIXME!</h5>
+<h5 id="Printer">Printer</h5>
 
 A printer simply outputs strings to the user. It is a nice class to prevent several objects interfacing with the player. 
 
