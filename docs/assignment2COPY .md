@@ -26,7 +26,7 @@ We are using draw.io
 
 ## Class diagram
 
-Author(s): Eduardo Lira
+Author(s): Eduardo Lira & Theresa Schantz
 
 This chapter contains the specification of the UML class diagram of your system, together with a textual description of all its elements.
 
@@ -34,11 +34,11 @@ This chapter contains the specification of the UML class diagram of your system,
 Class Diagram of VuORK
 ```
 
-![Class Diagram of VuORK](https://i.ibb.co/9W0LPmq/Class-diagram-Class-diagram-1.png)
+![Class Diagram of VuORK](https://i.postimg.cc/8PZ6bcFm/Class-diagram-Class-diagram.png)
 
 <h5 id="Item">Item</h5>
 
-The Item class is an abstract type which can be either a _Container_ or a _Singleton_. The Item class represents an entity the user can interact with. Arbitrary examples may be: *swords, spoons, pens, etc..*. This class is abstract because an Item can be (exclusivly) one of two types: Container or Singleton. 
+The Item class is an abstract type which can be either a _Container_ or a _BasicItem_. The Item class represents an entity the user can interact with. Arbitrary examples may be: *swords, spoons, pens, etc..*. This class is abstract because an Item can be (exclusivly) one of two types: *Container* or *BasicItem*. 
 
 <u>*Name*</u> is a string that gives the entity a name. Pretty self explanatory. It is needed so that the game can tell the user (in words), what the item represents.
 
@@ -50,11 +50,11 @@ The Item class is an abstract type which can be either a _Container_ or a _Singl
 
 Item has a composition relation to (exclusivley) *Area* or a *Player*. This is because an Item can not both exist outside of the *Player's backpack* and in the surrounding area or vice versa. Furthermore, an Item can not exist without an *Area* or *Player's backpack* to exist in. 
 
-<h5 id="Singleton">Singleton</h5>
+<h5 id="BasicItem">BasicItem</h5>
 
 Singelton is a subtype of <a href="#Item">Item</a> that a player can interact with. It is the most basic type of item. It inherits properties from Item, such as the Name and ID and their consequent getter functions. 
 
-An Item can be interracted with, or used to interract. To elaborate, imagine the command ***Attack chair with sword***. Here, the action attack has 2 clauses: the dependent and independent. This means that singletons need a way to know what can be done to it (ie be attacked), and what it can be used to do (ie attack). In this case, the singleton chair would have the string *Attack*, in its *UsedTo*.
+An Item can be interracted with, or used to interract. To elaborate, imagine the command ***Attack chair with sword***. Here, the action attack has 2 clauses: the dependent and independent. This means that BasicItems need a way to know what can be done to it (ie be attacked), and what it can be used to do (ie attack). In this case, the BasicItem chair would have the string *Attack*, in its *UsedTo*.
 
 *<u>canBe</u>* is an array of strings. These strings list what can be done to the item. Taking the example of the chair and sword from above, the chair would have the string "Attack", in this array. 
 
@@ -64,19 +64,19 @@ An Item can be interracted with, or used to interract. To elaborate, imagine the
 
 *<u>isValidManipulation(string manip)</u>* returns a boolean on the condition that the array usedTo contains the string action. If it does contain the string, it returns true. 
 
-Because Singleton is a sub-type of *Item*, it follows the same matually exclusive composite relation seen Item has. The aggregate relationship indicates that any number of *Singleton* objects, may be contained in a *Container*. 
+Because BasicItem is a sub-type of *Item*, it follows the same matually exclusive composite relation seen Item has. The aggregate relationship indicates that any number of *BasicItem* objects, may be contained in a *Container*. 
 
 <h5 id="Container">Container</h5>
 
-Container is a subtype of Item. It is different from a Singleton because the only action that can be performed on a container is the *<u>toggle(state: boolean)</u>* Also, you can see that a container may contain any number of Singletons. The idea is that a container may be, to bring a realworld example, a (but not limited to) a fridge or drawer. These can be opened and reveal any number of items. 
+Container is a subtype of Item. It is different from a BasicItem because the only action that can be performed on a container is the *<u>toggle(state: boolean)</u>* Also, you can see that a container may contain any number of BasicItems. The idea is that a container may be, to bring a realworld example, a (but not limited to) a fridge or drawer. These can be opened and reveal any number of items. 
 
 *<u>isOpen</u>* is a boolean variable that checks wether the contents of the container are available to the surrounding *Area* and, thus, *Player*. The entities within the *Container* can not be accessed unless this condition is true. 
 
-*<u>entities</u>* is an array of *Singleton*. It lists all the *Singleton* currently contained in the item. 
+*<u>entities</u>* is an array of *BasicItem*. It lists all the *BasicItem* currently contained in the item. 
 
 *<u>toggle(state:bool)</u>* is a method function which will open/or close the container. If state is TRUE, then *<u>isOpen</u>*, will be set to TRUE.
 
-It is important to note the aggregation from *Singleton*. This simply indicates that an instance of *Container* may contain any number of *Singleton* objects, but the existance of *Singleton* objects does not relay on the existance of the *Container* object.
+It is important to note the aggregation from *BasicItem*. This simply indicates that an instance of *Container* may contain any number of *BasicItem* objects, but the existance of *BasicItem* objects does not relay on the existance of the *Container* object.
 
 <h5 id="Area">Area</h5>
 
@@ -221,7 +221,7 @@ Author(s): `Eduardo Lira`
 
 This chapter contains the description of a "snapshot" of the status of your system during its execution. This chapter is composed of a UML object diagram of your system, together with a textual description of its key elements.
 
-![Object Diagram of VuORK](https://i.postimg.cc/MHj6Y8Wm/Class-diagram-Object-Diagram.png)
+![Object Diagram of VuORK](https://i.postimg.cc/5yFRSTgw/Class-diagram-Object-Diagram.png)
 
 ```
 Figure representing the UML class diagram
