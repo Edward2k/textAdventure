@@ -28,6 +28,8 @@ We are using draw.io
 
 Author(s): Eduardo Lira
 
+This chapter contains the specification of the UML class diagram of your system, together with a textual description of all its elements.
+
 ```
 Class Diagram of VuORK
 ```
@@ -215,14 +217,18 @@ Maximum number of words for this section: 3000
 
 ## Object diagrams
 
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): `Eduardo Lira`
 
 This chapter contains the description of a "snapshot" of the status of your system during its execution. This chapter is composed of a UML object diagram of your system, together with a textual description of its key elements.
+
+![Object Diagram of VuORK](https://i.postimg.cc/MHj6Y8Wm/Class-diagram-Object-Diagram.png)
 
 ```
 Figure representing the UML class diagram
 Textual description
 ```
+
+
 
 Maximum number of words for this section: 1000
 
