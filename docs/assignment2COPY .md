@@ -34,7 +34,7 @@ This chapter contains the specification of the UML class diagram of your system,
 Class Diagram of VuORK
 ```
 
-![Class Diagram of VuORK](https://i.postimg.cc/8PZ6bcFm/Class-diagram-Class-diagram.png)
+![Class Diagram of VuORK](https://i.postimg.cc/fW8f23ty/Class-diagram-Class-diagram-2.png)
 
 <h5 id="Item">Item</h5>
 
@@ -140,7 +140,7 @@ A *Player* is the class that a User will take control of. The user interacts to 
 
 *<u>coord: Coordinate</u>* stores where the player currently is in terms of the *Map*. It should be instatiated to the specified *Map.getEntryPoint()*. 
 
-*<u>backpack: Array<Item\></u>* stores references to all of the *Items* the *Player* currently has in his possesion. Instantiated to NULL
+*<u>backpack: Array<BasicItem\></u>* stores references to all of the *Items* the *Player* currently has in his possesion. Instantiated to NULL. It is important to note that this array is of type *BasicItem* and not its superclass, *Item*, because holding *Containers*, would allow for infinite storage. 
 
 *<u>score: Int</u>* is an integer indicator denoting how well the player is playing. It is calculated by taking the number of <u>moves</u> * (number of minutes played) * *health*
 
@@ -221,14 +221,25 @@ Author(s): `Eduardo Lira`
 
 This chapter contains the description of a "snapshot" of the status of your system during its execution. This chapter is composed of a UML object diagram of your system, together with a textual description of its key elements.
 
-![Object Diagram of VuORK](https://i.postimg.cc/5yFRSTgw/Class-diagram-Object-Diagram.png)
+> Figure representing the UML class diagram
+
+![Object Diagram of VuORK](https://i.postimg.cc/QCz5XT1q/Class-diagram-Object-Diagram-2.png)
 
 ```
-Figure representing the UML class diagram
 Textual description
 ```
 
+Above we see an object diagram for 2 players who are playing in the same world of VuORK. The purpose of this diagram is to better illustrate, with an example, how the classes described in the **Class Diagram** will interact with eachother. 
 
+Starting with the left hand side of the diagram, we see the instance of a *Map*. The *Map* holds 2 objects of type *Area* named Entrance and Lobby. It is important to note that the <u>gameLayout</u> member is a 2D array, but in this example, we see only 1 dimension being used. The map also has a *Coordinate* indicating where a *Player* begins the game upon joining the *Game*. 
+
+The 2 *Area*s, Entrance and Lobby, are quite different. In the Entrance, there are no *Items* the user can interact with, and there is no <u>Obstacle</u> preventing the user from entering the room (There can not be an obstacle at the room pointed to by <u>entryPoint</u>). In the Lobby, we also see 2 a *Container*, Closet, which holds a *BasicItem*, Broom. A Broom can be used Clean and Attack, and a Broom can be Attacked, Pickedup, and Burned. Throughout the game, we see more, nearly identical, Brooms, but these are all distinguished by <u>ID</u>'s. **An Item can not exist in 2 distinct objects at any time, it can however, be moved around *Areas***. 
+
+On the right hand side, we have objects for the *Players*. Each *Player* has *Printer*, *Parser*, *Coordinate*, and an array of *BasicItems*. Looking at Jack specifically, he has no *BasicItem*s currently in his possession. Mark, on the otherhand, does have a Broom and a Sword. These *BasicItems* both have their unique ID's to distinguish them from similar *BasicItems*. Both *Players* have a *Printer*, which allows the system to output text to the command line of the desired user. Similary, both *Player*s have a *Parser* to allow seperate input of the users. This is very important for the notion of Muiltplayer. 
+
+Holding these sides together is the object gameState of type *Game*. gameState holds the *Map* that both players interact with, both *Players* and a *timeStamp* of when the game was started. 
+
+With the figural and textual description of a state our system can have, it should be clear why each class exists, and their relations to one another.  
 
 Maximum number of words for this section: 1000
 
