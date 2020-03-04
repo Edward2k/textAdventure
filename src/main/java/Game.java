@@ -14,24 +14,32 @@ public class Game {
 	}
 	
 	void startGame() {
+		gamePlayer[0] = new Player(map.getEntryPoint());
+		runPlayer(gamePlayer[0]);
+	}
+	
+	public static void main(String args[]) {
+		new Game().startGame(); //Only 1 player
+	}
 
-		Coordinate startingCoord = new Coordinate(0 ,0); // maybe read from file? JSON?
+	public static final void runPlayer(Player player) {
+		//LoginUserName
+		player.output("What is your name?");
+		player.setName(player.getLine());
+		player.output("Welcome " + player.getUserName() + " to the world of VuOrk! <PRINT DESCRIPTION ABOUT ENTRY POINT HERE!");
 
-
-
-		gamePlayer[0] = new Player(startingCoord);
-
+		//Loop prompt
 		while(true) {
-			Player player = gamePlayer[0];
 			Instruction currCommand = player.getCommand();
+			//Here you validate and run command
 			player.output(currCommand.getAction());
 			player.output(Arrays.toString(currCommand.getStringArrayItems()));
 			player.output("==================================================");
 		}
+
 	}
-	
-	public static void main(String args[]) {
-		new Game().startGame();
-	}
+
+
+
 
 }

@@ -36,14 +36,17 @@ public class Player {
         return backpack;
     }
 
-    public boolean movePlayer (Coordinate coord) {
-        return false;
+    //TODO: implement me. @return nothing.
+    public void movePlayer (Coordinate coord) {
+        return;
     }
 
-    public Coordinate getCurrentPosition () {
-        return coord;
-    }
+    public void setName(String n) {this.name = n;}
+
+    public Coordinate getCurrentPosition ()     {return coord;}
 
     public void output(String s) {printer.output(s);}
+
+    public String getLine() {return parser.getLine();}
 
 }

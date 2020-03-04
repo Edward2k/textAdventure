@@ -1,18 +1,18 @@
-public class Coordinate {
+public final class Coordinate {
 
-    private int xCoord;
-    private int yCoord;
+    private final int xCoord;
+    private final int yCoord;
 
     Coordinate(int xCoord, int yCoord){
         this.xCoord = xCoord;
         this.yCoord = yCoord;
     }
 
-    public int getx() {
+    public final int getx() {
         return xCoord;
     }
 
-    public int gety() {
+    public final int gety() {
         return yCoord;
     }
 }

@@ -8,6 +8,11 @@ public class Parser {
 	private static final int ACTION_WORD_POSITION = 0;
 
 	//Returns a String array where first element is action.
+	public String getLine() {
+		Scanner in = new Scanner(System.in);
+		return in.nextLine();
+	}
+
 	public String[] getLineArray() {
 		Scanner parseScanner = new Scanner(System.in);
 		String line = parseScanner.nextLine();
