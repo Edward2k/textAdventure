@@ -43,6 +43,9 @@ public class Game {
 			case "move":
 				handleMove(command.getItems().get(0), player);
 				break;
+			case "look":
+				player.output(map.getDescription(player.position()));
+				break;
 			case "help":
 			case "h":
 				giveHelpInstructions(player);
