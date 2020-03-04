@@ -8,11 +8,11 @@ public final class Coordinate {
         this.yCoord = yCoord;
     }
 
-    public final int getx() {
+    public final int x() {
         return xCoord;
     }
 
-    public final int gety() {
+    public final int y() {
         return yCoord;
     }
 }

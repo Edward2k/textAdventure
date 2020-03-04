@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Parser {
 
-	private static final int MAX_WORDS_PER_COMMAND = 4;
+	private static final int MAX_WORDS_PER_COMMAND = 5;
 	private static final int START_OF_ITEMS = 1;
 	private static final int ACTION_WORD_POSITION = 0;
 
@@ -16,8 +16,9 @@ public class Parser {
 	public String[] getLineArray() {
 		Scanner parseScanner = new Scanner(System.in);
 		String line = parseScanner.nextLine();
+		line = line.toLowerCase();
 		Scanner lineScanner = new Scanner(line);
-		String[] command = new String[100];
+		String[] command = new String[MAX_WORDS_PER_COMMAND];
 		int i = 0;
 		while(lineScanner.hasNext()) {
 			command[i++] = lineScanner.next();

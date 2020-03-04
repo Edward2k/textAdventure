@@ -1,6 +1,8 @@
+import java.util.List;
+
 public class Area {
 
-    private Item[] items;
+    private List<Item> items;
     private Item obstacle;
     private boolean obstacleNeutralized;
     private String name;
@@ -21,6 +23,10 @@ public class Area {
 
     public boolean canEnter() {
         return obstacleNeutralized;
+    }
+
+    public final void addItem(Item i) {
+        this.items.add(i);
     }
 
 }
