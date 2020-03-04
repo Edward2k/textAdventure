@@ -16,4 +16,24 @@ public class Player {
         health = 100;
     }
 
+    public String getUserName () {
+        return name;
+    }
+
+    public int getHealth () {
+        return health;
+    }
+
+    public Item[] getBackpack () {
+        return backpack;
+    }
+
+    public boolean movePlayer (Coordinate coord) {
+        return false;
+    }
+
+    public Coordinate getCurrentPosition () {
+        return coord;
+    }
+
 }

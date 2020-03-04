@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
-public class Main {
+public class Game {
 	
-	Parser gameParser;
-	Player gamePlayer;
+	private Parser gameParser;
+	public Player[] gamePlayer;
 	
-	Main(){
+	Game(){
 		gameParser = new Parser();
 	}
 	
@@ -27,7 +27,7 @@ public class Main {
 	}
 	
 	public static void main(String args[]) {
-		new Main().startGame();
+		new Game().startGame();
 	}
 
 }
