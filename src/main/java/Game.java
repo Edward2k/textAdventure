@@ -36,7 +36,7 @@ public class Game {
 	}
 
 	public static void validateCommand(Instruction command, Player player) {
-		String action = command.getAction().toLowerCase();
+		String action = command.getAction();
 		//Movement shortcut
 		if (isDirection(action)) {handleMove(action, player); return;}
 		switch(action) {
