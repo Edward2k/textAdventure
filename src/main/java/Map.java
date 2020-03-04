@@ -27,7 +27,9 @@ public class Map {
 //        map[0][2].addItem(new Item());
     }
 
-    public String getDescription(int x, int y) {
+    public String getDescription(Coordinate c) {
+        int x = c.x();
+        int y = c.y();
         String intro = "You are currently in the " + map[x][y].getName() + " \n";
         return intro + map[x][y].getDescription();
     }

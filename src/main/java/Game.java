@@ -3,16 +3,16 @@ import java.util.List;
 
 public class Game {
 	
-	public Player[] gamePlayer;
-
+	private Player[] gamePlayer;
 	private static Map map;
 	
 	Game(){
-		gamePlayer = new Player[100];
+		gamePlayer = new Player[4];
 		map = new Map();
 	}
 	
 	void startGame() {
+		//For the purpose of this game, we will be using only 1 player. multiplayer is easily expandable
 		gamePlayer[0] = new Player(map.getEntryPoint());
 		runPlayer(gamePlayer[0]);
 	}
@@ -26,15 +26,13 @@ public class Game {
 		player.output("To join the VuORK realm, you need some sort of identification. So please, What is your name?");
 		player.setName(player.getLine());
 		player.output("Welcome " + player.getUserName() + " to the world of VuOrk! <Print Help by typing 'Help'>\n======================================\n");
-		player.output(map.getDescription(player.position().x(), player.position().y()));
+		player.output(map.getDescription(player.position()));
 
 		//Loop prompt
 		while(true) {
-			Instruction currCommand = player.getCommand();
-			//Here you validate and run command
-			validateCommand(currCommand, player);
+			Instruction currCommand = player.getCommand(); //Blocking command waiting for input
+			validateCommand(currCommand, player); //validateCommand
 		}
-
 	}
 
 	public static void validateCommand(Instruction command, Player player) {
@@ -76,7 +74,7 @@ public class Game {
 
 		if (map.isValidMove(newPos)) {
 			player.movePlayer(newPos);
-			player.output(map.getDescription(newPos.x(), newPos.y()));
+			player.output(map.getDescription(newPos));
 		} else {
 			player.output("There is nothing " + direction + " of where you are now.");
 		}
