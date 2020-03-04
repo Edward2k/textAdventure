@@ -20,8 +20,8 @@ public class Player {
         parser = new Parser();
     }
 
-    public String[] getCommand(){
-        return parser.getCommand();
+    public Instruction getCommand(){
+        return parser.getInstruction();
     }
 
     public String getUserName () {

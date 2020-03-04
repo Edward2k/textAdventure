@@ -21,10 +21,10 @@ public class Game {
 
 		gamePlayer[0] = new Player("dabber69", startingCoord);
 
-
-
 		while(true) {
-			System.out.println(Arrays.toString(gamePlayer[0].getCommand()));
+			Instruction curr = gamePlayer[0].getCommand();
+			System.out.println(curr.getAction());
+			System.out.println(Arrays.toString(curr.getStringArrayItems()));
 			System.out.println("==================================================");
 		}
 	}

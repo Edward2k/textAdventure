@@ -19,4 +19,8 @@ public class Instruction {
         return items.get(n);
     }
 
+    public String[] getStringArrayItems() {
+        return items.toArray(new String[0]); //makes string array out of list
+    }
+
 }
