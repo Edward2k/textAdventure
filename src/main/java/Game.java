@@ -46,6 +46,9 @@ public class Game {
 			case "look":
 				player.output(map.getDescription(player.position()));
 				break;
+			case "list":
+				player.output("Need to implement this list later.");
+				break;
 			case "help":
 			case "h":
 				giveHelpInstructions(player);
@@ -90,11 +93,12 @@ public class Game {
 	}
 
 	private static void giveHelpInstructions(Player player) {
-		player.output("I see you are a noob, " + player.getUserName() + ". You are in the VuORK realm. To interact with this realm, you must type a command with the form" +
-				"\t<action> <item> <proposition> <item>. An example would be 'Attack broom with sword'. For movement," +
-				"there are 2 ways to move:\t'move' followed by either 'north', 'south, 'east' or 'west'. \tYou can also " +
+		player.output("I see you are a noob, " + player.getUserName() + ". You are in the VuORK realm. To interact " +
+				"with this realm, you must type a command with the form" +
+				"<action> <item> <proposition> <item>. An example would be 'Attack broom with sword'. For movement," +
+				"there are 2 ways to move: 'move' followed by either 'north', 'south, 'east' or 'west'. You can also " +
 				"simply type 'south' or any other direction as a shortcut. It is important to note that all inputs are " +
-				"NOT case sensitive! Good luck and have fun in VuORK");
+				"NOT case sensitive! For a full list of commands, type 'List'. Good luck and have fun in VuORK");
 	}
 
 
