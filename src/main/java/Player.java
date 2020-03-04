@@ -8,16 +8,16 @@ public class Player {
     private int health;
 
     private Parser parser;
+    private Printer printer;
 
-    Player (String name, Coordinate coord) {
-        this.name = name;
+    Player (Coordinate coord) {
         this.coord = coord;
         this.backpack = new Item[]{};
         score = 0;
         moves = 0;
         health = 100;
-
         parser = new Parser();
+        printer = new Printer();
     }
 
     public Instruction getCommand(){
@@ -43,5 +43,7 @@ public class Player {
     public Coordinate getCurrentPosition () {
         return coord;
     }
+
+    public void output(String s) {printer.output(s);}
 
 }

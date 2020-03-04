@@ -19,13 +19,14 @@ public class Game {
 
 
 
-		gamePlayer[0] = new Player("dabber69", startingCoord);
+		gamePlayer[0] = new Player(startingCoord);
 
 		while(true) {
-			Instruction curr = gamePlayer[0].getCommand();
-			System.out.println(curr.getAction());
-			System.out.println(Arrays.toString(curr.getStringArrayItems()));
-			System.out.println("==================================================");
+			Player player = gamePlayer[0];
+			Instruction currCommand = player.getCommand();
+			player.output(currCommand.getAction());
+			player.output(Arrays.toString(currCommand.getStringArrayItems()));
+			player.output("==================================================");
 		}
 	}
 	

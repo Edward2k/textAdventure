@@ -1,6 +1,6 @@
 public class Printer {
 
-    void print(String output) {
+    void output(String output) {
         System.out.println(output);
     }
 
