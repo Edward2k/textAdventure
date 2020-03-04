@@ -6,8 +6,9 @@ public class Area {
     private String name;
     private String description;
 
-    Area () {
-
+    Area (String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public String getName() {

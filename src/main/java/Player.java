@@ -7,6 +7,8 @@ public class Player {
     private int moves;
     private int health;
 
+    private Parser parser;
+
     Player (String name, Coordinate coord) {
         this.name = name;
         this.coord = coord;
@@ -14,6 +16,12 @@ public class Player {
         score = 0;
         moves = 0;
         health = 100;
+
+        parser = new Parser();
+    }
+
+    public String[] getCommand(){
+        return parser.getCommand();
     }
 
     public String getUserName () {
