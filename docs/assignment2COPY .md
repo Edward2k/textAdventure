@@ -34,7 +34,7 @@ This chapter contains the specification of the UML class diagram of your system,
 Class Diagram of VuORK
 ```
 
-![Class Diagram of VuORK](https://i.postimg.cc/fW8f23ty/Class-diagram-Class-diagram-2.png)
+![Class Diagram of VuORK](https://i.postimg.cc/bYSDPXFb/Class-diagram-Class-diagram-1.png)
 
 <h5 id="Item">Item</h5>
 
@@ -130,6 +130,8 @@ The *Game* class is what runs any instance of a a running game of VuORK. It glue
 
 *<u>getGameState(): String</u>* is a function which will return a string containing the high-level overview of the game. 
 
+*<u>executeCommand(Array<Array<String\>>)</u>* is a function that will execute a command, that is received from a *Player*. It is important to note that the whole system is multiThreaded, and for every instance of a *Player* in a *Game*, a thread is opened to read and execute instructions from that *Player*. Each thread will handle all of the instructions given by any *Player*. The thread will call *Player.getInstruction()*, and wait for that to execute. Once a *Player* has entered the *Instruction*, the *Game* will execute that instruction, and *Print* to the player what the result was. 
+
 The relationships to *Game* are very specific. However, these relations are further described in *Map* and *Player*. At a highlevel, a *Game* can have at most 1 map, but can have any posotive number greater than 1 of *Players*. 
 
 <h5 id="Player">Player</h5>
@@ -148,6 +150,8 @@ A *Player* is the class that a User will take control of. The user interacts to 
 
 *<u>health: Int</u>* is an integer holding the health of the *Player*. It is between 0 (dead) and 100 (full health).
 
+<u>instruction: String</u> is a String of the last instruction held by the *Player*.
+
 *<u>getUserName(): String</u>* returns <u>name</u>
 
 *<u>getHealth(): Int</u>* returns *health*
@@ -157,6 +161,8 @@ A *Player* is the class that a User will take control of. The user interacts to 
 <u>movePlayer(coord: Coordinate): Bool</u> will move a player iff the condition *Map.isValidMove(coord: Coordinate)* is true.
 
 *<u>getCurrentPosition(): Coordinate</u>* returns the value of <u>coord</u>
+
+*<u>getInstruction</u>()*, will return the value of <u>instruction</u>.
 
 The relations of Player are a little complex. A player must contain a *Parser* and a *Printer* (equally, these 2 must can not exist without a *Player*). Much like in *Area*, a *Player* object may contain a reference to an *Item*, iff this *Item* does not already exist in an *Area*
 
