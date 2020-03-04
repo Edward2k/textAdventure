@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.List;
 
 
 public class Game {
@@ -32,13 +31,42 @@ public class Game {
 		while(true) {
 			Instruction currCommand = player.getCommand();
 			//Here you validate and run command
-			player.output(currCommand.getAction());
-			player.output(Arrays.toString(currCommand.getStringArrayItems()));
-			player.output("==================================================");
+			executeCommand(currCommand, player);
 		}
 
 	}
 
+	public static void executeCommand(Instruction command, Player player) {
+		String action = command.getAction().toLowerCase();
+		switch(action) {
+			case "move":
+				handleMove(command.getItems(), player);
+				break;
+			default:
+				player.output("I do not understand " + action);
+		}
+	}
+
+	private static void handleMove(List<String> items, Player player) {
+		String direction = items.get(0).toLowerCase();
+		switch (direction) {
+			case "north":
+				player.output("You are going north");
+				break;
+			case "south":
+				player.output("You are going south");
+				break;
+			case "west":
+				player.output("You are going west");
+				break;
+			case "east":
+				player.output("You are heading east");
+				break;
+			default:
+				player.output(" I do not know to move " + direction);
+				break;
+		}
+	}
 
 
 
