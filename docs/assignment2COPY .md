@@ -5,15 +5,18 @@ Maximum number of words for this document: 12000
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is  strongly suggested to used different colors for the prescriptive and  descriptive parts of your models (this helps you in better reasoning on  the level of detail needed in each part of the models and the  instructors in knowing how to assess your models).
 
-**Format**: establish formatting conventions when  describing your models in this document. For example, you style the name of each class is <u>underlined</u>, whereas the attributes, operations, and  associations as bold text, objects are in italic, etc.
+**Format**: establish formatting conventions when  describing your models in this document. For example, you style the name of each class is *Italics*, whereas the attributes, operations, and  associations as <u>underlined</u> text, objects are in italic, etc.
 
-
+###
 
 ### Implemented feature
 
 | ID   | Short name | Description                                                  |
 | ---- | ---------- | ------------------------------------------------------------ |
-| F1   | Tags       | Code snippets can be tagged via freely-defined labels called tags |
+| F1   | Comands    | The player will interact with the game using the command line interface. It is, thus, intrisically important to have a parser that will  understand some simple semantics of langauge. For example, a command  such as *"north"* should be equivilant to *walk north*. <br/> After careful consideration, we have decided that our parser must have the input in the form of * *. An item may be preceeded by a proposition. For example, *"Put cheese in fridge"* or *"Attack bear with knife"*. The action put, will let the parser know that there will be 2 items,  interupted by some proposition. Other actions, however, may exclude a  propostion. An example is *"Take broom"* or *"Move north"*.<br/>Emposing this structure will make it possible to parse natural language to  something our system can understand. If the user, for any reason,  excludes a second item in a 2-part command (such as attack), then the  system will reply with *"What do you want to attack the  with?"*, if the item is ommited. Or *"What do you want to attack?"*, if an object is omitted. If an invalid propositon is used, for example *"Attack monkey on knife"*, the parser should reply, *"I do not understand how to Attack monkey on knife"* |
+| F2   | Movements  | The player must move around the virtual environment using *move* followed by a direction: *North, East, West, South*. These command will move the player to the next virtual area. |
+| F3   | Narrator   | The narrator is a way for the system to interact with the user: Let the  user know what is going on. The narrator will describe the *field of view* of the player at any given time when: Moving between rooms, the command info is received. We define *field of view* as what all objects and properties of the immediate area around the  user. That is, the area the user is currently in. For example, if the  player is in a room that is dark, there is only an entrace to the west,  and in this area, there lies a fridge, broom and coffee machine. The  game would narrate *"You are in a dark room. The the west you see an  opening to another area. In this room, you see a fridge, broom and  coffee machine"*.  <br/>There are also other commands available,  which will have a special naration. For example, when picking up and  object, the narrator will reply with a simple confirmation, simply  repeating the action. If the action fails, the system should reply  accordingly. <br/>The command *diagnose* will trigger the narrator to list the health of the player. For example, you are wounded on your  left hand, 80% health remaining<br/>The command *inventory* will list all of the contents, without any specific ordering, the player currently has in their posession. |
+| F10  | Rooms      | There is a specific number of rooms that the player can enter, each resembling a room at the VU. |
 
 ### 
 
@@ -21,7 +24,7 @@ Maximum number of words for this document: 12000
 
 We are using draw.io
 
-
+###
 
 ## Class diagram
 
@@ -235,17 +238,24 @@ It is important to note that the size of <u>items</u> depends on the values of <
 
 <hr />
 
-Applause for the final version of the Class Diagram for this assignment. It came quite a long way the last couple of days. The evolution started with collecting different types of classes we would need and trying to find the right
-and best descriptive connection between them. The first version we obtained contained the following classes: Game, Parser, Map, Area, Connector, Item, Singleton, Container, Properties, Player. Properties as a subclass of Singleton, Connector as a subclass of Area and Parser as a class connected to the "Main-class" Game. 
-In order to keep the structure the most functional and simultaneously the least possible complex, we included the Properties class inside the Singleton class. There will now be a list of all the properties- these could be whether an object is moveable, if we can pick it up, use it, etc. - each item will own in the Singleton class. The second subclass we got rid of is the Connector class, as a subclass of Area. Connectors were supposed to be connectors between Areas -aka rooms or coordinates on the map. Those could be hallways, elevators, stairs. 
-After we understood that a hallway can be an Area the same way a room is an Area, we included this in the Area class, not to say just deleted it because it is the exact same thing (: . The next thing we changed is the Parser. Thinking about the bonus assignment later (making VUork a multiplayer game) it is more sustainable to find a solution for the implementation, that makes it the most simple to extend it later. Consequently, we removed the Parser from the Game class and connected it to the Player. 
-Each Player (in this case only one) will now have his own Parser, that makes it easier to distinguish between the multiple processes that are happening. Additionally, we implemented a Printer class. The Printer will output descriptions, moves that were just made, etc (in general: strings) to the user. Having an extra class for this will prevent multiple objects interfacing with the player. 
-The very last class we implemented in the diagram is the Coordinate class. Since our map is implemented in the form of a grid and we will move the player by adding or subtracting 1 from the x- or y-coordinate, we thought it would be the easiest to keep track of a position if we are able to access them like we are used to use coordinates. This will keep us from using a 2D-array and adds a cool appearance to our code :). 
-The final step was to satisfy our OCD when connecting all of the classes, aligning the height of the boxes and straightening all of the lines. And tadaa, we are proudly presenting our final class diagram. 
+<h5 id="evolution">Evolution of Class Diagram</h5>
 
+Applause for the final version of the Class Diagram for this assignment. It came quite a long way the last couple of days. The evolution started with collecting different types of classes we would need and trying to find the right and best descriptive connection between them. The first version we obtained contained the following classes: *Game*, *Parser*, *Map*, *Area*, *Connector*, Item, *BasicItem*, Container, Properties, Player. Properties as a subclass of BasicItem, Connector as a subclass of Area and Parser as a class connected to the "Main-class" Game. 
 
-- the name of each **class** is in bold
-- the *attributes*, *operations*, *associations*, and *objects* are in italic.
+In order to keep the structure the most functional and simultaneously reduce complexity, we included the *Properties* class inside the *BasicItem* class. There will now be a list of all the properties- these could be whether an object is moveable, if we can pick it up, use it, etc. - each item will own in the *BasicItem* class. The second subclass we got rid of is the *Connector* class, as a subclass of *Area*. *Connectors* were supposed to be connectors between Areas -aka rooms or coordinates on the map. Those could be hallways, elevators, stairs. 
+
+After we understood that a hallway can be an Area the same way a room is an *Area*, we completly removed the *Connector* class. The next thing we changed is the *Parser*. Thinking about the bonus assignment later (making VUork a multiplayer game) it is necessary to find a solution for the implementation, that makes it easy to later extend. Consequently, we removed the *Parser* from the *Game* class and connected it to the *Player*. 
+Each *Player* (in this case only one) will now have his own *Parser*, that makes it easier to distinguish between the multiple processes that are happening. 
+
+Additionally, we implemented a Printer class. The Printer will output descriptions, moves that were just made, etc (in general: strings) to the user. Having an extra class for this will prevent multiple objects interfacing with the player. 
+
+We then implemented the Coordinate class. Since our map is implemented in the form of a grid and we will move the player by adding or subtracting 1 from the x- or y-coordinate, we thought it would be the easiest to keep track of a position if we are able to access them like we are used to use coordinates. This will keep us from using a 2D-array and adds a cool appearance to our code :). 
+
+Finally, after begenning to write our program, we found that using a 2D array to list Actions and Items was redundany, and be conceptually grouped into a class. This class is *Instruction*.
+
+Overall, we are very content with our class diagram, and its ease of understanding and modularity. If you want to initialize the world from a parsed JSON file, that should be easy to add, by only affecting how *Map* is initialized. 
+
+The largest mental hurdle to jump when desiging a multiplayer, how the requests would be handled. 
 
 ## 
 
