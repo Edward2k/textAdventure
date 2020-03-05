@@ -7,13 +7,46 @@ public class Player {
     private int moves;
     private int health;
 
-    Player (String name, Coordinate coord) {
-        this.name = name;
+    private Parser parser;
+    private Printer printer;
+
+    Player (Coordinate coord) {
         this.coord = coord;
         this.backpack = new Item[]{};
         score = 0;
         moves = 0;
         health = 100;
+        parser = new Parser();
+        printer = new Printer();
     }
+
+    public Instruction getCommand(){
+        return parser.getInstruction();
+    }
+
+    public String getUserName () {
+        return name;
+    }
+
+    public int getHealth () {
+        return health;
+    }
+
+    public Item[] getBackpack () {
+        return backpack;
+    }
+
+    //TODO: implement me. @return nothing.
+    public void movePlayer (Coordinate c) {
+        coord = c;
+    }
+
+    public void setName(String n) {this.name = n;}
+
+    public Coordinate position()     {return coord;}
+
+    public void output(String s) {printer.output(s);}
+
+    public String getLine() {return parser.getLine();}
 
 }

@@ -1,65 +1,37 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Parser {
 
-	public void parse(String string) {
+	private static final int MAX_WORDS_PER_COMMAND = 5;
+	private static final int START_OF_ITEMS = 1;
+	private static final int ACTION_WORD_POSITION = 0;
 
-		Scanner commandScanner = new Scanner(string);
-		if (commandScanner.hasNext()) {
-			String command = commandScanner.next();
-			String arg;
-			
-			if (!commandScanner.hasNext()) {
-				System.out.println("what do you want to " + command + "?");
-				return;
-			} else {
-				arg = commandScanner.nextLine().trim().replaceAll(" +", " "); // replace all multiple spaces with a single one
-			}
-			
-			switch (command) {
-			case "move":
-				move(arg);
-				break;
-			case "kill":
-				kill(arg);
-				break;
-			case "use":
-				use(arg);
-				break;
-			default:
-				System.out.println("command not recongnised");
-			}
-			
-		} else {
-			System.out.println("command expected");
+	//Returns a String array where first element is action.
+	public String getLine() {
+		Scanner in = new Scanner(System.in);
+		return in.nextLine();
+	}
+
+	public String[] getLineArray() {
+		Scanner parseScanner = new Scanner(System.in);
+		String line = parseScanner.nextLine();
+		line = line.toLowerCase();
+		Scanner lineScanner = new Scanner(line);
+		String[] command = new String[MAX_WORDS_PER_COMMAND];
+		int i = 0;
+		while(lineScanner.hasNext()) {
+			command[i++] = lineScanner.next();
 		}
+		return command;
 	}
-	
-	private void move(String arg) {
-		switch (arg) {
-			case "north":
-				System.out.println("moved " + arg);
-				break;
-			case "east":
-				System.out.println("moved " + arg);
-				break;
-			case "south":
-				System.out.println("moved " + arg);
-				break;
-			case "west":
-				System.out.println("moved " + arg);
-				break;
-			default:
-				System.out.println("direction not recognised, choose north, east, south or west.");
-		}
+
+	public Instruction getInstruction() {
+		String[] parts = getLineArray();
+		String act = parts[ACTION_WORD_POSITION]; //Get first element for action
+		parts = Arrays.copyOfRange(parts, START_OF_ITEMS, MAX_WORDS_PER_COMMAND); //Each command can have max 4 words.
+		Instruction command = new Instruction(act, parts);
+		return command;
 	}
-	
-	private void kill(String arg) {
-		System.out.println(arg + " was killed");
-	}
-	
-	private void use(String arg) {
-		System.out.println(arg + " was used");
-	}
-	
+
 }

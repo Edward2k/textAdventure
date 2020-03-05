@@ -34,7 +34,7 @@ This chapter contains the specification of the UML class diagram of your system,
 Class Diagram of VuORK
 ```
 
-![Class Diagram of VuORK](https://i.postimg.cc/fW8f23ty/Class-diagram-Class-diagram-2.png)
+![Class Diagram of VuORK](https://i.postimg.cc/bYSDPXFb/Class-diagram-Class-diagram-1.png)
 
 <h5 id="Item">Item</h5>
 
@@ -130,6 +130,8 @@ The *Game* class is what runs any instance of a a running game of VuORK. It glue
 
 *<u>getGameState(): String</u>* is a function which will return a string containing the high-level overview of the game. 
 
+*<u>executeCommand(Array<Array<String\>>)</u>* is a function that will execute a command, that is received from a *Player*. It is important to note that the whole system is multiThreaded, and for every instance of a *Player* in a *Game*, a thread is opened to read and execute instructions from that *Player*. Each thread will handle all of the instructions given by any *Player*. The thread will call *Player.getInstruction()*, and wait for that to execute. Once a *Player* has entered the *Instruction*, the *Game* will execute that instruction, and *Print* to the player what the result was. 
+
 The relationships to *Game* are very specific. However, these relations are further described in *Map* and *Player*. At a highlevel, a *Game* can have at most 1 map, but can have any posotive number greater than 1 of *Players*. 
 
 <h5 id="Player">Player</h5>
@@ -148,6 +150,8 @@ A *Player* is the class that a User will take control of. The user interacts to 
 
 *<u>health: Int</u>* is an integer holding the health of the *Player*. It is between 0 (dead) and 100 (full health).
 
+<u>instruction: String</u> is a String of the last instruction held by the *Player*.
+
 *<u>getUserName(): String</u>* returns <u>name</u>
 
 *<u>getHealth(): Int</u>* returns *health*
@@ -157,6 +161,8 @@ A *Player* is the class that a User will take control of. The user interacts to 
 <u>movePlayer(coord: Coordinate): Bool</u> will move a player iff the condition *Map.isValidMove(coord: Coordinate)* is true.
 
 *<u>getCurrentPosition(): Coordinate</u>* returns the value of <u>coord</u>
+
+*<u>getInstruction</u>()*, will return the value of <u>instruction</u>.
 
 The relations of Player are a little complex. A player must contain a *Parser* and a *Printer* (equally, these 2 must can not exist without a *Player*). Much like in *Area*, a *Player* object may contain a reference to an *Item*, iff this *Item* does not already exist in an *Area*
 
@@ -227,27 +233,22 @@ Author(s): `Eduardo Lira`
 
 This chapter contains the description of a "snapshot" of the status of your system during its execution. This chapter is composed of a UML object diagram of your system, together with a textual description of its key elements.
 
-> Figure representing the UML class diagram
+> Figure representing an instance of VuORK in singleplayer (Diagram 1)
+
+![Diagram 2 Showing instance of Single Player VuORK](https://i.postimg.cc/QCKsn1Dj/Class-diagram-Object-Diagram-2.png)
+
+>  Figure representing an instance of VuORK in multiplayer (Diagram 2)
 
 ![Object Diagram of VuORK](https://i.postimg.cc/QCz5XT1q/Class-diagram-Object-Diagram-2.png)
 
-```
-Textual description
-```
 
-Above we see an object diagram for 2 players who are playing in the same world of VuORK. The purpose of this diagram is to better illustrate, with an example, how the classes described in the **Class Diagram** will interact with eachother. 
 
-Starting with the left hand side of the diagram, we see the instance of a *Map*. The *Map* holds 2 objects of type *Area* named Entrance and Lobby. It is important to note that the <u>gameLayout</u> member is a 2D array, but in this example, we see only 1 dimension being used. The map also has a *Coordinate* indicating where a *Player* begins the game upon joining the *Game*. 
-
-The 2 *Area*s, Entrance and Lobby, are quite different. In the Entrance, there are no *Items* the user can interact with, and there is no <u>Obstacle</u> preventing the user from entering the room (There can not be an obstacle at the room pointed to by <u>entryPoint</u>). In the Lobby, we also see 2 a *Container*, Closet, which holds a *BasicItem*, Broom. A Broom can be used Clean and Attack, and a Broom can be Attacked, Pickedup, and Burned. Throughout the game, we see more, nearly identical, Brooms, but these are all distinguished by <u>ID</u>'s. **An Item can not exist in 2 distinct objects at any time, it can however, be moved around *Areas***. 
-
-On the right hand side, we have objects for the *Players*. Each *Player* has *Printer*, *Parser*, *Coordinate*, and an array of *BasicItems*. Looking at Jack specifically, he has no *BasicItem*s currently in his possession. Mark, on the otherhand, does have a Broom and a Sword. These *BasicItems* both have their unique ID's to distinguish them from similar *BasicItems*. Both *Players* have a *Printer*, which allows the system to output text to the command line of the desired user. Similary, both *Player*s have a *Parser* to allow seperate input of the users. This is very important for the notion of Muiltplayer. 
-
-Holding these sides together is the object gameState of type *Game*. gameState holds the *Map* that both players interact with, both *Players* and a *timeStamp* of when the game was started. 
-
-With the figural and textual description of a state our system can have, it should be clear why each class exists, and their relations to one another.  
-
-Maximum number of words for this section: 1000
+​	Diagram (1) shows the object diagram for VuORK. Diagram (2) is an object diagram for 2´two players who are playing in the same world of VuORK. However, this diagram will only apply when implementing the bonus assignment - multiplayer game. The purpose of these diagrams is to better illustrate, with an example, how the classes described in the **Class Diagram** will interact with each other.
+Starting with the left hand side of the diagram, we see the instance of a *Map*. The *Map* holds 2 objects of type Area named Entrance and Lobby. The *Map* object will later in the implementation be extended and, therefore, contain more *Area* objects. The *Area* instances span the whole *Map* in the form of a grid. It is important to note that the gameLayout member is a 2D array, but in this example, we see only 1 dimension being used. The map also has a *Coordinate* indicating where a *Player* begins the game upon joining the *Game*.
+​	The 2 *Areas*, Entrance and Lobby, are quite different. In the Entrance, there are no Items the user can interact with, and there is no <u>Obstacle</u> preventing the user from entering the room (There can not be an obstacle at the room pointed to by entryPoint). In the Lobby, we also see 2 a *Container*, Closet, which holds a *BasicItem*, Broom. A Broom can be used Clean and Attack, and a Broom can be Attacked, Pickedup, and Burned. Throughout the game, we see more, nearly identical, Brooms, but these are all distinguished by ID's. An Item with the same ID can not exist in 2 distinct objects at any time, it can however, be moved around *Areas*.
+​	On the right hand side of the diagrams, we have objects for the Players. Each *Player* has *Printer*, *Parser*, *Coordinate*, and an array of *BasicItems*. Looking at Jack specifically, he has no BasicItems currently in his possession. (In diagram (2): Mark, on the other hand, does have a Broom and a Sword.) These *BasicItems* have their unique ID's to distinguish them from similar BasicItems. Each *Player* has a *Printer*, which allows the system to output text to the command line of the desired user. Similarly, each *Player* has a *Parser* to allow separate input of the users. This is very important for the notion of Multiplayer.
+The job of connecting both sides is done by the object gameState of type *Game*. gameState holds the *Map* that all players interact with, all Players and the timeStamp of when the game was started.
+With the figural and textual description of a state our system can have, it should be clear why each class exists, and their relations to one another.
 
 ## 
 
