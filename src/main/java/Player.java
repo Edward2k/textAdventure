@@ -20,13 +20,25 @@ public class Player {
         printer = new Printer();
     }
 
-    public Instruction getCommand(){
+    public Instruction getInstruction(){
         return parser.getInstruction();
     }
 
-    public String getUserName () {
+    public String getName() {
         return name;
     }
+
+    public void movePlayer (Coordinate c) {
+        coord = c;
+    }
+
+    public void setName(String n) {this.name = n;}
+
+    public Coordinate position() {return coord;}
+
+    public void output(String s) {printer.output(s);}
+
+    public String getLine() {return parser.getLine();}
 
     public int getHealth () {
         return health;
@@ -35,18 +47,4 @@ public class Player {
     public Item[] getBackpack () {
         return backpack;
     }
-
-    //TODO: implement me. @return nothing.
-    public void movePlayer (Coordinate c) {
-        coord = c;
-    }
-
-    public void setName(String n) {this.name = n;}
-
-    public Coordinate position()     {return coord;}
-
-    public void output(String s) {printer.output(s);}
-
-    public String getLine() {return parser.getLine();}
-
 }

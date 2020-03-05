@@ -1,18 +1,18 @@
-import java.util.List;
-
-
 public class Game {
 	
 	private Player[] gamePlayer;
 	private static Map map;
-	
+	private static java.util.Date timestamp;
+
 	Game(){
 		gamePlayer = new Player[4];
 		map = new Map();
+		timestamp = new java.util.Date();
 	}
 	
 	void startGame() {
-		//For the purpose of this game, we will be using only 1 player. multiplayer is easily expandable
+		//For the purpose of this game, we will be using only 1 player. multiplayer is easily expandable.
+		// If not, for each player you would have to open a new thread and window for them to play. OR network it.
 		gamePlayer[0] = new Player(map.getEntryPoint());
 		runPlayer(gamePlayer[0]);
 	}
@@ -25,12 +25,12 @@ public class Game {
 		//LoginUserName
 		player.output("To join the VuORK realm, you need some sort of identification. So please, What is your name?");
 		player.setName(player.getLine());
-		player.output("Welcome " + player.getUserName() + " to the world of VuOrk! <Print Help by typing 'Help'>\n======================================\n");
+		player.output("Welcome " + player.getName() + " to the world of VuOrk! <Print Help by typing 'Help'>\n======================================\n");
 		player.output(map.getDescription(player.position()));
 
 		//Loop prompt
 		while(true) {
-			Instruction currCommand = player.getCommand(); //Blocking command waiting for input
+			Instruction currCommand = player.getInstruction(); //Blocking command waiting for input
 			validateCommand(currCommand, player); //validateCommand
 		}
 	}
@@ -87,13 +87,12 @@ public class Game {
 
 	}
 
-
 	private static boolean isDirection(String d) {
 		return d.equals("north") || d.equals("south") || d.equals("west") || d.equals("east");
 	}
 
 	private static void giveHelpInstructions(Player player) {
-		player.output("I see you are a noob, " + player.getUserName() + ". You are in the VuORK realm. To interact " +
+		player.output("I see you are a noob, " + player.getName() + ". You are in the VuORK realm. To interact " +
 				"with this realm, you must type a command with the form" +
 				"<action> <item> <proposition> <item>. An example would be 'Attack broom with sword'. For movement," +
 				"there are 2 ways to move: 'move' followed by either 'north', 'south, 'east' or 'west'. You can also " +
