@@ -1,5 +1,4 @@
 
-
 # Assignment 2
 
 Maximum number of words for this document: 12000
@@ -210,9 +209,15 @@ While the *Printer* is assosciated to a *Player*, it is the *Players* interactio
 
 <hr />
 
-Also, you can briefly discuss fragments of previous versions of the  class diagram (with figures) in order to show how you evolved from  initial versions of the class diagram to the final one.
 
-In this document you have to adhere to the following formatting conventions:
+Applause for the final version of the Class Diagram for this assignment. It came quite a long way the last couple of days. The evolution started with collecting different types of classes we would need and trying to find the right
+and best descriptive connection between them. The first version we obtained contained the following classes: Game, Parser, Map, Area, Connector, Item, Singleton, Container, Properties, Player. Properties as a subclass of Singleton, Connector as a subclass of Area and Parser as a class connected to the "Main-class" Game. 
+In order to keep the structure the most functional and simultaneously the least possible complex, we included the Properties class inside the Singleton class. There will now be a list of all the properties- these could be whether an object is moveable, if we can pick it up, use it, etc. - each item will own in the Singleton class. The second subclass we got rid of is the Connector class, as a subclass of Area. Connectors were supposed to be connectors between Areas -aka rooms or coordinates on the map. Those could be hallways, elevators, stairs. 
+After we understood that a hallway can be an Area the same way a room is an Area, we included this in the Area class, not to say just deleted it because it is the exact same thing (: . The next thing we changed is the Parser. Thinking about the bonus assignment later (making VUork a multiplayer game) it is more sustainable to find a solution for the implementation, that makes it the most simple to extend it later. Consequently, we removed the Parser from the Game class and connected it to the Player. 
+Each Player (in this case only one) will now have his own Parser, that makes it easier to distinguish between the multiple processes that are happening. Additionally, we implemented a Printer class. The Printer will output descriptions, moves that were just made, etc (in general: strings) to the user. Having an extra class for this will prevent multiple objects interfacing with the player. 
+The very last class we implemented in the diagram is the Coordinate class. Since our map is implemented in the form of a grid and we will move the player by adding or subtracting 1 from the x- or y-coordinate, we thought it would be the easiest to keep track of a position if we are able to access them like we are used to use coordinates. This will keep us from using a 2D-array and adds a cool appearance to our code :). 
+The final step was to satisfy our OCD when connecting all of the classes, aligning the height of the boxes and straightening all of the lines. And tadaa, we are proudly presenting our final class diagram. 
+
 
 - the name of each **class** is in bold
 - the *attributes*, *operations*, *associations*, and *objects* are in italic.

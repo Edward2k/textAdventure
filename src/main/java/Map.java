@@ -10,6 +10,7 @@ public class Map {
         initDemoMap();
     }
 
+    //This simply makes a map to test movement.
     private void initDemoMap() {
         entryPoint = new Coordinate(2, 1);
         mapSize = 3;
@@ -33,6 +34,7 @@ public class Map {
         String intro = "You are currently in the " + map[x][y].getName() + " \n";
         return intro + map[x][y].getDescription();
     }
+
     public Coordinate getEntryPoint() {return entryPoint;} //makes a copy since coordinate is immutable.
 
     public final boolean isValidMove(Coordinate c) {
@@ -40,10 +42,6 @@ public class Map {
             return (map[c.x()][c.y()] != null);
         }
         return false;
-    }
-
-    public Area getArea(Coordinate c) {
-        return map[c.x()][c.y()];
     }
 
 }
