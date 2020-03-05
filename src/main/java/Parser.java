@@ -8,12 +8,12 @@ public class Parser {
 	private static final int ACTION_WORD_POSITION = 0;
 
 	//Returns a String array where first element is action.
-	public String getLine() {
+	protected String getLine() {
 		Scanner in = new Scanner(System.in);
 		return in.nextLine();
 	}
 
-	public String[] getLineArray() {
+	private String[] getLineArray() {
 		Scanner parseScanner = new Scanner(System.in);
 		String line = parseScanner.nextLine();
 		line = line.toLowerCase();
@@ -26,7 +26,7 @@ public class Parser {
 		return command;
 	}
 
-	public Instruction getInstruction() {
+	protected Instruction getInstruction() {
 		String[] parts = getLineArray();
 		String act = parts[ACTION_WORD_POSITION]; //Get first element for action
 		parts = Arrays.copyOfRange(parts, START_OF_ITEMS, MAX_WORDS_PER_COMMAND); //Each command can have max 4 words.

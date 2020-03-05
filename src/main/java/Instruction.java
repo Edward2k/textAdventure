@@ -23,6 +23,8 @@ public class Instruction {
         return items.toArray(new String[0]); //makes string array out of list
     }
 
+    public String getItemByNumber(int i) {return items.get(i);}
+
     public List<String> getItems() {
         return items;
     }
