@@ -5,7 +5,7 @@ Maximum number of words for this document: 12000
 
 **IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is  strongly suggested to used different colors for the prescriptive and  descriptive parts of your models (this helps you in better reasoning on  the level of detail needed in each part of the models and the  instructors in knowing how to assess your models).
 
-**Format**: establish formatting conventions when  describing your models in this document. For example, you style the name of each class in bold, whereas the attributes, operations, and  associations as underlined text, objects are in italic, etc.
+**Format**: establish formatting conventions when  describing your models in this document. For example, you style the name of each class is <u>underlined</u>, whereas the attributes, operations, and  associations as bold text, objects are in italic, etc.
 
 
 
@@ -33,7 +33,7 @@ This chapter contains the specification of the UML class diagram of your system,
 Class Diagram of VuORK
 ```
 
-![Class Diagram of VuORK](https://i.postimg.cc/bYSDPXFb/Class-diagram-Class-diagram-1.png)
+![Class Diagram of VuORK](https://i.postimg.cc/ZnnwVkP7/Class-diagram-Class-diagram-3.png)
 
 <h5 id="Item">Item</h5>
 
@@ -89,29 +89,35 @@ Area is a class which represents a region any *Player* can exist in. As a realwo
 
 *<u>name: string</u>* is a string that stores the name of the *Area*. 
 
-*<u>getDescription(): String</u>* will generate a string that will describe the room. It will follows the structure:	
+*<u>description: String</u>* is a description of the *Area*, and example is "it is a dark room. You can't see which way to go, but you feel a breeze north of you."
 
-> You are now in <name\>. You can not enter the room because there is a <obstacle.getName()>. First neutralize the <obstacle.getName()> before entering the room. [if obstacleNeutrelized(), continue]: In this area, you see <items\>. 
+*<u>getDescription(): String</u>* will print a description.
 
-​	This gives a very clear description of how to structure the description of the room. 
-
-*<u>canEnter(): boolean</u>* returns the obstacleNeutrelized private member. 
+*<u>canEnter(): boolean</u>* returns the <u>obstacleNeutrelized</u> private member. 
 
 *<u>getName(): String</u>*:  returns the name private member of the room.
+
+*<u>addItem(): Void</u>* adds an *Item* to <u>items</u>
+
+*<u>removeItem(String): Bool</u>* removes an *Item* from *items*, that has a name that matches String
+
+*<u>getItems(): List<String\></u>* returns *items*.
 
 *Area* has two direct relations. It has an (exclusive or) relation from *Item*. Why this is, is further described in <u><a href="#Item">Item</a></u>. An Area also has a composite relation to the class *Map*. This is because the existance of *Area* is entirely dependent of the existance of *Map*.
 
 <h5 id="Map">Map</h5>
 
-The *Map* class holds all the references to *Area* together, in some emposed ordering. The ordering is defined upon instatiation of the class. This is because an *Area* does not, conceptually, know where it is in a *Map*. That is the purpose of the *Map*. 
+The *Map* class holds all the references to *Area* together, in some emposed ordering. The ordering is defined upon instatiation of the class. This is because an *Area* does not, conceptually, know where it is in a *Map*. That is the purpose of the *Map*. It is important to note that the *Map* must be a square.
 
 <u>*gameLayout: Array<Array< Area> >*</u> is a 2-Dimensional array which holds references to *Area* objects. 
 
 *<u>entryPoint: Coordinate</u>* is *Coordinate* which gives the starting point of the *Map*
 
+*<u>mapSize: Int</u>* is the size of the map. This value must be greater than 0. 
+
 *<u>isValidMove(Coord: Coordinate): Boolean</u>* is a simple function to check wether the given position is valid. That is, is the position given by the *Coordinate* not a NULL pointer. 
 
-*<u>getGameLayout(): Array<Array<Area\> ></u>* is a getter function for gameLayout. It will return a **copy** of gameLayout to prevent a reference of <u>gameLayout</u> from ever being editted outside of the Map class. 
+*<u>getDescription(Coordinate): String</u>* is a getter function that returns the description of the *Area* denoted by *Area*. If Coordinate is not an *Area*, this function will return, "not an Area".
 
 *<u>getEntryPoint(): Coordinate</u>* returns entryPoint.
 
@@ -125,11 +131,15 @@ The *Game* class is what runs any instance of a a running game of VuORK. It glue
 
 *<u>time: timestamp</u>* is an object of type timestamp holding the time the game started. timestamp is part of the standard library for Java. 
 
-*<u>layout</u>* holds the object for *Map*. This is the playarea for *Player* objects to explore. 
+*<u>layout: Map</u>*: holds the object for *Map*. This is the playarea for *Player* objects to explore. 
 
 *<u>getGameState(): String</u>* is a function which will return a string containing the high-level overview of the game. 
 
-*<u>executeCommand(Array<Array<String\>>)</u>* is a function that will execute a command, that is received from a *Player*. It is important to note that the whole system is multiThreaded, and for every instance of a *Player* in a *Game*, a thread is opened to read and execute instructions from that *Player*. Each thread will handle all of the instructions given by any *Player*. The thread will call *Player.getInstruction()*, and wait for that to execute. Once a *Player* has entered the *Instruction*, the *Game* will execute that instruction, and *Print* to the player what the result was. 
+*<u>executeCommand(Instruction)</u>* is a function that will execute a command, that is received from a *Player*. It is important to note that the whole system is multiThreaded, and for every instance of a *Player* in a *Game*, a thread is opened to read and execute instructions from that *Player*. Each thread will handle all of the instructions given by any *Player*. The thread will call *Player.getInstruction()*, and wait for that to execute. Once a *Player* has entered the *Instruction*, the *Game* will execute that instruction, and *Print* to the player what the result was. 
+
+*<u>runPlayer</u>*<u>(Player)</u> is what will handle any player. When a *Player* joins the *Game*, *Game* will open a new socket or thread (depending on wether the game is networked or not), and handle that *Player* in the thread/socket. This function calls *Player.getInstruction()*.
+
+*<u>startGame(): Void</u>* initiates the *Game* by declaring user size, *timestamp* and getting the layout. 
 
 The relationships to *Game* are very specific. However, these relations are further described in *Map* and *Player*. At a highlevel, a *Game* can have at most 1 map, but can have any posotive number greater than 1 of *Players*. 
 
@@ -161,9 +171,11 @@ A *Player* is the class that a User will take control of. The user interacts to 
 
 *<u>getCurrentPosition(): Coordinate</u>* returns the value of <u>coord</u>
 
-*<u>getInstruction</u>()*, will return the value of <u>instruction</u>.
+*<u>getInstruction</u>()*, will return the ask *getInstruction* from *Parser* assosciated to the *Player*. 
 
-The relations of Player are a little complex. A player must contain a *Parser* and a *Printer* (equally, these 2 must can not exist without a *Player*). Much like in *Area*, a *Player* object may contain a reference to an *Item*, iff this *Item* does not already exist in an *Area*
+*<u>setName(String): Void</u>* sets the value of <u>name</u> to String.
+
+The relations of Player are a little complex. A player must contain a *Parser* and a *Printer* (equally, these 2 must can not exist without a *Player*). The *Player* needs these 2 classes to manage I/O individually in a multiplayer scenario. Much like in *Area*, a *Player* object may contain a reference to an *Item*, iff this *Item* does not already exist in an *Area*
 
 <h5 id="Coordinate">Coordinate</h5>
 
@@ -183,19 +195,17 @@ A *Coordinate* is a very simple class to group together an <u>x</u> and <u>y</u>
 
 A *Parser* will take an input from the standardIn, and seperate it into a list of actions and a list of items. This will give a way to convert from the complex semantics of language into a form that the parser can try to parse. The *Parser* expects an input in the form <action\> <items/prepositions...*>. More information on this can be found under features. 
 
-*<u>input: String</u>* holds the last input of the user
+*<u>MAX _WORDS _PER _COMMAND</u>* is a constant that sets the maximum number of words per command.
 
-*<u>actions: Array<String\></u>* holds a list of actions parsed from <u>input</u>.
+*<u>START OF ITEMS</u>* is a constant int that indicates at which word of the input begins the serialization of words.
 
-*<u>items: Array<String\></u>* holds a list of items the user wants to interact with. 
+*<u>ACTION WORD POSITION</u>* is a constant int that points to the first word in the input. This indicates the action. For example, in the command "Attack pig with sword", Attack is the action and is in position 0. This is therefor 0.
 
-*<u>getAction(): Array <String\></u>* will return a copy of <u>actions</u>
-
-*<u>getItems(): Array<String\></u>*will return a copy of <u>items</u>
-
-*<u>parseInput(): void</u>* will take input and fill parse the actions and items into <u>actions</u> and <u>items</u>
+*<u>getInstruction(): void</u>* will take a line from stdIn, split the words into an action and items as an *Instruction*. 
 
 *<u>getLine(): void</u>* will get a line from the stdin. 
+
+*<u>getLineArray()</u>*: String[] gets input from stdin, and parses the words into an array. It uses whitespace as a delimiter. 
 
 Each *Player* will have their own *Parser*. When the *Player* is terminated, the *Parser* will also be terminated. Each *Player* can have at most 1 *Parser*, and each *Parser*, can have at most 1 *Player*
 
@@ -207,8 +217,23 @@ A printer simply outputs strings to the user. It is a nice class to prevent seve
 
 While the *Printer* is assosciated to a *Player*, it is the *Players* interaction that will allow the *Player* to print things. For example, when the *Player* explores the room, and <u>Area.getDescription</u> is called from *Area*, then *Player* will have to pass that string to its *Printer*. Each Player has 1 *Printer* and Vice Versa. 
 
-<hr />
+<h5 id="Instruction">Instruction</h5>
 
+An instruction packages Strings in a format that will make it easier for *Game* to understand. An Instruction holds an Action, and a list of items. An Instruction is immutable, and must therefor, take all of its values during construction of an object. 
+
+*<u>action: String</u>* holds the action word inputed by the user. 
+
+*<u>items: List<String\></u>* holds all of the words after action. This means that it also holds a proposition in between the 2 words. 
+
+*<u>getAction(): String</u>* returns <u>action</u>
+
+*<u>getItemByNumber(Int): String</u>* returns the element at index Int of *items*
+
+*<u>getItems(): List<String\></u>* returns <u>items</u>
+
+It is important to note that the size of <u>items</u> depends on the values of <u>MAX_ WORDS_ PER_COMMAND</u> in *<a href="#parser">Parser</a>*. The *Instruction* has a link to *Parser*, but can be passed to any of the superior composites linked to *Parser*.
+
+<hr />
 
 Applause for the final version of the Class Diagram for this assignment. It came quite a long way the last couple of days. The evolution started with collecting different types of classes we would need and trying to find the right
 and best descriptive connection between them. The first version we obtained contained the following classes: Game, Parser, Map, Area, Connector, Item, Singleton, Container, Properties, Player. Properties as a subclass of Singleton, Connector as a subclass of Area and Parser as a class connected to the "Main-class" Game. 
@@ -221,8 +246,6 @@ The final step was to satisfy our OCD when connecting all of the classes, aligni
 
 - the name of each **class** is in bold
 - the *attributes*, *operations*, *associations*, and *objects* are in italic.
-
-Maximum number of words for this section: 3000
 
 ## 
 
