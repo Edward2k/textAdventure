@@ -22,7 +22,7 @@ public class Map {
                 "of the VU main building. For some reason, you can not leave this area, and are forced to move north of where you are now.");
         map[1][1] = new Area("Lobby", "Everything is quieter than usual in the Lobby. The lights are off and it is, thus, darker than usual. You do, however, see a light to your East.");
         map[1][2] = new Area("Cafeteria", "The cafeteria is, like the lobby, empty. You do, however, hear some noise... you just can't tell from where :O");
-        map[0][2] = new Area("Eating area", "You found the noise! It is coming from some rats eating a rotten sandwhich. Also worth noting that, if your made it here, it is the end of the DEMO map :p");
+        map[0][2] = new Area("Eating area", "You found the noise! It is coming from some rats eating a rotten sandwich. Also worth noting that, if your made it here, it is the end of the DEMO map :p");
 //       TODO:  Make the ITEM CLASS!!
 
 //        map[0][2].addItem(new Item());
