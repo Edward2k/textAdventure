@@ -27,7 +27,10 @@ public class Parser {
 	}
 
 	protected Instruction getInstruction() {
-		String[] parts = getLineArray();
+		String[] parts = getLineArray(); 
+		while (parts[0] == null) {
+			parts = getLineArray();
+		}
 		String act = parts[ACTION_WORD_POSITION]; //Get first element for action
 		parts = Arrays.copyOfRange(parts, START_OF_ITEMS, MAX_WORDS_PER_COMMAND); //Each command can have max 4 words.
 		Instruction command = new Instruction(act, parts);
