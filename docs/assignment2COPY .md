@@ -320,7 +320,7 @@ Maximum number of words for this section: 3000
 
 ## Implementation
 
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): `Eduardo Lira`
 
 In this chapter you will describe the following aspects of your project:
 
