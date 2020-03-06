@@ -26,7 +26,7 @@ We are using draw.io
 
 ## Class diagram
 
-Author(s): `Eduardo Lira` & `Theresa Schantz
+Author(s): `Eduardo Lira` & `Theresa Schantz`
 
 This chapter contains the specification of the UML class diagram of your system, together with a textual description of all its elements.
 
