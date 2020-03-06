@@ -287,7 +287,7 @@ With the figural and textual description of a state our system can have, it shou
 
 ## State machine diagrams
 
-Author(s): `Irene Garcia-Fortea Garcia`
+Author(s): `Irene Garcia-Fortea Garcia`, `Eduardo Lira` & `Theresa Schantz`
 
 ### Class Game
 
