@@ -325,7 +325,7 @@ When the game is started, the *Game* calls a public function *output* of the obj
 > Figure representing the sequence of events for processing commands after the game has been initialised(Diagram 6) 
 
 
-[![Sequence-diagram-valid-command-valid-command.png](https://i.postimg.cc/cHRk6B9p/Sequence-diagram-valid-command-valid-command.png)](https://postimg.cc/qh7x5ydw)
+[![Sequence-diagram-valid-command-valid-command.png](https://i.postimg.cc/d0qj4c4x/Sequence-diagram-valid-command-valid-command.png)](https://postimg.cc/RWDtZyr7)
 
 The second event described in the sequence diagram above is the command processing. The program will constantly loop, outputting instructions and reading commands from the user. The *gamestate* object of the class *Game* calls getCommand() from the *Player*. The *Player* will read in a line/the instruction from the user input with the *Scanner* with *getLineArray()*. After the input has been returned in *parts*,
 the given instruction will be identified by declaring a *new Instruction*. In the *Instruction* class the given input will be split into in the *action* and the *items* and returned in th evariable *command*. The *command* will passed back as the return value of th efunction *getCommand* of *Game* via the *Player* and the functions *getInstruction*. The next necessary step is to check whether the command is valid.
