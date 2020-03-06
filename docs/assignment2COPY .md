@@ -32,7 +32,10 @@ This chapter contains the specification of the UML class diagram of your system,
 
 ```
 Class Diagram of VuORK
+
 ```
+
+> Figure representing the Class Diagram of VuORK (Diagram 1) **DESCRIPTIVE**
 
 ![Class Diagram of VuORK](https://i.postimg.cc/DZX98JfB/Class-diagram-Class-diagram.png)
 
@@ -263,11 +266,11 @@ Author(s): `Eduardo Lira`
 
 This chapter contains the description of a "snapshot" of the status of your system during its execution. This chapter is composed of a UML object diagram of your system, together with a textual description of its key elements.
 
-> Figure representing an instance of VuORK in singleplayer (Diagram 1)
+> Figure representing an instance of VuORK in singleplayer (Diagram 2)
 
 ![Diagram 2 Showing instance of Single Player VuORK](https://i.postimg.cc/QCKsn1Dj/Class-diagram-Object-Diagram-2.png)
 
->  Figure representing an instance of VuORK in multiplayer (Diagram 2)
+>  Figure representing an instance of VuORK in multiplayer (Diagram 3)
 
 ![Object Diagram of VuORK](https://i.postimg.cc/QCz5XT1q/Class-diagram-Object-Diagram-2.png)
 
@@ -287,14 +290,14 @@ With the figural and textual description of a state our system can have, it shou
 Author(s): `Irene Garcia-Fortea Garcia`
 
 ### Class Game
-> Figure representing the state machine diagram of the class Game (Diagram 3) **DESCRIPTIVE**
+> Figure representing the state machine diagram of the class Game (Diagram 4) **DESCRIPTIVE**
 [![State-Machine-Diagram-Page-1.png](https://i.postimg.cc/63Qjdq3N/State-Machine-Diagram-Page-1.png)](https://postimg.cc/gwfHpY8M) 
 
 Diagram (3) portrays the state machine diagram of the class Game in relation to our VuOrk game. As corresponding to a state machine diagram, it portrays the behavioural model of different types of states, transitions, and actions, as well as the events that the software design of our game consists of.
 Following the diagram we can see the whole synthesized process of when the user inputs a command into the game. The diagram is initialized by the initial state represented as a black circle and an arrow leading from it. Next, is the Idle State container in which the user´s command triggers a choice of events to be performed and is separated by a choice pseudostate which performs as a dynamic condition for its potential results. This will identify whether the command the user has input is valid or if in the case of it not being valid it would then go into an error state in which it will be returned back into the Idle state in which the user will be able to input another command. In the case of having a valid input the command would then enter the behavioural state called command execution in which depending on the user’s input an action would be performed. There are two actions available in the game described in the diagram which are getting items or moving, when the action is decided the command is then parsed and the corresponding action is taken.
 
 ### Class Map
-> Figure representing the state machine diagram of the class Map (Diagram 4) **DESCRIPTIVE**
+> Figure representing the state machine diagram of the class Map (Diagram 5) **DESCRIPTIVE**
 [![State-Machine-Diagram-Page-2.png](https://i.postimg.cc/0NX3XDhN/State-Machine-Diagram-Page-2.png)](https://postimg.cc/PLZ2PpXG)
 
 Diagram (4) illustrates the machine state diagram of the class map, consisting of a similar structure to the previous state diagram due to the requirements of a command being able to be parsed and the error checking in the case of the command not being valid.
@@ -308,7 +311,7 @@ Author(s): `Marta Anna Jansone, Theresa Schantz`
 
 #### Game Initialisation
 
-> Figure representing the sequence of events when the game is initialised(Diagram 5) **DESCRIPTIVE**
+> Figure representing the sequence of events when the game is initialised(Diagram 6) **DESCRIPTIVE**
 
 ![Sequence-diagram-valid-command-game-initialisation-3.png](https://i.postimg.cc/X7XpC8LH/Sequence-diagram-valid-command-game-initialisation-3.png)
 
@@ -322,7 +325,7 @@ When the game is started, the *Game* calls a public function *output* of the obj
 #### Command Processing
 
 
-> Figure representing the sequence of events for processing commands after the game has been initialised(Diagram 6) 
+> Figure representing the sequence of events for processing commands after the game has been initialised(Diagram 7) 
 
 
 [![Sequence-diagram-valid-command-valid-command.png](https://i.postimg.cc/d0qj4c4x/Sequence-diagram-valid-command-valid-command.png)](https://postimg.cc/RWDtZyr7)
