@@ -304,11 +304,16 @@ Maximum number of words for this section: 3000
 
 ## Sequence diagrams
 
-Author(s): Marta Jansone, Theresa Schantz
+Author(s): `Marta Anna Jansone, Theresa Schantz`
 
-- a title representing the specific situation you want to describe;
-- a figure representing the sequence diagram;
-- a textual description of all its elements in a narrative manner (you do not need to structure your description into tables in this case). We expect a detailed description of all the interaction partners, their  exchanged messages, and the fragments of interaction where they are  involved. For each sequence diagram we expect a description of about  300-500 words.
+#### Game Initialisation
+
+> Figure representing the sequence of events when the game is initialised(Diagram 5)
+[![Sequence-diagram-valid-command-game-initialisation-3.png](https://i.postimg.cc/X7XpC8LH/Sequence-diagram-valid-command-game-initialisation-3.png)](https://postimg.cc/2VRkpnPh)
+
+The first possible event described in the sequence diagram above is the Game Initialisation. When initializing a game the first thing that has to happen is declaring a *Game* object. The *Game* object is further responsible for declaring an object of type *Map* and an object of type *Player*. The object *Player*, when initialised, requests the entry point of the game, which is returned by the *Map* object. This happens when *getEntryPoint* is called. The returned value is an object of type *Coordinate*. This value is then stored in the *Player coord* variable. 
+When a new *Player* is initialised it further initialises its own *Parser* and *Printer*, and an array of object type *Item*. The object *Parser* is stored in a private variable called *parser* within the object *Player*, the *Printer* is stored in a private variable called *printer* within the object *Player* and the array of *Items* is stored within a private variable called *backpack* within the object *Player*. The game is started by calling *startGame*. 
+When the game is started, the *Game* calls a public function *output* of the object *Player* with a welcome message and a request to enter the user's name. The *output* function further calls the function *output* of the private variable printer, which outputs the message by printing it to the Terminal. To add a name to the private variable *name* of the *Player*, the public function *setName* from object *Player* is called by the object *Game*. The *setName* function further calls the private parser of the *Player*, which reads and parses the user input line using the function *getLine*. The value returned by the *Parser* is assigned as the *name*' of the *Player.* Another output message is then sent from *Game* to the *output* function of the *Player*, taking an argument of *getUserName*. The *output* function of the *Player* calls the *output* function of the private printer, which then sends a request back to the *Player* to *getUserName*. When the *getUserName* returns the name of the player the message is printed. The last message printed during the phase of initialising the game is the description of the room where the player is currently located in. This is done through the *Game* calling the *output* function of the *Player* with the argument *map.getPosition(player.position())*. As the argument is a function call then the *Player* calls the *Map* function *getPosition* with the argument *player.position*. As the argument of the function is a call to a function within the object *Player*, the function *position* from object *Player* is called. Then further each of the function calls returns the requested variable till the start of the sequence at the call of *output*, which prints the description of the room to the Terminal.
 
 
 #### Command Processing
