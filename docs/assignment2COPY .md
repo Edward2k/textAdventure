@@ -345,25 +345,19 @@ It was surprisingly quick to implement our system after having thoroughly though
 The greatest challenge of creating a text-adventure game, in my opinion, is how to interpret natural language as structures and objects that exist in a game, and translate them such that the program can understand and handle them. To add to this complexity, having several players on a game at once makes it incredible to reason on how to handle requests. Of course, once you discover a solution, it is obvious, but the mental hurdle of gettin there was significant.
 >
 From the above, the 2 greatest challenges are:
-<ul>
-  <li>
-    Understanding objects from natural language
-  </li>
-  <li>
-    Handling this natural language input for multiple users simultaneously
-  </li>
-</ul>
+>
+- Understanding objects from natural language
+- Handling this natural language input for multiple users simultaneously
 
+>
+>
 Our solutions were:
+>
+- Use *Strings* as names. Then to identify an object, start searching in the field of view of the player. The Parsing is done by the *Parser*, but it is the *Game* object that makes reason of it and decides what to do.
+We define the field of view as the extent a *Player* can interact with. This is the *Player*'s *backpack* and the *Area* he is in. When an Interaction is needed to be done, the *Game* will need to reason whether this element is in the *Player*'s possession or in the *Area*. If no such *Item* exists that *canBe* or *usedTo* variables match the *Action*, an appropriate error is returned. NB: The latter part about interaction between *Items* is prescriptive and has yet to be implemented.
 
-<ul>
-  <li>
-    Use *Strings* as names. Then to identify an object, start searching in the field of view of the player. The Parsing is done by the *Parser*, but it is the *Game* object that makes reason of it and decides what to do.
-  We define the field of view as the extent a *Player* can interact with. This is the *Player*'s *backpack* and the *Area* he is in. When an Interaction is needed to be done, the *Game* will need to reason whether this element is in the *Player*'s possession or in the *Area*. If no such *Item* exists that *canBe* or *usedTo* variables match the *Action*, an appropriate error is returned. NB: The latter part about interaction between *Items* is prescriptive and has yet to be implemented.
-  </li>
-  <li>
-  The solution to handling multiple *Player* I/O is quite trivial once reasoned. Although not implemented for this assignment, multithreading every socket/instance of a *Player*, which is handled by *Game*. Because the call *Player.getCommand()* is a blocking command, you do not have to worry about several inputs at the same time. This is VERY unlikely. For this assignment, we were unable to create a network version of the game, but aim to do so for the final assignment. Right now, we simply call *handlePlayer()*, which is the function that would create a thread when a player joins.
-  </li>
+- The solution to handling multiple *Player* I/O is quite trivial once reasoned. Although not implemented for this assignment, multithreading every socket/instance of a *Player*, which is handled by *Game*. Because the call *Player.getCommand()* is a blocking command, you do not have to worry about several inputs at the same time. This is VERY unlikely. For this assignment, we were unable to create a network version of the game, but aim to do so for the final assignment. Right now, we simply call *handlePlayer()*, which is the function that would create a thread when a player joins.
+ 
   
 These are the 2 greatest challenges we encountered while implementing movement in our text-based game. For the rest, and more detailed information about the actual project, we suggest looking at our UML descriptions and the code itself. 
 
