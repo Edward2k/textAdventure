@@ -295,11 +295,13 @@ Author(s): `Irene Garcia-Fortea Garcia`, `Eduardo Lira` & `Theresa Schantz`
 
 [![State-Machine-Diagram-Page-1.png](https://i.postimg.cc/tTHWn9NV/State-Machine-Diagram-Page-1-1.png)](https://postimg.cc/gwfHpY8M) 
 
+The diagram above shows the State Machine Diagram of the event that of executing a command. After starting the process the system waits for a user input. After the input has been received, the function *getCommand()* executes. 
+
 In the next step we move to the state that the command has been received. The command needs to be checked, whether it is a valid command that the system accepts in *validateCommand()*. 
 
 If the command i not valid, an error message is printed and the program returns to the idle state, waiting for a command. 
 
-If the command is valid, the command needs to be executed (“Execute Command”). There, changes will be made to the Item or Player (Described in the *Execute Command* figure). After the changes have been made, the system goes back to the idle state, waiting for a new command to process, unless the user types “quit”. Then, the game terminates. 
+If the command is valid, the command needs to be executed (“*Execute Command*”). There, changes will be made to the Item or Player (Described in the *Execute Command* figure). After the changes have been made, the system goes back to the idle state, waiting for a new command to process, unless the user types “quit”. Then, the game terminates. 
 
 The *Execute Command* state works as the following: After checking the command for validity, it will be matched matching it with each of the following existing commands: move, help or look. 
 
