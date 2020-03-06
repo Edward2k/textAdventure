@@ -286,21 +286,23 @@ With the figural and textual description of a state our system can have, it shou
 
 ## State machine diagrams
 
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): `Irene Garcia-Fortea Garcia`
 
-This chapter contains the specification of at least 2 UML state  machines of your system, together with a textual description of all  their elements. Also, remember that classes the describe only data  structures (e.g., Coordinate, Position) do not need to have an  associated state machine since they can be seen as simple "data  containers" without behaviour (they have only stateless objects).
+### Class Game
+> Figure representing the state machine diagram of the class Game (Diagram 3)
+[![State-Machine-Diagram-Page-1.png](https://i.postimg.cc/63Qjdq3N/State-Machine-Diagram-Page-1.png)](https://postimg.cc/gwfHpY8M) 
 
-For each state machine you have to provide:
+Diagram (3) portrays the state machine diagram of the class Game in relation to our VuOrk game. As corresponding to a state machine diagram, it portrays the behavioural model of different types of states, transitions, and actions, as well as the events that the software design of our game consists of.
+Following the diagram we can see the whole synthesized process of when the user inputs a command into the game. The diagram is initialized by the initial state represented as a black circle and an arrow leading from it. Next, is the Idle State container in which the user´s command triggers a choice of events to be performed and is separated by a choice pseudostate which performs as a dynamic condition for its potential results. This will identify whether the command the user has input is valid or if in the case of it not being valid it would then go into an error state in which it will be returned back into the Idle state in which the user will be able to input another command. In the case of having a valid input the command would then enter the behavioural state called command execution in which depending on the user’s input an action would be performed. There are two actions available in the game described in the diagram which are getting items or moving, when the action is decided the command is then parsed and the corresponding action is taken.
 
-- the name of the class for which you are representing the internal behavior;
-- a figure representing the part of state machine;
-- a textual description of all its states, transitions, activities,  etc. in a narrative manner (you do not need to structure your  description into tables in this case). We expect 3-4 lines of text for  describing trivial or very simple state machines (e.g., those with one  to three states), whereas you will provide longer descriptions (e.g.,  ~500 words) when describing more complex state machines.
+### Class Map
+> Figure representing the state machine diagram of the class Map (Diagram 4)
+[![State-Machine-Diagram-Page-2.png](https://i.postimg.cc/0NX3XDhN/State-Machine-Diagram-Page-2.png)](https://postimg.cc/PLZ2PpXG)
 
-The goal of your state machine diagrams is both descriptive and  prescriptive, so put the needed level of detail here, finding the right  trade-off between understandability of the models and their precision.
+Diagram (4) illustrates the machine state diagram of the class map, consisting of a similar structure to the previous state diagram due to the requirements of a command being able to be parsed and the error checking in the case of the command not being valid.
+Starting from the initial pseudo state the user will enter its desired direction to move in which the choice pseudostate performs a selection whether the command is valid or not. If the command isn’t one of the possible directions like for example, North-East, it would enter the Error State in which it would return to the Idle State in which the user will be able to input another command which would hopefully be one of the valid options which are North, South, East, West. In the case that this happens the choice pseudostate would then consider the command as valid and thus would enter the next Behaviour State in which, depending on the direction chosen, it would perform the corresponding movement in terms of coordinates of variables x and y and with values of forward being x/y + 1 and backwards being x/y - 1. When the command is selected it is then parsed and the corresponding action is taken.
 
-Maximum number of words for this section: 3000
-
-## 
+##
 
 ## Sequence diagrams
 
