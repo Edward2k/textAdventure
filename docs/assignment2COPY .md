@@ -310,11 +310,22 @@ Author(s): Marta Jansone, Theresa Schantz
 - a figure representing the sequence diagram;
 - a textual description of all its elements in a narrative manner (you do not need to structure your description into tables in this case). We expect a detailed description of all the interaction partners, their  exchanged messages, and the fragments of interaction where they are  involved. For each sequence diagram we expect a description of about  300-500 words.
 
+
+####Command Processing
+
+The second event described in the sequence diagram above is the command processing. The program will constantly loop, outputting instructions and reading commands from the user. The *gamestate* object of the class *Game* calls getCommand() from the *Player*. The *Player* will read in a line/the instruction from the user input with the *Scanner* with *getLineArray()*. After the input has been returned in *parts*,
+the given instruction will be identified by declaring a *new Instruction*. In the *Instruction* class the given input will be split into in the *action* and the *items* and returned in th evariable *command*. The *command* will passed back as the return value of th efunction *getCommand* of *Game* via the *Player* and the functions *getInstruction*. The next necessary step is to check whether the command is valid.
+This is done with the function *validate command*. Here, the first step is to obtain the wanted action from the *command*, which is stored in the *Parser* (this will be stored in the variable *action*).
+The *action* must then be checked, whether it is a valid direction (north, south, east or west), done in *isDirection*. At this point, if it is not valid, we jump to outputting an error message to th e*Printer* via the *Player* with the *output* property.
+If it is a valid direction, *handleMove* is called.  The given direction is matched to a case "north", "east", "west" or "south" and then moved in the corresponding direction by adding or subtracting a 1 to either the x- or y-coordinate. This will be the *newPos* variable. Lastly, it has to be checked whether this is a valid coordinate on the map. If so, the *Player*s coordinate will be set to the new coordinate
+and the description will be printed to the user. If it is not a valid position, an error message will be printed to the user, calling *Printer.output* from *Player.output*. We still need to get the description for the new coordinate of the location of the *Player* printed to the Terminal. By passing the *position* with *getDescription* to the *Map* via the *Player.output*, which will return the description for the
+corresponding coordinate, *Printer.output* will be called by the *Player*. The will cause that the *Printer* will print the given description to the user (*output* is the *Printer*s print function to the Terminal).
+Then, the whole process will start over again.
+
+
+
+
 Maximum number of words for this section: 3000
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             However, the move has not actually been processed yet. Consequently, 
-
-
 
 ## 
 
