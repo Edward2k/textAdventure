@@ -3,8 +3,6 @@
 
 Maximum number of words for this document: 12000
 
-**IMPORTANT**: In this assignment you will model the whole system. Within each of your models, you will have a *prescriptive intent* when representing the elements related to the feature you are implementing in this assignment, whereas the rest of the elements are used with a *descriptive intent*. In all your diagrams it is  strongly suggested to used different colors for the prescriptive and  descriptive parts of your models (this helps you in better reasoning on  the level of detail needed in each part of the models and the  instructors in knowing how to assess your models).
-
 **Format**: establish formatting conventions when  describing your models in this document. For example, you style the name of each class is *Italics*, whereas the attributes, operations, and  associations as <u>underlined</u> text, objects are in italic, etc.
 
 ###
@@ -368,7 +366,11 @@ The location of the Jar file is:
 
 <hr/>
 
-- the 30-seconds video showing the execution of your system (you can embed the video directly in your md file on GitHub).
+The video of the gameplay is here: *(if it doesn't load, please view the video under /docs/ass2_demo_video.mp4)*
+
+<iframe width="720" height="480" src="ass2_demo_video.mp4" align="middle" frameborder="0" allowfullscreen></iframe>
+
+
 
 ## 
 
