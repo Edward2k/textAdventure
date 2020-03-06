@@ -286,29 +286,36 @@ With the figural and textual description of a state our system can have, it shou
 
 ## State machine diagrams
 
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): `Irene Garcia-Fortea Garcia`
 
-This chapter contains the specification of at least 2 UML state  machines of your system, together with a textual description of all  their elements. Also, remember that classes the describe only data  structures (e.g., Coordinate, Position) do not need to have an  associated state machine since they can be seen as simple "data  containers" without behaviour (they have only stateless objects).
+### Class Game
+> Figure representing the state machine diagram of the class Game (Diagram 3)
+[![State-Machine-Diagram-Page-1.png](https://i.postimg.cc/63Qjdq3N/State-Machine-Diagram-Page-1.png)](https://postimg.cc/gwfHpY8M) 
 
-For each state machine you have to provide:
+Diagram (3) portrays the state machine diagram of the class Game in relation to our VuOrk game. As corresponding to a state machine diagram, it portrays the behavioural model of different types of states, transitions, and actions, as well as the events that the software design of our game consists of.
+Following the diagram we can see the whole synthesized process of when the user inputs a command into the game. The diagram is initialized by the initial state represented as a black circle and an arrow leading from it. Next, is the Idle State container in which the user´s command triggers a choice of events to be performed and is separated by a choice pseudostate which performs as a dynamic condition for its potential results. This will identify whether the command the user has input is valid or if in the case of it not being valid it would then go into an error state in which it will be returned back into the Idle state in which the user will be able to input another command. In the case of having a valid input the command would then enter the behavioural state called command execution in which depending on the user’s input an action would be performed. There are two actions available in the game described in the diagram which are getting items or moving, when the action is decided the command is then parsed and the corresponding action is taken.
 
-- the name of the class for which you are representing the internal behavior;
-- a figure representing the part of state machine;
-- a textual description of all its states, transitions, activities,  etc. in a narrative manner (you do not need to structure your  description into tables in this case). We expect 3-4 lines of text for  describing trivial or very simple state machines (e.g., those with one  to three states), whereas you will provide longer descriptions (e.g.,  ~500 words) when describing more complex state machines.
+### Class Map
+> Figure representing the state machine diagram of the class Map (Diagram 4)
+[![State-Machine-Diagram-Page-2.png](https://i.postimg.cc/0NX3XDhN/State-Machine-Diagram-Page-2.png)](https://postimg.cc/PLZ2PpXG)
 
-The goal of your state machine diagrams is both descriptive and  prescriptive, so put the needed level of detail here, finding the right  trade-off between understandability of the models and their precision.
+Diagram (4) illustrates the machine state diagram of the class map, consisting of a similar structure to the previous state diagram due to the requirements of a command being able to be parsed and the error checking in the case of the command not being valid.
+Starting from the initial pseudo state the user will enter its desired direction to move in which the choice pseudostate performs a selection whether the command is valid or not. If the command isn’t one of the possible directions like for example, North-East, it would enter the Error State in which it would return to the Idle State in which the user will be able to input another command which would hopefully be one of the valid options which are North, South, East, West. In the case that this happens the choice pseudostate would then consider the command as valid and thus would enter the next Behaviour State in which, depending on the direction chosen, it would perform the corresponding movement in terms of coordinates of variables x and y and with values of forward being x/y + 1 and backwards being x/y - 1. When the command is selected it is then parsed and the corresponding action is taken.
 
-Maximum number of words for this section: 3000
-
-## 
+##
 
 ## Sequence diagrams
 
-Author(s): Marta Jansone, Theresa Schantz
+Author(s): `Marta Anna Jansone, Theresa Schantz`
 
-- a title representing the specific situation you want to describe;
-- a figure representing the sequence diagram;
-- a textual description of all its elements in a narrative manner (you do not need to structure your description into tables in this case). We expect a detailed description of all the interaction partners, their  exchanged messages, and the fragments of interaction where they are  involved. For each sequence diagram we expect a description of about  300-500 words.
+#### Game Initialisation
+
+> Figure representing the sequence of events when the game is initialised(Diagram 5)
+[![Sequence-diagram-valid-command-game-initialisation-3.png](https://i.postimg.cc/X7XpC8LH/Sequence-diagram-valid-command-game-initialisation-3.png)](https://postimg.cc/2VRkpnPh)
+
+The first possible event described in the sequence diagram above is the Game Initialisation. When initializing a game the first thing that has to happen is declaring a *Game* object. The *Game* object is further responsible for declaring an object of type *Map* and an object of type *Player*. The object *Player*, when initialised, requests the entry point of the game, which is returned by the *Map* object. This happens when *getEntryPoint* is called. The returned value is an object of type *Coordinate*. This value is then stored in the *Player coord* variable. 
+When a new *Player* is initialised it further initialises its own *Parser* and *Printer*, and an array of object type *Item*. The object *Parser* is stored in a private variable called *parser* within the object *Player*, the *Printer* is stored in a private variable called *printer* within the object *Player* and the array of *Items* is stored within a private variable called *backpack* within the object *Player*. The game is started by calling *startGame*. 
+When the game is started, the *Game* calls a public function *output* of the object *Player* with a welcome message and a request to enter the user's name. The *output* function further calls the function *output* of the private variable printer, which outputs the message by printing it to the Terminal. To add a name to the private variable *name* of the *Player*, the public function *setName* from object *Player* is called by the object *Game*. The *setName* function further calls the private parser of the *Player*, which reads and parses the user input line using the function *getLine*. The value returned by the *Parser* is assigned as the *name*' of the *Player.* Another output message is then sent from *Game* to the *output* function of the *Player*, taking an argument of *getUserName*. The *output* function of the *Player* calls the *output* function of the private printer, which then sends a request back to the *Player* to *getUserName*. When the *getUserName* returns the name of the player the message is printed. The last message printed during the phase of initialising the game is the description of the room where the player is currently located in. This is done through the *Game* calling the *output* function of the *Player* with the argument *map.getPosition(player.position())*. As the argument is a function call then the *Player* calls the *Map* function *getPosition* with the argument *player.position*. As the argument of the function is a call to a function within the object *Player*, the function *position* from object *Player* is called. Then further each of the function calls returns the requested variable till the start of the sequence at the call of *output*, which prints the description of the room to the Terminal.
 
 
 #### Command Processing
