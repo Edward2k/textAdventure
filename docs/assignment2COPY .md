@@ -333,12 +333,36 @@ Maximum number of words for this section: 3000
 
 Author(s): `Eduardo Lira`
 
-In this chapter you will describe the following aspects of your project:
+It was suprisingly quick to implement our system after having thuroughly though it out using UML diagrams. However, as discussed in our *development of the class diagram*, a lot had to be changed as challanges arissed while trying to implement our design. Our strategy was quite simple; once we were happy with our design, we tried to write it. As we encountered issues or areas of improvement, we rethought our design in UML, and implemented that. 
 
-- the strategy that you followed when moving from the UML models to the implementation code;
-- the key solutions that you applied when implementing your system  (for example, how you implemented the syntax highlighting feature of  your code snippet manager, how you manage fantasy soccer matches, etc.);
-- the location of the main Java class needed for executing your system in your source code;
-- the location of the Jar file for directly executing your system;
+The greatest challenge of creating a text-adventure game, in my opinion, is the how to interpret natural langauge as structurs and objects that exist in a game. To add to this complexity, having several players on a game at once makes it incredibly to reason on how to handle requests. Of course, once you discover a solution, its obvious, but the mental hurdle was significant. 
+
+From the above, the 2 greatest challanges are: 
+
+<ol>
+  <li>Understanding objects from natural language</li>
+  <li>Handling this natural language input for multiple users simultaneously</li>
+</ol>
+
+Our solutions were:
+
+<ol>
+  <li>Use <i>Strings</i> as names. Then to identify an object, start searching in the field of view of the player. The Parsing is done by the <i>Parser</i>, but it is the <i>Game</i> object that makes reason of it and <b>decides</b> what to do.<br/>We define the field of view as the extent a <i>Player</i> can interact with. This is the <i>Player</i>'s <u>backpack</u> and the <i>Area</i> he is in.</br\>When an Interaction is needed to be done, the <i>Game</i> will need to reason wethere this element is in the <i>Player</i>'s posession or in the <i>Area</i>. If no such <i>Item</i> exists that canBe or usedTo variables match the Action, an appropriate error is returned. <strong>NB:</strong> The latter part about interaction between <i>Items</i> is prescriptive and has yet to be implemented.</li>
+  <li>The solution to handling multiple <i>Player</i> I/O is quiute trivial once reasoned. Although not implemented for this assignment, multithreading every socket/instance of a <i>Player</i>, which is handled by <i>Game</i>. Because the call <u>Player.getCommand()</u> is a blocking command, you do not have to worry about several inputs at the same time. This is VERY unlikely. For this assignment, we were unable to create a network version of the game, but aim to do so for the final assignment. Right now, we simply call <u>handlePlayer()</u>, which is the function that would create a thread when a player joins. </li>
+</ol>
+
+For the rest, and more detailed information about the actual project, we suggest looking at our UML descriptions and the code itself. These are the 2 greatest challenges we encountered while implementing movement in our text-based game. 
+
+The location of the main Java class is:
+
+> src/main/java/Game.java
+
+The location of the Jar file is: 
+
+> out/artifacts/software_design_vu_2020_jar/software-design-vu-2020.jar
+
+<hr/>
+
 - the 30-seconds video showing the execution of your system (you can embed the video directly in your md file on GitHub).
 
 IMPORTANT: remember that your implementation must be consistent with  your UML models. Also, your implementation must run without the need  from any other external software or tool. Failing to meet this  requirement means 0 points for the implementation part of your project.
@@ -349,4 +373,4 @@ Maximum number of words for this section: 2000
 
 ## References
 
-References, if needed.
+None.
