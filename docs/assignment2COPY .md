@@ -36,7 +36,7 @@ This chapter contains the specification of the UML class diagram of your system,
 Class Diagram of VuORK
 ```
 
-![Class Diagram of VuORK](https://i.postimg.cc/ZnnwVkP7/Class-diagram-Class-diagram-3.png)
+![Class Diagram of VuORK](https://i.postimg.cc/DZX98JfB/Class-diagram-Class-diagram.png)
 
 <h5 id="Item">Item</h5>
 
@@ -289,14 +289,14 @@ With the figural and textual description of a state our system can have, it shou
 Author(s): `Irene Garcia-Fortea Garcia`
 
 ### Class Game
-> Figure representing the state machine diagram of the class Game (Diagram 3)
+> Figure representing the state machine diagram of the class Game (Diagram 3) **DESCRIPTIVE**
 [![State-Machine-Diagram-Page-1.png](https://i.postimg.cc/63Qjdq3N/State-Machine-Diagram-Page-1.png)](https://postimg.cc/gwfHpY8M) 
 
 Diagram (3) portrays the state machine diagram of the class Game in relation to our VuOrk game. As corresponding to a state machine diagram, it portrays the behavioural model of different types of states, transitions, and actions, as well as the events that the software design of our game consists of.
 Following the diagram we can see the whole synthesized process of when the user inputs a command into the game. The diagram is initialized by the initial state represented as a black circle and an arrow leading from it. Next, is the Idle State container in which the user´s command triggers a choice of events to be performed and is separated by a choice pseudostate which performs as a dynamic condition for its potential results. This will identify whether the command the user has input is valid or if in the case of it not being valid it would then go into an error state in which it will be returned back into the Idle state in which the user will be able to input another command. In the case of having a valid input the command would then enter the behavioural state called command execution in which depending on the user’s input an action would be performed. There are two actions available in the game described in the diagram which are getting items or moving, when the action is decided the command is then parsed and the corresponding action is taken.
 
 ### Class Map
-> Figure representing the state machine diagram of the class Map (Diagram 4)
+> Figure representing the state machine diagram of the class Map (Diagram 4) **DESCRIPTIVE**
 [![State-Machine-Diagram-Page-2.png](https://i.postimg.cc/0NX3XDhN/State-Machine-Diagram-Page-2.png)](https://postimg.cc/PLZ2PpXG)
 
 Diagram (4) illustrates the machine state diagram of the class map, consisting of a similar structure to the previous state diagram due to the requirements of a command being able to be parsed and the error checking in the case of the command not being valid.
@@ -310,8 +310,11 @@ Author(s): `Marta Anna Jansone, Theresa Schantz`
 
 #### Game Initialisation
 
-> Figure representing the sequence of events when the game is initialised(Diagram 5)
-[![Sequence-diagram-valid-command-game-initialisation-3.png](https://i.postimg.cc/X7XpC8LH/Sequence-diagram-valid-command-game-initialisation-3.png)](https://postimg.cc/2VRkpnPh)
+> Figure representing the sequence of events when the game is initialised(Diagram 5) **DESCRIPTIVE**
+
+![Sequence-diagram-valid-command-game-initialisation-3.png](https://i.postimg.cc/X7XpC8LH/Sequence-diagram-valid-command-game-initialisation-3.png)
+
+
 
 The first possible event described in the sequence diagram above is the Game Initialisation. When initializing a game the first thing that has to happen is declaring a *Game* object. The *Game* object is further responsible for declaring an object of type *Map* and an object of type *Player*. The object *Player*, when initialised, requests the entry point of the game, which is returned by the *Map* object. This happens when *getEntryPoint* is called. The returned value is an object of type *Coordinate*. This value is then stored in the *Player coord* variable. 
 When a new *Player* is initialised it further initialises its own *Parser* and *Printer*, and an array of object type *Item*. The object *Parser* is stored in a private variable called *parser* within the object *Player*, the *Printer* is stored in a private variable called *printer* within the object *Player* and the array of *Items* is stored within a private variable called *backpack* within the object *Player*. The game is started by calling *startGame*. 
@@ -328,11 +331,6 @@ If it is a valid direction, *handleMove* is called.  The given direction is matc
 and the description will be printed to the user. If it is not a valid position, an error message will be printed to the user, calling *Printer.output* from *Player.output*. We still need to get the description for the new coordinate of the location of the *Player* printed to the Terminal. By passing the *position* with *getDescription* to the *Map* via the *Player.output*, which will return the description for the
 corresponding coordinate, *Printer.output* will be called by the *Player*. The will cause that the *Printer* will print the given description to the user (*output* is the *Printer*s print function to the Terminal).
 Then, the whole process will start over again.
-
-
-
-
-Maximum number of words for this section: 3000
 
 ## 
 
@@ -372,12 +370,8 @@ The location of the Jar file is:
 
 - the 30-seconds video showing the execution of your system (you can embed the video directly in your md file on GitHub).
 
-IMPORTANT: remember that your implementation must be consistent with  your UML models. Also, your implementation must run without the need  from any other external software or tool. Failing to meet this  requirement means 0 points for the implementation part of your project.
-
-Maximum number of words for this section: 2000
-
 ## 
 
 ## References
 
-None.
+None :)
