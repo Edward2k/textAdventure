@@ -290,11 +290,28 @@ With the figural and textual description of a state our system can have, it shou
 Author(s): `Irene Garcia-Fortea Garcia`
 
 ### Class Game
-> Figure representing the state machine diagram of the class Game (Diagram 4) **DESCRIPTIVE**
+
+> Figure representing the state machine diagram of the Game class (Diagram 4) **DESCRIPTIVE**
+
+
 [![State-Machine-Diagram-Page-1.png](https://i.postimg.cc/63Qjdq3N/State-Machine-Diagram-Page-1.png)](https://postimg.cc/gwfHpY8M) 
 
-Diagram (3) portrays the state machine diagram of the class Game in relation to our VuOrk game. As corresponding to a state machine diagram, it portrays the behavioural model of different types of states, transitions, and actions, as well as the events that the software design of our game consists of.
-Following the diagram we can see the whole synthesized process of when the user inputs a command into the game. The diagram is initialized by the initial state represented as a black circle and an arrow leading from it. Next, is the Idle State container in which the user´s command triggers a choice of events to be performed and is separated by a choice pseudostate which performs as a dynamic condition for its potential results. This will identify whether the command the user has input is valid or if in the case of it not being valid it would then go into an error state in which it will be returned back into the Idle state in which the user will be able to input another command. In the case of having a valid input the command would then enter the behavioural state called command execution in which depending on the user’s input an action would be performed. There are two actions available in the game described in the diagram which are getting items or moving, when the action is decided the command is then parsed and the corresponding action is taken.
+The diagram above shows the State Machine Diagram of the event that of executing a command. After starting the process the system waits for a user input. After the input has been received, the function *getCommand()* executes. 
+
+In the next step we move to the state that the command has been received. The command needs to be checked, whether it is a valid command that the system accepts in *validateCommand()*. 
+
+If the command i not valid, an error message is printed and the program returns to the idle state, waiting for a command. 
+
+If the command is valid, the command needs to be executed (“Execute Command”). There, changes will be made to the Item or Player (Described in the *Execute Command* figure). After the changes have been made, the system goes back to the idle state, waiting for a new command to process, unless the user types “quit”. Then, the game terminates. 
+
+The *Execute Command* state works as the following: After checking the command for validity, it will be matched matching it with each of the following existing commands: move, help or look. 
+
+If the command is move: the player will be moved into the wanted direction (input by the player). 
+
+If the command is help: a help message will be printed to the user.
+
+If the command is look: the description of the *Area*, in that the *Player* is currently in, will be printed to the user. 
+
 
 ### Class Map
 > Figure representing the state machine diagram of the class Map (Diagram 5) **DESCRIPTIVE**
