@@ -1,4 +1,3 @@
-
 # Assignment 2
 
 Maximum number of words for this document: 12000
@@ -26,7 +25,7 @@ We are using draw.io
 
 ## Class diagram
 
-Author(s): `Eduardo Lira` & `Theresa Schantz`
+Author(s): Eduardo Lira & Theresa Schantz
 
 This chapter contains the specification of the UML class diagram of your system, together with a textual description of all its elements.
 
@@ -291,10 +290,29 @@ Author(s): `Irene Garcia-Fortea Garcia`, `Eduardo Lira` & `Theresa Schantz`
 
 ### Class Game
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+> State machine diagram of Game (Diagram 3) **DESCRIPTIVE**
+> [![State-Machine-Diagram-Page-1.png](https://i.postimg.cc/tTHWn9NV/State-Machine-Diagram-Page-1-1.png)](https://postimg.cc/gwfHpY8M) 
+> ||||||| merged common ancestors
+> Figure representing the state machine diagram of the class Game (Diagram 3) **DESCRIPTIVE**
+>
+> [![State-Machine-Diagram-Page-1.png](https://i.postimg.cc/63Qjdq3N/State-Machine-Diagram-Page-1.png)](https://postimg.cc/gwfHpY8M) 
+> =======
+>
+> Figure representing the state machine diagram of the class Game (Diagram 4) **DESCRIPTIVE**
+> ||||||| merged common ancestors
+>
+> Figure representing the state machine diagram of the class Game (Diagram 4) **DESCRIPTIVE**
+> =======
+
 > Figure representing the state machine diagram of the Game class (Diagram 4) **DESCRIPTIVE**
 
 
-[![State-Machine-Diagram-Page-1.png](https://i.postimg.cc/63Qjdq3N/State-Machine-Diagram-Page-1.png)](https://postimg.cc/gwfHpY8M) 
+>>>>>>> 8311cefd4d7028e8cc5ff79cfea17fcf2ff02dde
+>>>>>>> [![State-Machine-Diagram-Page-1.png](https://i.postimg.cc/63Qjdq3N/State-Machine-Diagram-Page-1.png)](https://postimg.cc/gwfHpY8M) 
+>>>>>>> 01fecb557dc551bdbef04c59718f63622129ed2b
 
 The diagram above shows the State Machine Diagram of the event that of executing a command. After starting the process the system waits for a user input. After the input has been received, the function *getCommand()* executes. 
 
@@ -314,8 +332,21 @@ If the command is look: the description of the *Area*, in that the *Player* is c
 
 
 ### Class Map
+
+<<<<<<< HEAD
+
+> Figure representing the state machine diagram of the class Map (Diagram 4) **DESCRIPTIVE**
+> [![State-Machine-Diagram-Page-2.png](https://i.postimg.cc/FHgLtyV2/State-Machine-Diagram-Page-2-Page-2.png)](https://postimg.cc/PLZ2PpXG)
+> ||||||| merged common ancestors
+> Figure representing the state machine diagram of the class Map (Diagram 4) **DESCRIPTIVE**
+>
+> [![State-Machine-Diagram-Page-2.png](https://i.postimg.cc/0NX3XDhN/State-Machine-Diagram-Page-2.png)](https://postimg.cc/PLZ2PpXG)
+> =======
+>
 > Figure representing the state machine diagram of the class Map (Diagram 5) **DESCRIPTIVE**
-[![State-Machine-Diagram-Page-2.png](https://i.postimg.cc/0NX3XDhN/State-Machine-Diagram-Page-2.png)](https://postimg.cc/PLZ2PpXG)
+> [![State-Machine-Diagram-Page-2.png](https://i.postimg.cc/0NX3XDhN/State-Machine-Diagram-Page-2.png)](https://postimg.cc/PLZ2PpXG)
+>
+> >>>>>> 01fecb557dc551bdbef04c59718f63622129ed2b
 
 Diagram (4) illustrates the machine state diagram of the class map, consisting of a similar structure to the previous state diagram due to the requirements of a command being able to be parsed and the error checking in the case of the command not being valid.
 Starting from the initial pseudo state the user will enter its desired direction to move in which the choice pseudostate performs a selection whether the command is valid or not. If the command isn’t one of the possible directions like for example, North-East, it would enter the Error State in which it would return to the Idle State in which the user will be able to input another command which would hopefully be one of the valid options which are North, South, East, West. In the case that this happens the choice pseudostate would then consider the command as valid and thus would enter the next Behaviour State in which, depending on the direction chosen, it would perform the corresponding movement in terms of coordinates of variables x and y and with values of forward being x/y + 1 and backwards being x/y - 1. When the command is selected it is then parsed and the corresponding action is taken.
@@ -378,7 +409,7 @@ From the above, the 2 greatest challenges are:
 Our solutions were:
 
 - Use *Strings* as names. Then to identify an object, start searching in the field of view of the player. The Parsing is done by the *Parser*, but it is the *Game* object that makes reason of it and decides what to do.
-We define the field of view as the extent a *Player* can interact with. This is the *Player*'s *backpack* and the *Area* he is in. When an Interaction is needed to be done, the *Game* will need to reason whether this element is in the *Player*'s possession or in the *Area*. If no such *Item* exists that *canBe* or *usedTo* variables match the *Action*, an appropriate error is returned. NB: The latter part about interaction between *Items* is prescriptive and has yet to be implemented.
+  We define the field of view as the extent a *Player* can interact with. This is the *Player*'s *backpack* and the *Area* he is in. When an Interaction is needed to be done, the *Game* will need to reason whether this element is in the *Player*'s possession or in the *Area*. If no such *Item* exists that *canBe* or *usedTo* variables match the *Action*, an appropriate error is returned. NB: The latter part about interaction between *Items* is prescriptive and has yet to be implemented.
 
 - The solution to handling multiple *Player* I/O is quite trivial once reasoned. Although not implemented for this assignment, multithreading every socket/instance of a *Player*, which is handled by *Game*. Because the call *Player.getCommand()* is a blocking command, you do not have to worry about several inputs at the same time. This is VERY unlikely. For this assignment, we were unable to create a network version of the game, but aim to do so for the final assignment. Right now, we simply call *handlePlayer()*, which is the function that would create a thread when a player joins.
 
@@ -396,9 +427,9 @@ The location of the Jar file is:
 
 <hr/>
 
-The video of the gameplay is here: *(if it doesn't load, please view the video under /docs/ass2_demo_video.mp4)*
+The video of the gameplay is here: 
 
-<iframe width="720" height="480" src="ass2_demo_video.mp4" align="middle" frameborder="0" allowfullscreen></iframe>
+![Gif of gamePlay of VuOrk](/Users/eduardolira/Desktop/textAdventure/docs/ass2_demo_gif.gif)
 
 <hr/>
 
