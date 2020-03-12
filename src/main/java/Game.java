@@ -4,7 +4,7 @@ public class Game {
 	private static Map map;
 	private static java.util.Date timestamp;
 
-	Game(){
+	Game() {
 		gamePlayer = new Player[4];
 		map = new Map();
 		timestamp = new java.util.Date();
