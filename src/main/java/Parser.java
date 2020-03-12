@@ -27,7 +27,7 @@ public class Parser {
 	}
 
 	protected Instruction getInstruction() {
-		String[] parts = getLineArray(); 
+		String[] parts = getLineArray();
 		while (parts[0] == null) {
 			parts = getLineArray();
 		}
