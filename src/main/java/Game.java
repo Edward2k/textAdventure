@@ -45,13 +45,12 @@ public class Game {
 		return map.getDescription(c);
 	}
 
-	
+
 	/*
 	** Move this somewhere else. Not here.
 	 */
 
 	public String validateCommand(Instruction command, Player player) {
-		System.out.println("VALIDATING COMMAND : " +  command);
 		isBusy = true; //enable lock.
 		String action = command.getAction();
 		String result;
