@@ -29,4 +29,8 @@ public class Instruction {
         return items;
     }
 
+    public String getFullCommand() {
+        return action + " " + items.toString();
+    }
+
 }

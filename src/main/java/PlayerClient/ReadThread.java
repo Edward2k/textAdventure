@@ -3,7 +3,6 @@ package PlayerClient;
 import java.io.*;
 import java.net.*;
 
-
 public class ReadThread extends Thread {
     private BufferedReader reader;
     private Socket socket;
@@ -26,7 +25,7 @@ public class ReadThread extends Thread {
         while (true) {
             try {
                 String response = reader.readLine();
-                System.out.println("\n" + response);
+                System.out.println(response);
             } catch (IOException ex) {
                 System.out.println("Error reading from server: " + ex.getMessage());
                 ex.printStackTrace();

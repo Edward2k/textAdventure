@@ -14,6 +14,7 @@ public class Game {
 		map = new Map();
 		timestamp = new java.util.Date();
 		PORT = 1234;
+		isBusy = false;
 	}
 
 	public boolean isGameBusy() {
@@ -44,6 +45,9 @@ public class Game {
 	public String getAreaDescription(Coordinate c) {
 		return map.getDescription(c);
 	}
+
+
+
 
 	/*
 	** Move this somewhere else. Not here.

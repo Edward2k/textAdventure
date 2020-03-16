@@ -25,9 +25,10 @@ public class PlayerThread extends Thread{
     public final void runPlayer() {
         //Loop prompt
         while(true) {
-            player.getInstruction();
             Instruction currCommand = player.getInstruction();      //Blocking command waiting for input
-            while (!server.isGameBusy()) {}                         //Wait for game to finish other process command.
+            System.out.println("INSTRUCTION : " + currCommand.getFullCommand());
+            while (server.isGameBusy()) {}                         //Wait for game to finish other process command.
+            System.out.println("SERVER NOT BUSY");
             String result = server.validateCommand(currCommand, player);
             player.output(result);
         }

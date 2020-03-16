@@ -26,10 +26,12 @@ public class Parser {
 
 	//Returns a String array where first element is action.
 	protected String getLine() {
+		String message = "";
 		try {
-			String s = input.readLine();
-			System.out.println("Recieved " + s);
-			return s;
+			while (message.isEmpty()) {
+				message = input.readLine();
+			}
+			return message;
 		} catch (IOException e) {
 			System.out.println("Could not get Input : " + e.getMessage());
 			return "";
