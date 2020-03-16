@@ -9,6 +9,7 @@ public class Player {
 
     private Parser parser;
     private Printer printer;
+    private Interface gameInterface;
 
     Player (Coordinate coord) {
         this.coord = coord;
@@ -18,10 +19,11 @@ public class Player {
         health = 100;
         parser = new Parser();
         printer = new Printer();
+        gameInterface = new Interface();
     }
 
     public Instruction getInstruction(){
-        return parser.getInstruction();
+        return parser.getInstruction(gameInterface);
     }
 
     public String getName() {
@@ -36,9 +38,9 @@ public class Player {
 
     public Coordinate position() {return coord;}
 
-    public void output(String s) {printer.output(s);}
+    public void output(String s) {printer.output(s, gameInterface);}
 
-    public String getLine() {return parser.getLine();}
+    public String getLine() {return parser.getLine(gameInterface);}
 
     public int getHealth () {
         return health;

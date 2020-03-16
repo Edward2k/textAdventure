@@ -1,5 +1,8 @@
+import javax.swing.*;
+import java.awt.*;
+
 public class Game {
-	
+
 	private Player[] gamePlayer;
 	private static Map map;
 	private static java.util.Date timestamp;
@@ -13,8 +16,10 @@ public class Game {
 	void startGame() {
 		//For the purpose of this game, we will be using only 1 player. multiplayer is easily expandable.
 		// If not, for each player you would have to open a new thread and window for them to play. OR network it.
+
 		gamePlayer[0] = new Player(map.getEntryPoint());
 		runPlayer(gamePlayer[0]);
+
 	}
 	
 	public static void main(String args[]) {
@@ -23,9 +28,9 @@ public class Game {
 
 	public static final void runPlayer(Player player) {
 		//LoginUserName
-		player.output("To join the VuORK realm, you need some sort of identification. So please, What is your name?");
+		player.output("To join the VuORK realm, you need some sort of identification. So please, What is your name?\n\n");
 		player.setName(player.getLine());
-		player.output("Welcome " + player.getName() + " to the world of VuOrk! <Print Help by typing 'Help'>\n======================================\n");
+		player.output("Welcome " + player.getName() + " to the world of VuOrk! <Print Help by typing 'Help'>\n\n======================================\n\n");
 		player.output(map.getDescription(player.position()));
 
 		//Loop prompt
@@ -54,7 +59,7 @@ public class Game {
 				giveHelpInstructions(player);
 				break;
 			default:
-				player.output("I do not understand " + action);
+				player.output("I do not understand " + action + "\n\n");
 		}
 	}
 
@@ -74,15 +79,16 @@ public class Game {
 				newPos = new Coordinate(player.position().x(), player.position().y() + 1);
 				break;
 			default:
-				player.output(" I do not know to move in the direction '" + direction + "'");
+				player.output(" I do not know to move in the direction '" + direction + "'\n\n");
 				return; //do not continue execution of this function
 		}
 
 		if (map.isValidMove(newPos)) {
 			player.movePlayer(newPos);
 			player.output(map.getDescription(newPos));
+			player.output("======================================\n\n");
 		} else {
-			player.output("There is nothing " + direction + " of where you are now.");
+			player.output("There is nothing " + direction + " of where you are now.\n\n");
 		}
 
 	}
