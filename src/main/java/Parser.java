@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.Socket;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -6,16 +11,33 @@ public class Parser {
 	private static final int MAX_WORDS_PER_COMMAND = 5;
 	private static final int START_OF_ITEMS = 1;
 	private static final int ACTION_WORD_POSITION = 0;
+	private Socket sock;
+	private BufferedReader input;
+
+	public Parser(Socket s) {
+		this.sock = s;
+		try {
+			input = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+		} catch (IOException e) {
+			System.out.println("Can not create Input stream from Socket.");
+			e.printStackTrace();
+		}
+	}
 
 	//Returns a String array where first element is action.
 	protected String getLine() {
-		Scanner in = new Scanner(System.in);
-		return in.nextLine();
+		try {
+			String s = input.readLine();
+			System.out.println("Recieved " + s);
+			return s;
+		} catch (IOException e) {
+			System.out.println("Could not get Input : " + e.getMessage());
+			return "";
+		}
 	}
 
 	private String[] getLineArray() {
-		Scanner parseScanner = new Scanner(System.in);
-		String line = parseScanner.nextLine();
+		String line = getLine();
 		line = line.toLowerCase();
 		Scanner lineScanner = new Scanner(line);
 		String[] command = new String[MAX_WORDS_PER_COMMAND];

@@ -1,18 +1,23 @@
-public class Printer {
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
 
-    private static final int CHARS_PER_LINE = 100;
-    void output(String output) {
-        boolean newLine = false;
-        for (int i = 0; i < output.length(); i++) {
-            if (i % CHARS_PER_LINE == 0 && i != 0) {newLine = true;}
-            if (newLine && output.charAt(i) == ' ') {
-                System.out.println();
-                i++;
-                newLine = false;
-            }
-            System.out.print(output.charAt(i));
+public class Printer {
+    private PrintWriter send;
+
+    public Printer(Socket s) {
+        try {
+            OutputStream outStream = s.getOutputStream();
+            send = new PrintWriter(outStream, true);
+        } catch (IOException e) {
+            System.out.println("Could not create player output");
+            e.printStackTrace();
         }
-        System.out.println();
+    }
+
+    void output(String output) {
+       send.println(output);
     }
 
 }
