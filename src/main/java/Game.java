@@ -1,69 +1,89 @@
-import javax.swing.*;
-import java.awt.*;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.List;
 
 public class Game {
 
-	private Player[] gamePlayer;
 	private static Map map;
 	private static java.util.Date timestamp;
+	private static int PORT;
+	private static boolean isBusy; //Will be used to handle any inconsistencies with multiple users. One process at a time.
 
-	Game(){
-		gamePlayer = new Player[4];
+	Game() {
 		map = new Map();
 		timestamp = new java.util.Date();
-	}
-	
-	void startGame() {
-		//For the purpose of this game, we will be using only 1 player. multiplayer is easily expandable.
-		// If not, for each player you would have to open a new thread and window for them to play. OR network it.
-
-		gamePlayer[0] = new Player(map.getEntryPoint());
-		runPlayer(gamePlayer[0]);
-
-	}
-	
-	public static void main(String args[]) {
-		new Game().startGame(); //Only 1 player
+		PORT = 1234;
+		isBusy = false;
 	}
 
-	public static final void runPlayer(Player player) {
-		//LoginUserName
-		player.output("To join the VuORK realm, you need some sort of identification. So please, What is your name?\n\n");
-		player.setName(player.getLine());
-		player.output("Welcome " + player.getName() + " to the world of VuOrk! <Print Help by typing 'Help'>\n\n======================================\n\n");
-		player.output(map.getDescription(player.position()));
+	public boolean isGameBusy() {
+		return isBusy;
+	}
 
-		//Loop prompt
-		while(true) {
-			Instruction currCommand = player.getInstruction(); //Blocking command waiting for input
-			validateCommand(currCommand, player); //validateCommand
+
+	void execute(){
+		try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+			while (true) {
+				Socket sock = serverSocket.accept();
+				System.out.println("New user connected.");
+
+				PlayerThread newUser = new PlayerThread(sock, this, map.getEntryPoint());
+				newUser.start(); //TODO : I think I did the threading correctly?
+			}
+		} catch (IOException e) {
+			System.out.println("Error in server: " + e);
+			e.printStackTrace();
 		}
 	}
 
-	public static void validateCommand(Instruction command, Player player) {
+	public static void main(String[] args) {
+		System.out.println("Ready to connect.");
+		new Game().execute();
+	}
+
+	public String getAreaDescription(Coordinate c) {
+		return map.getDescription(c);
+	}
+
+
+
+
+	/*
+	 ** Move this somewhere else. Not here.
+	 */
+
+	public String validateCommand(Instruction command, Player player) {
+		System.out.println("VALIDATING COMMAND : " +  command);
+		isBusy = true; //enable lock.
 		String action = command.getAction();
-		//Movement shortcut
-		if (isDirection(action)) {handleMove(action, player); return;}
+		String result;
 		switch(action) {
 			case "move":
-				handleMove(command.getItems().get(0), player);
+				result = handleMove(command.getItems().get(0), player);
 				break;
 			case "look":
-				player.output(map.getDescription(player.position()));
+				result = (map.getDescription(player.position()));
 				break;
 			case "list":
-				player.output("Need to implement this list later.");
+				result = ("Need to implement this list later.");
 				break;
 			case "help":
 			case "h":
-				giveHelpInstructions(player);
+				result = getHelpInstructions(player);
 				break;
 			default:
-				player.output("I do not understand " + action + "\n\n");
+				result = ("I do not understand " + action);
 		}
+
+		//Movement shortcut
+		if (isDirection(action)) { result = handleMove(action, player); }
+		isBusy = false; //release lock.
+		return result;
+
 	}
 
-	private static void handleMove(String direction, Player player) {
+	private static String handleMove(String direction, Player player) {
 		Coordinate newPos = null;
 		switch (direction) {
 			case "north":
@@ -79,16 +99,14 @@ public class Game {
 				newPos = new Coordinate(player.position().x(), player.position().y() + 1);
 				break;
 			default:
-				player.output(" I do not know to move in the direction '" + direction + "'\n\n");
-				return; //do not continue execution of this function
+				return(" I do not know to move in the direction '" + direction + "'");
 		}
 
 		if (map.isValidMove(newPos)) {
 			player.movePlayer(newPos);
-			player.output(map.getDescription(newPos));
-			player.output("======================================\n\n");
+			return map.getDescription(newPos);
 		} else {
-			player.output("There is nothing " + direction + " of where you are now.\n\n");
+			return ("There is nothing " + direction + " of where you are now.");
 		}
 
 	}
@@ -97,13 +115,13 @@ public class Game {
 		return d.equals("north") || d.equals("south") || d.equals("west") || d.equals("east");
 	}
 
-	private static void giveHelpInstructions(Player player) {
-		player.output("I see you are a noob, " + player.getName() + ". You are in the VuORK realm. To interact " +
+	private static String getHelpInstructions(Player player) {
+		return "I see you are a noob, " + player.getName() + ". You are in the VuORK realm. To interact " +
 				"with this realm, you must type a command with the form" +
 				"<action> <item> <proposition> <item>. An example would be 'Attack broom with sword'. For movement," +
 				"there are 2 ways to move: 'move' followed by either 'north', 'south, 'east' or 'west'. You can also " +
 				"simply type 'south' or any other direction as a shortcut. It is important to note that all inputs are " +
-				"NOT case sensitive! For a full list of commands, type 'List'. Good luck and have fun in VuORK");
+				"NOT case sensitive! For a full list of commands, type 'List'. Good luck and have fun in VuORK";
 	}
 
 

@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.Socket;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -6,27 +11,49 @@ public class Parser {
 	private static final int MAX_WORDS_PER_COMMAND = 5;
 	private static final int START_OF_ITEMS = 1;
 	private static final int ACTION_WORD_POSITION = 0;
+	private Socket sock;
+	private BufferedReader input;
 
-	//Returns a String array where first element is action.
-	protected String getLine(Interface gameInterface) {
-//		Scanner in = new Scanner(System.in);
-//		return in.nextLine();
-		String input = gameInterface.getInput();
-		return input;
+	public Parser(Socket s) {
+		this.sock = s;
+		try {
+			input = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+		} catch (IOException e) {
+			System.out.println("Can not create Input stream from Socket.");
+			e.printStackTrace();
+		}
 	}
 
-	private String[] getLineArray(String text) {
-		text = text.toLowerCase();
-		String[] command = text.split(" ");
+	//Returns a String array where first element is action.
+	protected String getLine() {
+		String message = "";
+		try {
+			while (message.isEmpty()) {
+				message = input.readLine();
+			}
+			return message;
+		} catch (IOException e) {
+			System.out.println("Could not get Input : " + e.getMessage());
+			return "";
+		}
+	}
+
+	private String[] getLineArray() {
+		String line = getLine();
+		line = line.toLowerCase();
+		Scanner lineScanner = new Scanner(line);
+		String[] command = new String[MAX_WORDS_PER_COMMAND];
+		int i = 0;
+		while(lineScanner.hasNext()) {
+			command[i++] = lineScanner.next();
+		}
 		return command;
 	}
 
-	protected Instruction getInstruction(Interface gameInterface) {
-		String text = gameInterface.getInput();
-		String[] parts = getLineArray(text);
+	protected Instruction getInstruction() {
+		String[] parts = getLineArray();
 		while (parts[0] == null) {
-			text = gameInterface.getInput();
-			parts = getLineArray(text);
+			parts = getLineArray();
 		}
 		String act = parts[ACTION_WORD_POSITION]; //Get first element for action
 		parts = Arrays.copyOfRange(parts, START_OF_ITEMS, MAX_WORDS_PER_COMMAND); //Each command can have max 4 words.

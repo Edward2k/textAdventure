@@ -1,3 +1,5 @@
+import java.net.Socket;
+
 public class Player {
 
     private String name;
@@ -9,21 +11,19 @@ public class Player {
 
     private Parser parser;
     private Printer printer;
-    private Interface gameInterface;
 
-    Player (Coordinate coord) {
+    Player (Socket sock, Coordinate coord) {
         this.coord = coord;
         this.backpack = new Item[]{};
         score = 0;
         moves = 0;
         health = 100;
-        parser = new Parser();
-        printer = new Printer();
-        gameInterface = new Interface();
+        parser = new Parser(sock);
+        printer = new Printer(sock);
     }
 
     public Instruction getInstruction(){
-        return parser.getInstruction(gameInterface);
+        return parser.getInstruction();
     }
 
     public String getName() {
@@ -38,9 +38,9 @@ public class Player {
 
     public Coordinate position() {return coord;}
 
-    public void output(String s) {printer.output(s, gameInterface);}
+    public void output(String s) {printer.output(s);}
 
-    public String getLine() {return parser.getLine(gameInterface);}
+    public String getLine() {return parser.getLine();}
 
     public int getHealth () {
         return health;
