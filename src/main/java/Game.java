@@ -1,14 +1,13 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
 
 public class Game {
 
 	private static Map map;
-	private static java.util.Date timestamp;
+	private static java.util.Date timestamp; //TODO : Neverused
 	private static int PORT;
-	private static boolean isBusy; //Will be used to handle any inconsistencies with multiple users. One process at a time.
+	private static boolean isBusy; //Spin lock in case 2 commands at same time.
 
 	Game() {
 		map = new Map();
@@ -22,33 +21,31 @@ public class Game {
 	}
 
 
-	void execute(){
+	void runServer(){
 		try (ServerSocket serverSocket = new ServerSocket(PORT)) {
 			while (true) {
 				Socket sock = serverSocket.accept();
-				System.out.println("New user connected.");
-
+				System.err.println("New user connected.");
+				//open new thread for new socket
 				PlayerThread newUser = new PlayerThread(sock, this, map.getEntryPoint());
-				newUser.start(); //TODO : I think I did the threading correctly?
+				newUser.start();
 			}
 		} catch (IOException e) {
-			System.out.println("Error in server: " + e);
+			System.err.println("Error in server: " + e);
 			e.printStackTrace();
 		}
 	}
 	
 	public static void main(String[] args) {
 		System.out.println("Ready to connect.");
-		new Game().execute();
+		new Game().runServer();
 	}
 
 	public String getAreaDescription(Coordinate c) {
 		return map.getDescription(c);
 	}
 
-
-
-
+	
 	/*
 	** Move this somewhere else. Not here.
 	 */
