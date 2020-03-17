@@ -6,10 +6,10 @@ import java.util.Scanner;
 
 public class WriteThread extends Thread {
     private PrintWriter writer;
-    private Socket socket;
+    private Socket sock;
 
     public WriteThread(Socket socket) {
-        this.socket = socket;
+        this.sock = socket;
 
         try {
             OutputStream output = socket.getOutputStream();
@@ -32,7 +32,7 @@ public class WriteThread extends Thread {
         } while (!text.equalsIgnoreCase("quit!"));
 
         try {
-            socket.close();
+            sock.close();
         } catch (IOException ex) {
             System.out.println("Error writing to server: " + ex.getMessage());
         }

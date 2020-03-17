@@ -6,7 +6,6 @@ import java.io.*;
 public class PlayerClient {
     private String hostname;
     private int port;
-    private String userName;
 
     public PlayerClient(String hostname, int port) {
         this.hostname = hostname;
