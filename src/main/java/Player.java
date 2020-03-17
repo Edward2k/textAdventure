@@ -1,10 +1,11 @@
 import java.net.Socket;
+import java.util.List;
 
 public class Player {
 
     private String name;
     private Coordinate coord;
-    private Item[] backpack;
+    private List<Item> backpack;
     private int score;
     private int moves;
     private int health;
@@ -14,7 +15,6 @@ public class Player {
 
     Player (Socket sock, Coordinate coord) {
         this.coord = coord;
-        this.backpack = new Item[]{};
         score = 0;
         moves = 0;
         health = 100;
@@ -46,7 +46,7 @@ public class Player {
         return health;
     }
 
-    public Item[] getBackpack () {
+    public List<Item> getBackpack () {
         return backpack;
     }
 }

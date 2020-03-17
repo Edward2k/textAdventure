@@ -3,14 +3,13 @@ import java.net.Socket;
 public class PlayerThread extends Thread{
     private final Player player;
     private final Game server;
-    private final Socket sock;
 
     public PlayerThread(Socket socket, Game server, Coordinate start) {
         this.player = new Player(socket, start);
         this.server = server;
-        this.sock = socket;
     }
 
+    @Override
     public void run() {
         welcomePlayer();
         runPlayer();

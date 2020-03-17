@@ -7,7 +7,7 @@ public class Game {
 	private static Map map;
 	private static java.util.Date timestamp; //TODO : Neverused
 	private static int PORT;
-	private static boolean isBusy; //Spin lock in case 2 commands at same time.
+	private boolean isBusy; //Spin lock in case 2 commands at same time.
 
 	Game() {
 		map = new Map();
@@ -20,8 +20,7 @@ public class Game {
 		return isBusy;
 	}
 
-
-	void runServer(){
+	private void runServer(){
 		try (ServerSocket serverSocket = new ServerSocket(PORT)) {
 			while (true) {
 				Socket sock = serverSocket.accept();
@@ -44,7 +43,6 @@ public class Game {
 	public String getAreaDescription(Coordinate c) {
 		return map.getDescription(c);
 	}
-
 
 	/*
 	** Move this somewhere else. Not here.
