@@ -71,3 +71,4 @@ Author(s): Marta Anna Jansone, Irene Garcia-Fortea Garcia
 | [fastjson ](https://github.com/alibaba/fastjson) | We will use it for reading JSON files that will contain the room descriptions in the game and the allowed commands, which the player can make. We chose this library as it provides functions to parse JSON objects to string for further string comparisons. The library also provides good documentation on GitHub. |
 | [Scanner](https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html) | We will use this library for acquiring user input. User input is required for the player to make moves and pick up objects when traversing the game. |
 | [JUnit ](https://junit.org/junit5/) | This library will be used to perform testing on our game. We choose this library as it is possible to easily set-up unit tests to test the performance of small parts of the game, for example, acquiring and comparing user input. |
+
