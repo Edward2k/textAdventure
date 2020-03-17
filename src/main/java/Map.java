@@ -1,3 +1,9 @@
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.util.Iterator;
+import java.util.Scanner;
+
 public class Map {
 
     private Area[][] map;
@@ -5,9 +11,58 @@ public class Map {
     private int mapSize;
 
     Map () {
-        mapSize = 0;
-        entryPoint = new Coordinate(0 ,0); // maybe read from file? JSON?
-        initDemoMap();
+        initMapFile();
+//        mapSize = 0;
+//        entryPoint = new Coordinate(0 ,0); // maybe read from file? JSON?
+    }
+
+    private void initMapFile() {
+        // read resource file and create Java JSON object
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream mapInputStream = null;
+        mapInputStream = classloader.getResourceAsStream("map.json");
+        Scanner mapInputScanner = new Scanner(mapInputStream);
+        StringBuffer mapStringBuffer = new StringBuffer();
+        while(mapInputScanner.hasNext()){
+            mapStringBuffer.append(mapInputScanner.nextLine().strip());
+        }
+        String mapContents = mapStringBuffer.toString();
+        JSONObject jsonObject = new JSONObject(mapContents);
+
+        // read entryPoint
+        entryPoint = readCoordinateFromString(jsonObject.get("entryPoint").toString());
+
+        // read mapSize
+        Scanner mapSizeScanner = new Scanner(jsonObject.get("mapSize").toString()).useDelimiter(",");
+        mapSize = mapSizeScanner.nextInt();
+
+        // read map
+        readMapJson(jsonObject.getJSONObject("map"));
+    }
+
+    private void readMapJson (JSONObject mapJson) {
+        // iterate over areas
+        Iterator<String> areaIterator  =  mapJson.keys();
+        map = new Area[mapSize][mapSize];
+        try{
+            while(areaIterator.hasNext()){
+                String areaCoordinateString = areaIterator.next();
+                Coordinate areaCoordinate = readCoordinateFromString(areaCoordinateString);
+                JSONObject areaContent = new JSONObject(mapJson.get(areaCoordinateString).toString());
+                map[areaCoordinate.x()][areaCoordinate.y()] = new Area(
+                        areaContent.get("name").toString(),
+                        areaContent.get("description").toString()
+                );
+            }
+        }
+        catch (Exception ex){
+            System.out.println("Map reading error: " + ex);
+        }
+    }
+
+    private Coordinate readCoordinateFromString (String input) {
+        Scanner coordinateScanner = new Scanner(input).useDelimiter(",");
+        return new Coordinate(coordinateScanner.nextInt(), coordinateScanner.nextInt());
     }
 
     //This simply makes a map to test movement.
