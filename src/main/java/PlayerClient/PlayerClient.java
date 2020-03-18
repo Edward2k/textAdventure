@@ -7,6 +7,7 @@ public class PlayerClient {
     private String hostname;
     private int port;
     private String userName;
+    public Interface gameInterface;
 
     public PlayerClient(String hostname, int port) {
         this.hostname = hostname;
@@ -21,6 +22,7 @@ public class PlayerClient {
 
             new ReadThread(socket, this).start();
             new WriteThread(socket, this).start();
+            gameInterface = new Interface();
 
         } catch (UnknownHostException ex) {
             System.out.println("Server not found: " + ex.getMessage());
