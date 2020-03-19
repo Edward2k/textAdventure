@@ -21,12 +21,13 @@ public class Map {
     private void initMapFile() {
         // read resource file and create Java JSON object
         InputStream mapInputStream = getClass().getClassLoader().getResourceAsStream("map.json");
+        assert mapInputStream != null;
         Scanner mapInputScanner = new Scanner(mapInputStream);
-        StringBuffer mapStringBuffer = new StringBuffer();
+        StringBuilder mapStringBuilder = new StringBuilder();
         while(mapInputScanner.hasNext()){
-            mapStringBuffer.append(mapInputScanner.nextLine().trim());
+            mapStringBuilder.append(mapInputScanner.nextLine().trim());
         }
-        String mapContents = mapStringBuffer.toString();
+        String mapContents = mapStringBuilder.toString();
         JSONObject jsonObject = new JSONObject(mapContents);
 
         // read entryPoint
