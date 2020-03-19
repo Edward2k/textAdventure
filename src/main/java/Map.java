@@ -24,7 +24,7 @@ public class Map {
         Scanner mapInputScanner = new Scanner(mapInputStream);
         StringBuffer mapStringBuffer = new StringBuffer();
         while(mapInputScanner.hasNext()){
-            mapStringBuffer.append(mapInputScanner.nextLine().strip());
+            mapStringBuffer.append(mapInputScanner.nextLine().trim());
         }
         String mapContents = mapStringBuffer.toString();
         JSONObject jsonObject = new JSONObject(mapContents);
