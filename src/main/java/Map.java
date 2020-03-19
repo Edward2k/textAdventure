@@ -1,5 +1,7 @@
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -18,9 +20,7 @@ public class Map {
 
     private void initMapFile() {
         // read resource file and create Java JSON object
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream mapInputStream = null;
-        mapInputStream = classloader.getResourceAsStream("map.json");
+        InputStream mapInputStream = getClass().getClassLoader().getResourceAsStream("map.json");
         Scanner mapInputScanner = new Scanner(mapInputStream);
         StringBuffer mapStringBuffer = new StringBuffer();
         while(mapInputScanner.hasNext()){
