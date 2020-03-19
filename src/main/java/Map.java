@@ -1,7 +1,5 @@
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -14,8 +12,6 @@ public class Map {
 
     Map () {
         initMapFile();
-//        mapSize = 0;
-//        entryPoint = new Coordinate(0 ,0); // maybe read from file? JSON?
     }
 
     private void initMapFile() {

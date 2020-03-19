@@ -1,9 +1,10 @@
 
-Usquid:S1135Q"2Complete the task associated to this TODO comment.(ÌÕÐ¬üÿÿÿÿ8‡ä®ÌŽ.
-bsquid:S2095@"EUse try-with-resources or close this "Scanner" in a "finally" clause.(‰õó8“³¯ÌŽ.
-5squid:S1700	"Rename field "map"(Ý­æÅüÿÿÿÿ8‡ä®ÌŽ.
-asquid:UnusedPrivateMethodE"0Remove this unused private "initDemoMap" method.(åÓëûýÿÿÿÿ8‡ä®ÌŽ.
-‚squid:S1149"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(õ­þ¦þÿÿÿÿ8“³¯ÌŽ.
-hsquid:S2095$"EUse try-with-resources or close this "Scanner" in a "finally" clause.(Šå¼ôþÿÿÿÿ8“³¯ÌŽ.
-hsquid:CommentedOutCodeLineS"<This block of commented-out lines of code should be removed.(ìÀª8‡ä®ÌŽ.
-isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Â½òÁ8‡ä®ÌŽ.
+bsquid:S2095A"EUse try-with-resources or close this "Scanner" in a "finally" clause.(‰õó8“³¯ÌŽ.
+hsquid:S2095%"EUse try-with-resources or close this "Scanner" in a "finally" clause.(Šå¼ôþÿÿÿÿ8¿âæ.
+Tsquid:UselessImportCheck")Remove this unused import 'java.io.File'.(†Ð¥Å8é¶—.
+asquid:UnusedPrivateMethodF"0Remove this unused private "initDemoMap" method.(åÓëûýÿÿÿÿ8‡ä®ÌŽ.
+hsquid:CommentedOutCodeLineT"<This block of commented-out lines of code should be removed.(ìÀª8‡ä®ÌŽ.
+5squid:S1700"Rename field "map"(Ý­æÅüÿÿÿÿ8ùì¡.
+_squid:UselessImportCheck"4Remove this unused import 'java.io.FileInputStream'.(˜³ÉÓ8ùì¡.
+Usquid:S1135R"2Complete the task associated to this TODO comment.(ÌÕÐ¬üÿÿÿÿ8‡ä®ÌŽ.
+isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Â½òÁ8ùì¡.

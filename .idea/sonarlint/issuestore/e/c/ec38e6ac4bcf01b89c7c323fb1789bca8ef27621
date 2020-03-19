@@ -1,3 +1,2 @@
 
-wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Œú—ıÿÿÿÿ
-Hsquid:S1068	",Remove this unused "userName" private field.(Û”øÚøÿÿÿÿ
+bsquid:S2095"DUse try-with-resources or close this "Socket" in a "finally" clause.(ıİ‰›8¬æˆ.
