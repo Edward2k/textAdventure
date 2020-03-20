@@ -13,8 +13,6 @@ Z
 *src/main/java/PlayerClient/ReadThread.java,9/b/9bcea9f2c5aff8b93667778285f91cf4e162da04
 <
 build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
-K
-src/main/resources/map.json,d/0/d039aa50e54f03be6ccdb64d621bf6aed41eb78c
 U
 %out/artifacts/GameServer_jar/map.json,3/9/392f39708e79999d66d2c07b0e7c87e876a37711
 I

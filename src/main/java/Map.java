@@ -29,11 +29,11 @@ public class Map {
         }
         String mapContents = mapStringBuilder.toString();
         JSONObject jsonObject = new JSONObject(mapContents);
-//
-//        // read entryPoint
+
+//        read entryPoint
         entryPoint = readCoordinateFromString(jsonObject.get("entryPoint").toString());
-//
-//        // read mapSize
+
+//        read mapSize
         Scanner mapSizeScanner = new Scanner(jsonObject.get("mapSize").toString()).useDelimiter(",");
         mapSize = mapSizeScanner.nextInt();
 
@@ -70,6 +70,7 @@ public class Map {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream itemInputStream = null;
         itemInputStream = classloader.getResourceAsStream("items.json");
+        assert itemInputStream != null;
         Scanner itemInputScanner = new Scanner(itemInputStream);
         StringBuffer itemStringBuffer = new StringBuffer();
         while(itemInputScanner.hasNext()){
@@ -131,17 +132,6 @@ public class Map {
         }
     }
 
-    //This simply makes a map to test movement.
-    private void initDemoMap() {
-        entryPoint = new Coordinate(2, 1);
-        mapSize = 3;
-        map = new Area[mapSize][mapSize];
-//        |  N |    N      |  Eating Area      |
-//        |  N | LOBBY     |  Cafeteria        |
-//        |  N | Entrance  |        N          |
-
-//       TODO:  Make the ITEM CLASS!!
-    }
 
     public String getDescription(Coordinate c) {
         int x = c.x();
