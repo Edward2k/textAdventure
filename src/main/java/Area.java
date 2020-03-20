@@ -30,7 +30,9 @@ public class Area {
     public final void addItem(Item i) { this.items.add(i); }
 
     public final void removeItem(Item i) {
-
+        this.items.remove(i);
     }
+
+    public List<Item> getItems() { return items; }
 
 }

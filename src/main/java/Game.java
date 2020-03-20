@@ -3,6 +3,7 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import com.google.gson.JsonElement;
@@ -71,8 +72,13 @@ public class Game {
 			case "list":
 				result = ("Need to implement this list later.");
 				break;
+			case "drop":
+				result = handleItem(command.getItems().get(0), player, player.getBackpack(), action);
+				break;
 			case "take":
-				result = handleItem(command.getItems().get(0), player);
+			case "get":
+				result = handleItem(command.getItems().get(0), player, map.getArea(player.position().x(),player.position().y()).getItems(), action);
+				break;
 			case "help":
 			case "h":
 				result = getHelpInstructions(player);
@@ -88,8 +94,27 @@ public class Game {
 
 	}
 
-	private static String handleItem(String item, Player player) {
-		return "";
+	private static String handleItem(String item, Player player, List<Item> contents, String action) {
+		Item toRemove = null;
+		for(Item i : contents) {
+			if(i.getName().equals(item)) {
+				toRemove = i;
+			}
+		}
+		if(toRemove == null) {
+			if(action.equals("drop")) {return "You cannot drop what you do not have, there is not " + item + " in your backpack.";}
+			else { return "I don't see " + item + " anywhere in here."; }
+		} else {
+			if(action.equals("drop")) {
+				map.getArea(player.position().x(),player.position().y()).addItem(toRemove);
+				player.removeItem(toRemove);
+				return "Your backpack is so much lighter when there is no " + item + " in it.";
+			} else {
+				map.getArea(player.position().x(),player.position().y()).removeItem(toRemove);
+				player.addItem(toRemove);
+				return "Nice! You now have a " + item + " in your backpack";
+			}
+		}
 	}
 
 	private static String handleMove(String direction, Player player) {

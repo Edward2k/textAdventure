@@ -1,4 +1,5 @@
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -20,6 +21,7 @@ public class Player {
         health = 100;
         parser = new Parser(sock);
         printer = new Printer(sock);
+        backpack = new ArrayList<Item>();
     }
 
     public Instruction getInstruction(){
@@ -49,4 +51,8 @@ public class Player {
     public List<Item> getBackpack () {
         return backpack;
     }
+
+    public void addItem(Item i) { backpack.add(i); }
+
+    public final void removeItem(Item i) { backpack.remove(i); }
 }

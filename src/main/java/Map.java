@@ -2,10 +2,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Map {
 
@@ -15,7 +12,6 @@ public class Map {
 
     Map () {
         initMapFile();
-        initItemsFile();
     }
 
     private void initMapFile() {
@@ -54,6 +50,8 @@ public class Map {
                         areaContent.get("name").toString(),
                         areaContent.get("description").toString()
                 );
+                JSONObject areaItems = new JSONObject(areaContent.get("items").toString());
+                addAreaItems(map[areaCoordinate.x()][areaCoordinate.y()], areaItems);
             }
         }
         catch (Exception ex){
@@ -66,40 +64,26 @@ public class Map {
         return new Coordinate(coordinateScanner.nextInt(), coordinateScanner.nextInt());
     }
 
-    private void initItemsFile() {
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream itemInputStream = null;
-        itemInputStream = classloader.getResourceAsStream("items.json");
-        assert itemInputStream != null;
-        Scanner itemInputScanner = new Scanner(itemInputStream);
-        StringBuffer itemStringBuffer = new StringBuffer();
-        while(itemInputScanner.hasNext()){
-            itemStringBuffer.append(itemInputScanner.nextLine().trim());
-        }
+    private void addAreaItems(Area area, JSONObject items) {
+        JSONObject basicItems = items.getJSONObject("basicItems");
+        JSONObject containers = items.getJSONObject("containers");
 
-        String itemContents = itemStringBuffer.toString();
-        JSONObject jsonObject = new JSONObject(itemContents);
-
-        // read basic items
-        readBasicItems(jsonObject.getJSONObject("basicItems"));
-
-        // read containers
-        readContainer(jsonObject.getJSONObject("containers"));
-
+        addBasicItems(basicItems, area);
+        addContainers(containers, area);
     }
 
-    private List<BasicItem> readBasicItems(JSONObject basicItems) {
+
+    private List<BasicItem> addBasicItems(JSONObject basicItems, Area area) {
         List<BasicItem> items =  new ArrayList<BasicItem>();
+        List<String> canBe =  new ArrayList<String>();
         Iterator<String> itemIterator  =  basicItems.keys();
         try{
             while(itemIterator.hasNext()){
                 String itemString = itemIterator.next(); //the ID
                 JSONObject itemContent = new JSONObject(basicItems.get(itemString).toString()); //contains name and coordinate
-                String itemAreaString = itemContent.get("coordinate").toString();
                 String itemName = itemContent.get("name").toString();
-                Coordinate itemArea = readCoordinateFromString(itemAreaString); //the coordinate of the ite
-                BasicItem newItem = new BasicItem(itemName, Integer.parseInt(itemString));
-                map[itemArea.x()][itemArea.y()].addItem(newItem);
+                BasicItem newItem = new BasicItem(itemName, Integer.parseInt(itemString), getActions(itemContent.get("canBe").toString()), getActions(itemContent.get("usedTo").toString()));
+                area.addItem(newItem);
                 items.add(newItem);
             }
         }
@@ -109,22 +93,23 @@ public class Map {
         return items;
     }
 
-    private void readContainer(JSONObject containers) {
+    private List<String> getActions(String actions) {
+        return new ArrayList<>(Arrays.asList(actions.split(",")));
+    }
+
+    private void addContainers(JSONObject containers, Area area) {
         Iterator<String> containerIterator  =  containers.keys();
         try{
             while(containerIterator.hasNext()){
                 String containerString = containerIterator.next(); //the ID
                 JSONObject containerContent = new JSONObject(containers.get(containerString).toString()); //contains name, coordinate, description and entities
 
-                String containerAreaString = containerContent.get("coordinate").toString();
                 String containerName = containerContent.get("name").toString(); // the name of the container
                 String containerDescription = containerContent.get("description").toString();
                 JSONObject containerEntities = new JSONObject(containerContent.get("entities").toString());
-                List<BasicItem> basicItems = readBasicItems(containerEntities);
+                List<BasicItem> basicItems = addBasicItems(containerEntities, area);
 
-                Coordinate containerArea = readCoordinateFromString(containerAreaString); //the coordinate of the container
-
-                map[containerArea.x()][containerArea.y()].addItem(new Container(containerName, Integer.parseInt(containerString), containerDescription, basicItems));
+                area.addItem(new Container(containerName, Integer.parseInt(containerString), containerDescription, basicItems));
             }
         }
         catch (Exception ex) {
@@ -149,4 +134,5 @@ public class Map {
         return false;
     }
 
+    public Area getArea(int x, int y) { return map[x][y]; }
 }
