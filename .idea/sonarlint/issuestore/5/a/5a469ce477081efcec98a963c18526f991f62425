@@ -1,6 +1,11 @@
 
-Msquid:S2696N"6Make the enclosing method "static" or remove this set.(™ğôø
-Rsquid:S26967"6Make the enclosing method "static" or remove this set.(¼ƒèÄşÿÿÿÿ
-?squid:S1148#"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-Psquid:S1135"2Complete the task associated to this TODO comment.(´Ğò¶8ŒÍè›.
-Dsquid:S1068"-Remove this unused "timestamp" private field.(´Ğò¶
+csquid:UselessImportCheck"8Remove this unused import 'com.google.gson.JsonElement'.(ğ†˜³8Ö¸¬Ì.
+`squid:UselessImportCheck"0Remove this unused import 'org.json.JSONObject'.(œÖ´üşÿÿÿÿ8Ö¸¬Ì.
+^squid:UselessImportCheck".Remove this unused import 'java.util.Scanner'.(ÒÜÅ¸úÿÿÿÿ8Ö¸¬Ì.
+Psquid:S1135"2Complete the task associated to this TODO comment.(´Ğò¶8ÌËû.
+bsquid:UselessImportCheck	"7Remove this unused import 'com.google.gson.JsonObject'.(µÊ´½8Ö¸¬Ì.
+Zsquid:UselessImportCheck"/Remove this unused import 'java.util.Iterator'.(¥ÍòÕ8Ö¸¬Ì.
+[squid:UselessImportCheck"0Remove this unused import 'java.io.InputStream'.(¹»º8Ö¸¬Ì.
+bsquid:UselessImportCheck
+"7Remove this unused import 'com.google.gson.JsonParser'.(Œƒ¸Æ8Ö¸¬Ì.
+Ksquid:S1068"-Remove this unused "timestamp" private field.(´Ğò¶8ÌËû.

@@ -11,8 +11,13 @@ public class PlayerThread extends Thread{
 
     @Override
     public void run() {
-        welcomePlayer();
-        runPlayer();
+        try {
+            welcomePlayer();
+            runPlayer();
+        } catch (NullPointerException e) {
+            System.err.println("The cleint at Thread " + Thread.currentThread().getName() + " has unexpectedly quit.\nKilling Thread");
+            Thread.yield();
+        }
     }
 
     private void welcomePlayer() {

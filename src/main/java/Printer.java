@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Printer {
-    private static PrintWriter sender;
+    private PrintWriter sender;
 
     public Printer(Socket s) {
         try {

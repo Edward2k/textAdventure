@@ -16,21 +16,18 @@ public class Map {
     Map () {
         initMapFile();
         initItemsFile();
-//        mapSize = 0;
-//        entryPoint = new Coordinate(0 ,0); // maybe read from file? JSON?
     }
 
     private void initMapFile() {
         // read resource file and create Java JSON object
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream mapInputStream = null;
-        mapInputStream = classloader.getResourceAsStream("map.json");
+        InputStream mapInputStream = getClass().getClassLoader().getResourceAsStream("map.json");
+        assert mapInputStream != null;
         Scanner mapInputScanner = new Scanner(mapInputStream);
-        StringBuffer mapStringBuffer = new StringBuffer();
+        StringBuilder mapStringBuilder = new StringBuilder();
         while(mapInputScanner.hasNext()){
-            mapStringBuffer.append(mapInputScanner.nextLine().trim());
+            mapStringBuilder.append(mapInputScanner.nextLine().trim());
         }
-        String mapContents = mapStringBuffer.toString();
+        String mapContents = mapStringBuilder.toString();
         JSONObject jsonObject = new JSONObject(mapContents);
 //
 //        // read entryPoint
