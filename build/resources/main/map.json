@@ -1,21 +1,81 @@
-{ "mapSize": 3,
-  "entryPoint": "2,1",
+{ "mapSize": 7,
+  "entryPoint": "2,0",
   "map": {
-    "2,1": {
-      "name": "Entrance",
-      "description": "It is a quiet Friday morning and you find yourself directly infront of the of the VU main building. For some reason, you can not leave this area, and are forced to move north of where you are now."
-      },
-    "1,1": {
-      "name": "Lobby",
-      "description": "Everything is quieter than usual in the Lobby. The lights are off and it is, thus, darker than usual. You do, however, see a light to your East."
+    "4,3": {
+      "name": "Computer Room",
+      "description": "At the end of the room you notice that one of the computers is still turned on. When you approach the screen you see that someone left in a hurry. Most of their stuff is still here - multiple books, notebooks and a pocket knife."
     },
-    "1,2": {
+    "2,0": {
+      "name": "Tram Stop",
+      "description": "You're looking for ways to get into the building but there is a security guard blocking the entrance. You are exploring your surroundings and notice a wallet on the ground."
+    },
+    "5,1": {
       "name": "Cafeteria",
-      "description": "The cafeteria is, like the lobby, empty. You do, however, hear some noise... you just can't tell from where :O"
+      "description": "Who is cooking so late?! Oh he looks angry, although you would also probably be if you had to cook this late."
     },
-    "0,2": {
-      "name": "Eating area",
-      "description": "You found the noise! It is coming from some rats eating a rotten sandwich. Also worth noting that, if your made it here, it is the end of the DEMO map :p"
+    "6,1": {
+      "name": "Church",
+      "description": "Hozier? Is that you?! Did somebody finally take you to church or did you take the tram here as well? God, you really are sleep-deprived. Looks like the rats have no respect for a holy place - you think to yourself as you see another rat poison"
+    },
+    "0,1": {
+      "name": "Basement",
+      "description": "Finally! After all of these hours and a single cup of coffee you have found Thilo. Don't forget to mention that your grade needs some revision;)"
+    },
+    "2,1": {
+      "name": "Lobby",
+      "description": "When entering the building you almost slip on a doormat, weird, it usually isn't there. Everything is quieter than usual in the Lobby. The lights are off and it is, thus, darker than usual."
+    },
+    "1,1": {
+      "name": "North Side of the Lobby",
+      "description": "There is a comfortable looking sofa and although you are tired FOCUS on your goal!! "
+    },
+    "3,1": {
+      "name": "South Side of the Lobby",
+      "description": "Although the lightning is dim you can see a water bottle standing on a table in the south corner of the lobby. And of course, as the whole Amsterdam is, the VU is also dealing with pest infestation - you think to yourself as you spot a rat poison laying on the ground. Thinking of this, thankfully, makes your late night cravings disappear."
+    },
+    "4,1": {
+      "name": "Spar",
+      "description":  "What a temptation! A fully stocked Spar with even less security than usual, but the techno music is still on! Maybe a little bit wouldn't hurt - you think to yourself when you notice a slice of pizza out of the corner of your eye."
+    },
+    "5,2": {
+      "name": "Donkey Kong",
+      "description": "It looks like you have entered a rain forest looking room! The humidity in here makes yor glasses fog up but you easily get used to it. The sound of the birds makes you relax and for a second you even forget all the stress you re going through in this sleep-deprived adventure. LOOK OUT!! There is a sleeping Donkey Kong in the corner about to wake up."
+    },
+    "2,2": {
+      "name": "Mirror Room",
+      "description": "Wow! You've never seen this room before. Looking your best this late at night is certainly an impossible mission - did I look like this the entire party?! The room looks like something out of a circus. There are so many mirrors here!"
+    },
+    "3,3": {
+      "name": "Aula",
+      "description": "Everything is prepared for this years graduation, ohhh, how you wish you had passed Computer Programming, maybe you would also be graduating. Perhaps if you save Thilo he will make an exception."
+    },
+    "5,3": {
+      "name": "Maintenance Closet",
+      "description": "You find your self in a very small space. It must be less than 5 square meters in here! It's almost as big as your overpriced Amsterdam studio apartment! As you are no stranger to this confined space you can see that the room you are in is a maintenance closet - there is a broom, a mop, a bleach bottle, plastic gloves... But perhaps the most interesting thing are the night vision goggles on the top of the shelf."
+    },
+    "2,5": {
+      "name": "Bathroom",
+      "description": "What is that smell?! Did someone forget to... Before you can finish your thought there is a loud barking sound coming from next door."
+    },
+    "3,5": {
+      "name": "Women's Bathroom",
+      "description": "Unfortunately (or perhaps fortunately) the sound isn't coming from here. But, God, does this place have an issue with rats! - you spot yet another rat poison lying next to the door. Isn't it a bit dangerous to keep it in the bathroom?"
+    },
+    "1,5": {
+      "name": "Men's Bathroom",
+      "description": "As soon as you open the door there is a big dog coming towards you. Who the hell forgot their dog in the university?! He must be starving or you're in big trouble."
+    },
+    "2,3": {
+      "name": "TA Office",
+      "description": "What an unfamiliar place, the TA office. You wonder whether they talk about you during their meetings and how you have missed almost all of the practicals. On top of the stack of graded papers, someone has forgotten their TA card - fancy a free coffee?"
+    },
+    "2,4": {
+      "name": "Fish Bowl",
+      "description": "Ohh, the fish bowl class, you can never focus on what the lecturer is saying with so many things happening around you. You've never seen this room so empty as you always arrive late to class and there are no seats left. Next to some white board markers you see yet another rat poison, maybe this university should hire someone to deal with this problem professionally. "
+    },
+    "1,3": {
+      "name": "Student Desk",
+      "description": "Take a moment reflect on your journey. Next to the lounge area you see a coffee machine - thirsty?"
     }
   }
 }

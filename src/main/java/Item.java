@@ -4,14 +4,11 @@ public abstract class Item {
 
     Item(String name1, int id) {
         this.name = name1;
-        ID = id;
+        this.ID = id;
     }
 
-    public final String getName() {
-        return name;
-    }
+    public final String getName() { return name; }
 
-    public final int getID() {
-        return ID;
-    }
+    public final int getID() { return ID; }
+
 }

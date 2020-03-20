@@ -71,6 +71,8 @@ public class Game {
 			case "list":
 				result = ("Need to implement this list later.");
 				break;
+			case "take":
+				result = handleItem(command.getItems().get(0), player);
 			case "help":
 			case "h":
 				result = getHelpInstructions(player);
@@ -84,6 +86,10 @@ public class Game {
 		isBusy = false; //release lock.
 		return result;
 
+	}
+
+	private static String handleItem(String item, Player player) {
+		return "";
 	}
 
 	private static String handleMove(String direction, Player player) {

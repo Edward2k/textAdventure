@@ -18,7 +18,9 @@ public class PlayerThread extends Thread{
     private void welcomePlayer() {
         player.output("To join the VuORK realm, you need some sort of identification. So please, What is your name?");
         player.setName(player.getLine());
-        player.output("Welcome " + player.getName() + " to the world of VuOrk! <Print Help by typing 'Help'>\n======================================\n" + server.getAreaDescription(player.position()));
+        player.output("Welcome " + player.getName() + " to the world of VuOrk! <Print Help by typing 'Help'>\n======================================\n");
+        player.output("It's a Saturday night, 3am, and you are coming from a party at Uilenstede. There has been an emergency canvas notification of professor Thilo being held against his will somewhere in the main building of the VU. You will have to save him before the sun rises. Good luck in your adventure!\n======================================\n");
+        player.output(server.getAreaDescription(player.position()));
     }
 
     public final void runPlayer() {

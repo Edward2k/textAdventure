@@ -1,7 +1,10 @@
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 public class Map {
@@ -12,6 +15,7 @@ public class Map {
 
     Map () {
         initMapFile();
+        initItemsFile();
 //        mapSize = 0;
 //        entryPoint = new Coordinate(0 ,0); // maybe read from file? JSON?
     }
@@ -24,15 +28,15 @@ public class Map {
         Scanner mapInputScanner = new Scanner(mapInputStream);
         StringBuffer mapStringBuffer = new StringBuffer();
         while(mapInputScanner.hasNext()){
-            mapStringBuffer.append(mapInputScanner.nextLine().strip());
+            mapStringBuffer.append(mapInputScanner.nextLine().trim());
         }
         String mapContents = mapStringBuffer.toString();
         JSONObject jsonObject = new JSONObject(mapContents);
-
-        // read entryPoint
+//
+//        // read entryPoint
         entryPoint = readCoordinateFromString(jsonObject.get("entryPoint").toString());
-
-        // read mapSize
+//
+//        // read mapSize
         Scanner mapSizeScanner = new Scanner(jsonObject.get("mapSize").toString()).useDelimiter(",");
         mapSize = mapSizeScanner.nextInt();
 
@@ -65,6 +69,71 @@ public class Map {
         return new Coordinate(coordinateScanner.nextInt(), coordinateScanner.nextInt());
     }
 
+    private void initItemsFile() {
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream itemInputStream = null;
+        itemInputStream = classloader.getResourceAsStream("items.json");
+        Scanner itemInputScanner = new Scanner(itemInputStream);
+        StringBuffer itemStringBuffer = new StringBuffer();
+        while(itemInputScanner.hasNext()){
+            itemStringBuffer.append(itemInputScanner.nextLine().trim());
+        }
+
+        String itemContents = itemStringBuffer.toString();
+        JSONObject jsonObject = new JSONObject(itemContents);
+
+        // read basic items
+        readBasicItems(jsonObject.getJSONObject("basicItems"));
+
+        // read containers
+        readContainer(jsonObject.getJSONObject("containers"));
+
+    }
+
+    private List<BasicItem> readBasicItems(JSONObject basicItems) {
+        List<BasicItem> items =  new ArrayList<BasicItem>();
+        Iterator<String> itemIterator  =  basicItems.keys();
+        try{
+            while(itemIterator.hasNext()){
+                String itemString = itemIterator.next(); //the ID
+                JSONObject itemContent = new JSONObject(basicItems.get(itemString).toString()); //contains name and coordinate
+                String itemAreaString = itemContent.get("coordinate").toString();
+                String itemName = itemContent.get("name").toString();
+                Coordinate itemArea = readCoordinateFromString(itemAreaString); //the coordinate of the ite
+                BasicItem newItem = new BasicItem(itemName, Integer.parseInt(itemString));
+                map[itemArea.x()][itemArea.y()].addItem(newItem);
+                items.add(newItem);
+            }
+        }
+        catch (Exception ex) {
+            System.out.println("BasicItem reading error: " + ex);
+        }
+        return items;
+    }
+
+    private void readContainer(JSONObject containers) {
+        Iterator<String> containerIterator  =  containers.keys();
+        try{
+            while(containerIterator.hasNext()){
+                String containerString = containerIterator.next(); //the ID
+                JSONObject containerContent = new JSONObject(containers.get(containerString).toString()); //contains name, coordinate, description and entities
+
+                String containerAreaString = containerContent.get("coordinate").toString();
+                String containerName = containerContent.get("name").toString(); // the name of the container
+                String containerDescription = containerContent.get("description").toString();
+                JSONObject containerEntities = new JSONObject(containerContent.get("entities").toString());
+                List<BasicItem> basicItems = readBasicItems(containerEntities);
+
+                Coordinate containerArea = readCoordinateFromString(containerAreaString); //the coordinate of the container
+
+                map[containerArea.x()][containerArea.y()].addItem(new Container(containerName, Integer.parseInt(containerString), containerDescription, basicItems));
+            }
+        }
+        catch (Exception ex) {
+            System.out.println("BasicItem reading error: " + ex);
+        }
+    }
+
     //This simply makes a map to test movement.
     private void initDemoMap() {
         entryPoint = new Coordinate(2, 1);
@@ -73,14 +142,8 @@ public class Map {
 //        |  N |    N      |  Eating Area      |
 //        |  N | LOBBY     |  Cafeteria        |
 //        |  N | Entrance  |        N          |
-        map[2][1] = new Area("Entrance", "It is a quiet Friday morning and you find yourself directly infront of the " +
-                "of the VU main building. For some reason, you can not leave this area, and are forced to move north of where you are now.");
-        map[1][1] = new Area("Lobby", "Everything is quieter than usual in the Lobby. The lights are off and it is, thus, darker than usual. You do, however, see a light to your East.");
-        map[1][2] = new Area("Cafeteria", "The cafeteria is, like the lobby, empty. You do, however, hear some noise... you just can't tell from where :O");
-        map[0][2] = new Area("Eating area", "You found the noise! It is coming from some rats eating a rotten sandwich. Also worth noting that, if your made it here, it is the end of the DEMO map :p");
-//       TODO:  Make the ITEM CLASS!!
 
-//        map[0][2].addItem(new Item());
+//       TODO:  Make the ITEM CLASS!!
     }
 
     public String getDescription(Coordinate c) {

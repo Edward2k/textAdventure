@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 
 public class Area {
 
@@ -11,6 +12,7 @@ public class Area {
     Area (String name, String description) {
         this.name = name;
         this.description = description;
+        this.items = new ArrayList<Item>();
     }
 
     public String getName() {
@@ -25,8 +27,10 @@ public class Area {
         return obstacleNeutralized;
     }
 
-    public final void addItem(Item i) {
-        this.items.add(i);
+    public final void addItem(Item i) { this.items.add(i); }
+
+    public final void removeItem(Item i) {
+
     }
 
 }
