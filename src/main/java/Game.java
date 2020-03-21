@@ -112,7 +112,7 @@ public class Game {
 		String giveWhat = items.get(0);
 		String toWhat = items.get(2);
 		if(hasItem(player.getBackpack(), giveWhat) == null) {return "You do not have a " + giveWhat + " in your backpack.";}
-		if (!items.get(1).equals("to")) {return "I do not understand give " + items;}
+		if (!items.get(1).equals("to")) {return "I do not understand what you mean";}
 		if(!neutralizeObstacles(player.position().x(), player.position().y(), giveWhat, toWhat)) { return "There is no " + toWhat + " in this room."; }
 		return "You have neutralized the obstacle, cool! ";
 	}

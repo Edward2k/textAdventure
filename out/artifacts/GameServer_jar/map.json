@@ -217,7 +217,15 @@
     },
     "3,5": {
       "name": "Women's Bathroom",
-      "description": "Unfortunately (or perhaps fortunately) the sound isn't coming from here. But, God, does this place have an issue with rats! - you spot yet another rat poison lying next to the door. Isn't it a bit dangerous to keep it in the bathroom?",
+      "description": "Unfortunately (or perhaps fortunately) the sound isn't coming from here.",
+      "items": {
+        "basicItems": {},
+        "containers": {}
+      }
+    },
+    "1,5": {
+      "name": "Men's Bathroom",
+      "description": "You sure are happy that you had that pizza with you. The dog looks so calm now - you think to yourself as you spot yet another rat poison. Isn't it a bit dangerous to keep it in the bathroom?",
       "items": {
         "basicItems": {
           "17": {
@@ -227,14 +235,11 @@
           }
         },
         "containers": {}
-      }
-    },
-    "1,5": {
-      "name": "Men's Bathroom",
-      "description": "As soon as you open the door there is a big dog coming towards you. Who the hell forgot their dog in the university?! He must be starving or you're in big trouble.",
-      "items": {
-        "basicItems": {},
-        "containers": {}
+      },
+      "obstacle": {
+        "name":"dog",
+        "description": "As soon as you try to open the door there is a big dog coming towards you. Who the hell forgot their dog in the university?! ",
+        "toNeutralize": "pizza"
       }
     },
     "2,3": {
