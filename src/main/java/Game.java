@@ -82,6 +82,9 @@ public class Game {
 			case "give":
 				result = giveItem(command.getItems(), player);
 				break;
+			case "score":
+				result = "Your score is currently: " + player.getScore();
+				break;
 			case "help":
 			case "h":
 				result = getHelpInstructions(player);
@@ -117,7 +120,7 @@ public class Game {
 
 	//TODO: This needs to be simplified :O
 	private static boolean neutralizeObstacles(int x, int y, String toNeutralize, String who) {
-		List<Coordinate> areasToNeutralize = new ArrayList<>() {
+		List<Coordinate> areasToNeutralize = new ArrayList<Coordinate>() {
 			{
 				add(new Coordinate(x + 1, y));
 				add(new Coordinate(x, y - 1));
@@ -158,7 +161,7 @@ public class Game {
 	}
 
 	private static String handleMove(String direction, Player player) {
-		Coordinate newPos = null;
+		Coordinate newPos;
 		switch (direction) {
 			case "north":
 				newPos = new Coordinate(player.position().x() - 1, player.position().y());

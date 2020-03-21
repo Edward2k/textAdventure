@@ -7,18 +7,17 @@ public class Player {
     private String name;
     private Coordinate coord;
     private List<Item> backpack;
-    private int score;
     private int moves;
     private int health;
+    private static int MAX_HEALTH = 100;
 
     private Parser parser;
     private Printer printer;
 
     Player (Socket sock, Coordinate coord) {
         this.coord = coord;
-        score = 0;
         moves = 0;
-        health = 100;
+        health = MAX_HEALTH;
         parser = new Parser(sock);
         printer = new Printer(sock);
         backpack = new ArrayList<Item>();
@@ -33,6 +32,7 @@ public class Player {
     }
 
     public void movePlayer (Coordinate c) {
+        moves += 1;
         coord = c;
     }
 
@@ -55,4 +55,8 @@ public class Player {
     public void addItem(Item i) { backpack.add(i); }
 
     public final void removeItem(Item i) { backpack.remove(i); }
+
+    public final int getMoves() {return moves;}
+
+    public int getScore() {return moves/(MAX_HEALTH + 1 - health);}
 }
