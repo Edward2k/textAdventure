@@ -1,0 +1,11 @@
+
+
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÀÅ¬‚8ÁÓ ¹.
+r
+java:S1450"URemove the "isOpen" field and declare it as a local variable in the relevant methods.(ä”±Õ8ÁÓ ¹.
+G
+java:S1068"*Remove this unused "isOpen" private field.(ä”±Õ8ÁÓ ¹.
+N
+java:S1068",Remove this unused "entities" private field.(åÄ èùÿÿÿÿ8ÁÓ ¹.
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ÁÓ ¹.

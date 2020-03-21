@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public final class Coordinate {
 
     private final int xCoord;

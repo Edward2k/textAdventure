@@ -1,4 +1,6 @@
 
-Lsquid:S1068
-")Remove this unused "moves" private field.(ªùİÎøÿÿÿÿ8š·»Å.
-Lsquid:S1068	")Remove this unused "score" private field.(µ¼æÿÿÿÿÿ8š·»Å.
+K
+java:S1068	")Remove this unused "score" private field.(µ¼æÿÿÿÿÿ8ÀÓ ¹.
+K
+java:S1068
+")Remove this unused "moves" private field.(ªùİÎøÿÿÿÿ8ÀÓ ¹.
