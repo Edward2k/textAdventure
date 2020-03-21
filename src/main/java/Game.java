@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -79,6 +80,9 @@ public class Game {
 			case "get":
 				result = handleItem(command.getItems().get(0), player, map.getArea(player.position().x(),player.position().y()).getItems(), action);
 				break;
+			case "give":
+				result = giveItem(command.getItems(), player);
+				break;
 			case "help":
 			case "h":
 				result = getHelpInstructions(player);
@@ -93,14 +97,50 @@ public class Game {
 		return result;
 
 	}
-
-	private static String handleItem(String item, Player player, List<Item> contents, String action) {
-		Item toRemove = null;
+	private static Item hasItem(List<Item> contents, String item) {
+		Item found = null;
 		for(Item i : contents) {
 			if(i.getName().equals(item)) {
-				toRemove = i;
+				found = i;
 			}
 		}
+		return found;
+	}
+
+	private static String giveItem(List<String> items, Player player) {
+		Area area = map.getArea(player.position().x(),player.position().y());
+		String giveWhat = items.get(0);
+		String toWhat = items.get(2);
+		if(hasItem(player.getBackpack(), giveWhat) == null) {return "You do not have a " + giveWhat + " in your backpack.";}
+		if (!items.get(1).equals("to")) {return "I do not understand give " + items;}
+		if(!neutralizeObstacles(player.position().x(), player.position().y(), giveWhat, toWhat)) { return "There is no " + toWhat + " in this room."; }
+		return "You have neutralized the obstacle, cool! ";
+	}
+
+	private static boolean neutralizeObstacles(int x, int y, String toNeutralize, String who) {
+		List<Coordinate> areasToNeutralize = new ArrayList<Coordinate>() {
+			{
+				add(new Coordinate(x + 1, y));
+				add(new Coordinate(x, y - 1));
+				add(new Coordinate(x - 1, y));
+				add(new Coordinate(x, y + 1));
+			}
+		};
+		for(Coordinate c : areasToNeutralize) {
+			if(map.isValidMove(c)) {
+				Area area = map.getArea(c.x(), c.y());
+				if (area.getObstacle() != null && area.getObstacle().getName().equals(who) && area.getObstacle().getHowToNeutralize().equals(toNeutralize)) {
+					area.setObstacle(null);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+	private static String handleItem(String item, Player player, List<Item> contents, String action) {
+		Item toRemove = hasItem(contents, item);
 		if(toRemove == null) {
 			if(action.equals("drop")) {return "You cannot drop what you do not have, there is not " + item + " in your backpack.";}
 			else { return "I don't see " + item + " anywhere in here."; }
@@ -136,10 +176,11 @@ public class Game {
 				return(" I do not know to move in the direction '" + direction + "'");
 		}
 
-		if (map.isValidMove(newPos)) {
+		if (map.isValidMove(newPos) && map.hasNoObstacles(newPos)) {
 			player.movePlayer(newPos);
 			return map.getDescription(newPos);
 		} else {
+			if (map.isValidMove(newPos)) { return map.getArea(newPos.x(), newPos.y()).getObstacle().getDescription();}
 			return ("There is nothing " + direction + " of where you are now.");
 		}
 

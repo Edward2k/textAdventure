@@ -1,5 +1,6 @@
 import org.json.JSONObject;
 
+import javax.print.attribute.standard.JobImpressionsCompleted;
 import java.io.File;
 import java.io.InputStream;
 import java.util.*;
@@ -50,6 +51,12 @@ public class Map {
                         areaContent.get("name").toString(),
                         areaContent.get("description").toString()
                 );
+
+                if(areaContent.has("obstacle")) {
+                    JSONObject obstacle = areaContent.getJSONObject("obstacle");
+                    map[areaCoordinate.x()][areaCoordinate.y()].setObstacle(new Obstacle(obstacle.get("name").toString(), obstacle.get("description").toString(), obstacle.get("toNeutralize").toString()));
+                }
+
                 JSONObject areaItems = new JSONObject(areaContent.get("items").toString());
                 addAreaItems(map[areaCoordinate.x()][areaCoordinate.y()], areaItems);
             }
@@ -75,7 +82,6 @@ public class Map {
 
     private List<BasicItem> addBasicItems(JSONObject basicItems, Area area) {
         List<BasicItem> items =  new ArrayList<BasicItem>();
-        List<String> canBe =  new ArrayList<String>();
         Iterator<String> itemIterator  =  basicItems.keys();
         try{
             while(itemIterator.hasNext()){
@@ -108,7 +114,6 @@ public class Map {
                 String containerDescription = containerContent.get("description").toString();
                 JSONObject containerEntities = new JSONObject(containerContent.get("entities").toString());
                 List<BasicItem> basicItems = addBasicItems(containerEntities, area);
-
                 area.addItem(new Container(containerName, Integer.parseInt(containerString), containerDescription, basicItems));
             }
         }
@@ -129,10 +134,12 @@ public class Map {
 
     public final boolean isValidMove(Coordinate c) {
         if (c.x() >= 0 && c.y() >= 0 && c.x() < mapSize && c.y() < mapSize) {
-            return (map[c.x()][c.y()] != null);
+            return map[c.x()][c.y()] != null;
         }
         return false;
     }
+
+    public final boolean hasNoObstacles(Coordinate c) { return map[c.x()][c.y()].canEnter(); }
 
     public Area getArea(int x, int y) { return map[x][y]; }
 }
