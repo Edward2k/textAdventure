@@ -4,21 +4,12 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-/**
- * This thread is responsible for reading user's input and send it
- * to the server.
- * It runs in an infinite loop until the user types 'bye' to quit.
- *
- * @author www.codejava.net
- */
 public class WriteThread extends Thread {
     private PrintWriter writer;
-    private Socket socket;
-    private PlayerClient client;
+    private Socket sock;
 
-    public WriteThread(Socket socket, PlayerClient client) {
-        this.socket = socket;
-        this.client = client;
+    public WriteThread(Socket socket) {
+        this.sock = socket;
 
         try {
             OutputStream output = socket.getOutputStream();
@@ -29,6 +20,7 @@ public class WriteThread extends Thread {
         }
     }
 
+    @Override
     public void run() {
         Scanner in = new Scanner(System.in);
         String text;
@@ -37,10 +29,10 @@ public class WriteThread extends Thread {
             text = in.nextLine();
             writer.println(text);
 
-        } while (!text.toLowerCase().equals("quit!"));
+        } while (!text.equalsIgnoreCase("quit!"));
 
         try {
-            socket.close();
+            sock.close();
         } catch (IOException ex) {
             System.out.println("Error writing to server: " + ex.getMessage());
         }

@@ -1,10 +1,12 @@
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
 
     private String name;
     private Coordinate coord;
-    private Item[] backpack;
+    private List<Item> backpack;
     private int score;
     private int moves;
     private int health;
@@ -14,12 +16,12 @@ public class Player {
 
     Player (Socket sock, Coordinate coord) {
         this.coord = coord;
-        this.backpack = new Item[]{};
         score = 0;
         moves = 0;
         health = 100;
         parser = new Parser(sock);
         printer = new Printer(sock);
+        backpack = new ArrayList<Item>();
     }
 
     public Instruction getInstruction(){
@@ -46,7 +48,11 @@ public class Player {
         return health;
     }
 
-    public Item[] getBackpack () {
+    public List<Item> getBackpack () {
         return backpack;
     }
+
+    public void addItem(Item i) { backpack.add(i); }
+
+    public final void removeItem(Item i) { backpack.remove(i); }
 }

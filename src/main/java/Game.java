@@ -1,14 +1,24 @@
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.json.JSONObject;
 
 public class Game {
 
 	private static Map map;
-	private static java.util.Date timestamp;
+	private static java.util.Date timestamp; //TODO : Neverused
 	private static int PORT;
-	private static boolean isBusy; //Will be used to handle any inconsistencies with multiple users. One process at a time.
+	private boolean isBusy; //Spin lock in case 2 commands at same time.
 
 	Game() {
 		map = new Map();
@@ -21,40 +31,35 @@ public class Game {
 		return isBusy;
 	}
 
-
-	void execute(){
+	private void runServer(){
 		try (ServerSocket serverSocket = new ServerSocket(PORT)) {
 			while (true) {
 				Socket sock = serverSocket.accept();
-				System.out.println("New user connected.");
-
+				System.err.println("New user connected.");
+				//open new thread for new socket
 				PlayerThread newUser = new PlayerThread(sock, this, map.getEntryPoint());
-				newUser.start(); //TODO : I think I did the threading correctly?
+				newUser.start();
 			}
 		} catch (IOException e) {
-			System.out.println("Error in server: " + e);
+			System.err.println("Error in server: " + e);
 			e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] args) {
 		System.out.println("Ready to connect.");
-		new Game().execute();
+		new Game().runServer();
 	}
 
 	public String getAreaDescription(Coordinate c) {
 		return map.getDescription(c);
 	}
 
-
-
-
 	/*
 	 ** Move this somewhere else. Not here.
 	 */
 
 	public String validateCommand(Instruction command, Player player) {
-		System.out.println("VALIDATING COMMAND : " +  command);
 		isBusy = true; //enable lock.
 		String action = command.getAction();
 		String result;
@@ -67,6 +72,16 @@ public class Game {
 				break;
 			case "list":
 				result = ("Need to implement this list later.");
+				break;
+			case "drop":
+				result = handleItem(command.getItems().get(0), player, player.getBackpack(), action);
+				break;
+			case "take":
+			case "get":
+				result = handleItem(command.getItems().get(0), player, map.getArea(player.position().x(),player.position().y()).getItems(), action);
+				break;
+			case "give":
+				result = giveItem(command.getItems(), player);
 				break;
 			case "help":
 			case "h":
@@ -81,6 +96,65 @@ public class Game {
 		isBusy = false; //release lock.
 		return result;
 
+	}
+	private static Item hasItem(List<Item> contents, String item) {
+		Item found = null;
+		for(Item i : contents) {
+			if(i.getName().equals(item)) {
+				found = i;
+			}
+		}
+		return found;
+	}
+
+	private static String giveItem(List<String> items, Player player) {
+		Area area = map.getArea(player.position().x(),player.position().y());
+		String giveWhat = items.get(0);
+		String toWhat = items.get(2);
+		if(hasItem(player.getBackpack(), giveWhat) == null) {return "You do not have a " + giveWhat + " in your backpack.";}
+		if (!items.get(1).equals("to")) {return "I do not understand what you mean";}
+		if(!neutralizeObstacles(player.position().x(), player.position().y(), giveWhat, toWhat)) { return "There is no " + toWhat + " in this room."; }
+		return "You have neutralized the obstacle, cool! ";
+	}
+
+	private static boolean neutralizeObstacles(int x, int y, String toNeutralize, String who) {
+		List<Coordinate> areasToNeutralize = new ArrayList<Coordinate>() {
+			{
+				add(new Coordinate(x + 1, y));
+				add(new Coordinate(x, y - 1));
+				add(new Coordinate(x - 1, y));
+				add(new Coordinate(x, y + 1));
+			}
+		};
+		for(Coordinate c : areasToNeutralize) {
+			if(map.isValidMove(c)) {
+				Area area = map.getArea(c.x(), c.y());
+				if (area.getObstacle() != null && area.getObstacle().getName().equals(who) && area.getObstacle().getHowToNeutralize().equals(toNeutralize)) {
+					area.setObstacle(null);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+	private static String handleItem(String item, Player player, List<Item> contents, String action) {
+		Item toRemove = hasItem(contents, item);
+		if(toRemove == null) {
+			if(action.equals("drop")) {return "You cannot drop what you do not have, there is not " + item + " in your backpack.";}
+			else { return "I don't see " + item + " anywhere in here."; }
+		} else {
+			if(action.equals("drop")) {
+				map.getArea(player.position().x(),player.position().y()).addItem(toRemove);
+				player.removeItem(toRemove);
+				return "Your backpack is so much lighter when there is no " + item + " in it.";
+			} else {
+				map.getArea(player.position().x(),player.position().y()).removeItem(toRemove);
+				player.addItem(toRemove);
+				return "Nice! You now have a " + item + " in your backpack";
+			}
+		}
 	}
 
 	private static String handleMove(String direction, Player player) {
@@ -102,10 +176,11 @@ public class Game {
 				return(" I do not know to move in the direction '" + direction + "'");
 		}
 
-		if (map.isValidMove(newPos)) {
+		if (map.isValidMove(newPos) && map.hasNoObstacles(newPos)) {
 			player.movePlayer(newPos);
 			return map.getDescription(newPos);
 		} else {
+			if (map.isValidMove(newPos)) { return map.getArea(newPos.x(), newPos.y()).getObstacle().getDescription();}
 			return ("There is nothing " + direction + " of where you are now.");
 		}
 

@@ -11,13 +11,11 @@ public class Parser {
 	private static final int MAX_WORDS_PER_COMMAND = 5;
 	private static final int START_OF_ITEMS = 1;
 	private static final int ACTION_WORD_POSITION = 0;
-	private Socket sock;
 	private BufferedReader input;
 
 	public Parser(Socket s) {
-		this.sock = s;
 		try {
-			input = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+			input = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		} catch (IOException e) {
 			System.out.println("Can not create Input stream from Socket.");
 			e.printStackTrace();
@@ -57,8 +55,7 @@ public class Parser {
 		}
 		String act = parts[ACTION_WORD_POSITION]; //Get first element for action
 		parts = Arrays.copyOfRange(parts, START_OF_ITEMS, MAX_WORDS_PER_COMMAND); //Each command can have max 4 words.
-		Instruction command = new Instruction(act, parts);
-		return command;
+		return new Instruction(act, parts);
 	}
 
 }

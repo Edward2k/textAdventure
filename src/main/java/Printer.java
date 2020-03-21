@@ -4,12 +4,12 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Printer {
-    private PrintWriter send;
+    private PrintWriter sender;
 
     public Printer(Socket s) {
         try {
             OutputStream outStream = s.getOutputStream();
-            send = new PrintWriter(outStream, true);
+            sender = new PrintWriter(outStream, true);
         } catch (IOException e) {
             System.out.println("Could not create player output");
             e.printStackTrace();
@@ -17,7 +17,7 @@ public class Printer {
     }
 
     void output(String output) {
-        send.println(output);
+       sender.println(output);
     }
 
 }

@@ -1,0 +1,10 @@
+
+bsquid:S2095A"EUse try-with-resources or close this "Scanner" in a "finally" clause.(‰õó8“³¯Ì.
+hsquid:S2095%"EUse try-with-resources or close this "Scanner" in a "finally" clause.(Šå¼ôşÿÿÿÿ8¿âæ.
+Tsquid:UselessImportCheck")Remove this unused import 'java.io.File'.(†Ğ¥Å8é¶—.
+asquid:UnusedPrivateMethodF"0Remove this unused private "initDemoMap" method.(åÓëûıÿÿÿÿ8‡ä®Ì.
+hsquid:CommentedOutCodeLineT"<This block of commented-out lines of code should be removed.(ìÀª8‡ä®Ì.
+5squid:S1700"Rename field "map"(İ­æÅüÿÿÿÿ8ùì¡.
+_squid:UselessImportCheck"4Remove this unused import 'java.io.FileInputStream'.(˜³ÉÓ8ùì¡.
+Usquid:S1135R"2Complete the task associated to this TODO comment.(ÌÕĞ¬üÿÿÿÿ8‡ä®Ì.
+isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Â½òÁ8ùì¡.

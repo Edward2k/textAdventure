@@ -6,8 +6,6 @@ import java.io.*;
 public class PlayerClient {
     private String hostname;
     private int port;
-    private String userName;
-    public Interface gameInterface;
 
     public PlayerClient(String hostname, int port) {
         this.hostname = hostname;
@@ -17,12 +15,9 @@ public class PlayerClient {
     public void execute() {
         try {
             Socket socket = new Socket(hostname, port);
-
             System.out.println("Connected to the chat server");
-
-            new ReadThread(socket, this).start();
-            new WriteThread(socket, this).start();
-            gameInterface = new Interface();
+            new ReadThread(socket).start(); //Start threads.
+            new WriteThread(socket).start();
 
         } catch (UnknownHostException ex) {
             System.out.println("Server not found: " + ex.getMessage());
@@ -36,9 +31,9 @@ public class PlayerClient {
         PlayerClient client = new PlayerClient("127.0.0.1", 1234);
         client.execute();
     }
+
+
 }
-
-
 
 
 

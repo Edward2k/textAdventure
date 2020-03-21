@@ -29,8 +29,13 @@ public class Instruction {
         return items;
     }
 
-    public String getFullCommand() {
-        return action + " " + items.toString();
+    public String toString() {
+        StringBuilder result = new StringBuilder(action);
+        for (String item: items) {
+            if (item == null) {break;}
+            result.append(" ").append(item);
+        }
+        return result.toString();
     }
 
 }

@@ -35,7 +35,11 @@ Class Diagram of VuORK
 
 > Figure representing the Class Diagram of VuORK (Diagram 1) **DESCRIPTIVE**
 
-![Class Diagram of VuORK](https://i.postimg.cc/DZX98JfB/Class-diagram-Class-diagram.png)
+![Class Diagram of VuORK](https://i.postimg.cc/VkKjKVcN/Class-diagram-Class-diagram-3.png)
+
+#### Important 
+
+This project has 2 parts: A server and client side. This allows for the networked multiplayer bonus we have created. The ClientSide is very similar to chatClient, where a user sends instruction to the Server. The server has Playerthreads which reads Instructions from the sockets, and asks the Game to validate them. The Game will always return a string which is then forwarded to the ClientSide as a reply. This is a very high-level overview. 
 
 <h5 id="Item">Item</h5>
 
@@ -127,21 +131,23 @@ The relations *Map* has is quite simple. *Map* has a aggregate relation to *Game
 
 <h5 id="Game">Game</h5>
 
-The *Game* class is what runs any instance of a a running game of VuORK. It glues together all of the higher-order class described in this section. It is important to note that VuORK can be multiplayer, which heavily influneced this structure [Futher described in Player].
-
-*<u>users: Player</u>* holds all of the players in the current instance of *Game*. This is an array. 
+The *Game* class is what runs any instance of a a running game of VuORK. It glues together all of the higher-order class described in this section. It is important to note that VuORK can be multiplayer, which heavily influneced this structure [Futher described in PlayerThread].
 
 *<u>time: timestamp</u>* is an object of type timestamp holding the time the game started. timestamp is part of the standard library for Java. 
 
 *<u>layout: Map</u>*: holds the object for *Map*. This is the playarea for *Player* objects to explore. 
 
-*<u>getGameState(): String</u>* is a function which will return a string containing the high-level overview of the game. 
+*<u>PORT: Int</u>*: holds the server's portnumber.
 
-*<u>executeCommand(Instruction)</u>* is a function that will execute a command, that is received from a *Player*. It is important to note that the whole system is multiThreaded, and for every instance of a *Player* in a *Game*, a thread is opened to read and execute instructions from that *Player*. Each thread will handle all of the instructions given by any *Player*. The thread will call *Player.getInstruction()*, and wait for that to execute. Once a *Player* has entered the *Instruction*, the *Game* will execute that instruction, and *Print* to the player what the result was. 
+*<u>isBusy: Boolean</u>* will be used as a spin lock. When a *PlayerThread* objects gives an *Instruction* to validate, this variable will become true. Before a *PlayerThread* gives an *Instruction*, it will check this condition, and only validate its Instruction when this is *False*. 
 
-*<u>runPlayer</u>*<u>(Player)</u> is what will handle any player. When a *Player* joins the *Game*, *Game* will open a new socket or thread (depending on wether the game is networked or not), and handle that *Player* in the thread/socket. This function calls *Player.getInstruction()*.
+*<u>isGameBusy: Boolean</u>* returns the value of *isBusy*.
 
-*<u>startGame(): Void</u>* initiates the *Game* by declaring user size, *timestamp* and getting the layout. 
+*<u>validateCommand(Instruction): String</u>* is a function that will execute a command, that is received from a *PlayerThread*. It is important to note that the whole system is multiThreaded, and for every instance of a *Player* in a *Game*, a thread is opened to read and execute instructions from that *Player*. Each thread will call this function to handle all of the *Instructions* given by any *Player*. This function will reply with an adequate response (success or not), and execute anything if necessary. The String is returned to send to the *Printer* or the *Player*. 
+
+*<u>runServer: void</u>* loops until the program is stopped with a keyboard interrupt. This function will accept() incomming connection from the socket interface. For every connection created, it will create a new *PlayerThread*, and run this object in a new *Thread*. 
+
+*<u>handleMove(String direction, Player player): String</u>* Will evaluate if a Player's move is possible, and if so, move the player, returning a String of the description. 
 
 The relationships to *Game* are very specific. However, these relations are further described in *Map* and *Player*. At a highlevel, a *Game* can have at most 1 map, but can have any posotive number greater than 1 of *Players*. 
 
@@ -153,7 +159,7 @@ A *Player* is the class that a User will take control of. The user interacts to 
 
 *<u>coord: Coordinate</u>* stores where the player currently is in terms of the *Map*. It should be instatiated to the specified *Map.getEntryPoint()*. 
 
-*<u>backpack: Array<BasicItem\></u>* stores references to all of the *Items* the *Player* currently has in his possesion. Instantiated to NULL. It is important to note that this array is of type *BasicItem* and not its superclass, *Item*, because holding *Containers*, would allow for infinite storage. 
+*<u>backpack: List<BasicItem\></u>* stores references to all of the *Items* the *Player* currently has in his possesion. Instantiated to NULL. It is important to note that this array is of type *BasicItem* and not its superclass, *Item*, because holding *Containers*, would allow for infinite storage. 
 
 *<u>score: Int</u>* is an integer indicator denoting how well the player is playing. It is calculated by taking the number of <u>moves</u> * (number of minutes played) * *health*
 
@@ -179,6 +185,20 @@ A *Player* is the class that a User will take control of. The user interacts to 
 
 The relations of Player are a little complex. A player must contain a *Parser* and a *Printer* (equally, these 2 must can not exist without a *Player*). The *Player* needs these 2 classes to manage I/O individually in a multiplayer scenario. Much like in *Area*, a *Player* object may contain a reference to an *Item*, iff this *Item* does not already exist in an *Area*
 
+##### PlayerThread
+
+This is an object that is spawned as a new Thread whenever a new connection is recieved to *Game*. This PlayerThread simply asks the *Player* object for an *Instruction*, and then asks the *Game* to validate that move. 
+
+*<u>player: Player</u>* holds the player
+
+*<u>server: Game</u>* holds a reference to the *Game* so moves can be validated. 
+
+*<u>run(): void</u>* is the implementation of Thread. This is what runs once the Thread is created. This method calls welcomePlayer() and then runPlayer().
+
+*<u>wecomePlayer(): void</u>* will send some messages to the player, then ask for a username. This will set the UserName of the *P*
+
+<u>runPlayer(): void</u> runs until the *ClientSide* is quit. It will ask for a *Instruction*, check the spinlock of *Game* (to prevent any inconcistencies), then ask *Game* to validate the *Instruction*. 
+
 <h5 id="Coordinate">Coordinate</h5>
 
 A *Coordinate* is a very simple class to group together an <u>x</u> and <u>y</u> integer variable that represent a positon on a 2D array of *Map*. 
@@ -203,17 +223,21 @@ A *Parser* will take an input from the standardIn, and seperate it into a list o
 
 *<u>ACTION WORD POSITION</u>* is a constant int that points to the first word in the input. This indicates the action. For example, in the command "Attack pig with sword", Attack is the action and is in position 0. This is therefor 0.
 
-*<u>getInstruction(): void</u>* will take a line from stdIn, split the words into an action and items as an *Instruction*. 
+*<u>input: BufferReader</u>* is a the buffer for reading input from the Socket which connects to the *PlayerClient*. 
 
-*<u>getLine(): void</u>* will get a line from the stdin. 
+*<u>getInstruction(): void</u>* will call getLine(), split the words into an action and items as an *Instruction*. 
 
-*<u>getLineArray()</u>*: String[] gets input from stdin, and parses the words into an array. It uses whitespace as a delimiter. 
+*<u>getLine(): void</u>* will get a line from the the open Socket. 
+
+*<u>getLineArray()</u>*: call getLine, and parses the words into an array. It uses whitespace as a delimiter. 
 
 Each *Player* will have their own *Parser*. When the *Player* is terminated, the *Parser* will also be terminated. Each *Player* can have at most 1 *Parser*, and each *Parser*, can have at most 1 *Player*
 
 <h5 id="Printer">Printer</h5>
 
 A printer simply outputs strings to the user. It is a nice class to prevent several objects interfacing with the player. 
+
+*<u>sender: BufferReader</u>* sends data onto the Socket which connects to the PlayerClient
 
 *<u>print(output: String): Void</u>* will print the string output to stdout. 
 
@@ -338,9 +362,10 @@ Author(s): `Marta Anna Jansone, Theresa Schantz`
 
 
 
-The first possible event described in the sequence diagram above is the Game Initialisation. When initializing a game the first thing that has to happen is declaring a *Game* object. The *Game* object is further responsible for declaring an object of type *Map* and an object of type *Player*. The object *Player*, when initialised, requests the entry point of the game, which is returned by the *Map* object. This happens when *getEntryPoint* is called. The returned value is an object of type *Coordinate*. This value is then stored in the *Player coord* variable. 
+The first possible event described in the sequence diagram above is the Game Initialisation. When initializing a game the first thing that has to happen is declaring a *Game* object. The *Game* object then creates a connection to the *Socket* and a new *PlayerThread*.
+The *PlayerThread* is further responsible for declaring an object of type *Map* and an object of type *Player*. The object *Player*, when initialised, requests the entry point of the game, which is returned by the *Map* object. This happens when *getEntryPoint* is called. The returned value is an object of type *Coordinate*. This value is then stored in the *Player coord* variable. 
 When a new *Player* is initialised it further initialises its own *Parser* and *Printer*, and an array of object type *Item*. The object *Parser* is stored in a private variable called *parser* within the object *Player*, the *Printer* is stored in a private variable called *printer* within the object *Player* and the array of *Items* is stored within a private variable called *backpack* within the object *Player*. The game is started by calling *startGame*. 
-When the game is started, the *Game* calls a public function *output* of the object *Player* with a welcome message and a request to enter the user's name. The *output* function further calls the function *output* of the private variable printer, which outputs the message by printing it to the Terminal. To add a name to the private variable *name* of the *Player*, the public function *setName* from object *Player* is called by the object *Game*. The *setName* function further calls the private parser of the *Player*, which reads and parses the user input line using the function *getLine*. The value returned by the *Parser* is assigned as the *name*' of the *Player.* Another output message is then sent from *Game* to the *output* function of the *Player*, taking an argument of *getUserName*. The *output* function of the *Player* calls the *output* function of the private printer, which then sends a request back to the *Player* to *getUserName*. When the *getUserName* returns the name of the player the message is printed. The last message printed during the phase of initialising the game is the description of the room where the player is currently located in. This is done through the *Game* calling the *output* function of the *Player* with the argument *map.getPosition(player.position())*. As the argument is a function call then the *Player* calls the *Map* function *getPosition* with the argument *player.position*. As the argument of the function is a call to a function within the object *Player*, the function *position* from object *Player* is called. Then further each of the function calls returns the requested variable till the start of the sequence at the call of *output*, which prints the description of the room to the Terminal.
+When the game is started, the *PlayerThread* calls a public function *output* of the object *Player* with a welcome message and a request to enter the user's name. The *output* function further calls the function *output* of the private variable printer, which outputs the message by printing it to the Terminal. To add a name to the private variable *name* of the *Player*, the public function *setName* from object *Player* is called by the object *PlayerThread*. The *setName* function further calls the private parser of the *Player*, which reads and parses the user input line using the function *getLine*. The value returned by the *Parser* is assigned as the *name*' of the *Player.* Another output message is then sent from *PlayerThread* to the *output* function of the *Player*, taking an argument of *getUserName*. The *output* function of the *Player* calls the *output* function of the private printer, which then sends a request back to the *Player* to *getUserName*. When the *getUserName* returns the name of the player the message is printed. The last message printed during the phase of initialising the game is the description of the room where the player is currently located in. This is done through the *PlayerThread* calling the *output* function of the *Player* with the argument *map.getPosition(player.position())*. As the argument is a function call then the *Player* calls the *Map* function *getPosition* with the argument *player.position*. As the argument of the function is a call to a function within the object *Player*, the function *position* from object *Player* is called. Then further each of the function calls returns the requested variable till the start of the sequence at the call of *output*, which prints the description of the room to the Terminal.
 
 
 #### Command Processing
@@ -351,13 +376,13 @@ When the game is started, the *Game* calls a public function *output* of the obj
 
 [![Sequence-diagram-valid-command-valid-command.png](https://i.postimg.cc/d0qj4c4x/Sequence-diagram-valid-command-valid-command.png)](https://postimg.cc/RWDtZyr7)
 
-The second event described in the sequence diagram above is the command processing. The program will constantly loop, outputting instructions and reading commands from the user. The *gamestate* object of the class *Game* calls getCommand() from the *Player*. The *Player* will read in a line/the instruction from the user input with the *Scanner* with *getLineArray()*. After the input has been returned in *parts*,
-the given instruction will be identified by declaring a *new Instruction*. In the *Instruction* class the given input will be split into in the *action* and the *items* and returned in th evariable *command*. The *command* will passed back as the return value of th efunction *getCommand* of *Game* via the *Player* and the functions *getInstruction*. The next necessary step is to check whether the command is valid.
-This is done with the function *validate command*. Here, the first step is to obtain the wanted action from the *command*, which is stored in the *Parser* (this will be stored in the variable *action*).
+The second event described in the sequence diagram above is the command processing. The program will constantly loop, outputting instructions and reading commands from the user. The *gamestate* object of the class *PlayerThread* calls getCommand() from the *Player*. The *Player* will read in a line/the instruction from the user input with the *Scanner* with *getLineArray()*. After the input has been returned in *parts*,
+the given instruction will be identified by declaring a *new Instruction*. In the *Instruction* class the given input will be split into in the *action* and the *items* and returned in th evariable *command*. The *command* will passed back as the return value of th efunction *getCommand* of *PlayerThread* via the *Player*. The next necessary step is to check whether the command is valid.
+This is done with the function *validate command*. *validateCommand* is a member function of the *Game* class and called by the *PlayerThread*. Here, the first step is to obtain the wanted action from the *command*, which is stored in the *Parser* (this will be stored in the variable *action*).
 The *action* must then be checked, whether it is a valid direction (north, south, east or west), done in *isDirection*. At this point, if it is not valid, we jump to outputting an error message to th e*Printer* via the *Player* with the *output* property.
 If it is a valid direction, *handleMove* is called.  The given direction is matched to a case "north", "east", "west" or "south" and then moved in the corresponding direction by adding or subtracting a 1 to either the x- or y-coordinate. This will be the *newPos* variable. Lastly, it has to be checked whether this is a valid coordinate on the map. If so, the *Player*s coordinate will be set to the new coordinate
 and the description will be printed to the user. If it is not a valid position, an error message will be printed to the user, calling *Printer.output* from *Player.output*. We still need to get the description for the new coordinate of the location of the *Player* printed to the Terminal. By passing the *position* with *getDescription* to the *Map* via the *Player.output*, which will return the description for the
-corresponding coordinate, *Printer.output* will be called by the *Player*. The will cause that the *Printer* will print the given description to the user (*output* is the *Printer*s print function to the Terminal).
+corresponding coordinate to the *Game* and this will pass the description back to the *PlayerThread* and store it in *result*. Next, *Printer.output* will be called by the *Player*. This will cause that the *Printer* to print the given description *result* to the user (*output* is the *Printer*s print function to the Terminal).
 Then, the whole process will start over again.
 
 ## 
