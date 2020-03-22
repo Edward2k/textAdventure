@@ -11,7 +11,7 @@ public class Area {
     Area (String name, String description) {
         this.name = name;
         this.description = description;
-        this.items = new ArrayList<Item>();
+        this.items = new ArrayList<>();
         this.obstacle = null;
     }
 

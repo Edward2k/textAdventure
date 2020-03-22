@@ -16,13 +16,11 @@ import org.json.JSONObject;
 public class Game {
 
 	private static Map map;
-	private static java.util.Date timestamp; //TODO : Neverused
 	private static int PORT;
 	private boolean isBusy; //Spin lock in case 2 commands at same time.
 
 	Game() {
 		map = new Map();
-		timestamp = new java.util.Date();
 		PORT = 1234;
 		isBusy = false;
 	}
@@ -78,10 +76,14 @@ public class Game {
 				break;
 			case "take":
 			case "get":
+			case "pickup":
 				result = handleItem(command.getItems().get(0), player, map.getArea(player.position().x(),player.position().y()).getItems(), action);
 				break;
 			case "give":
 				result = giveItem(command.getItems(), player);
+				break;
+			case "score":
+				result = "Your score is currently: " + player.getScore();
 				break;
 			case "help":
 			case "h":
@@ -95,8 +97,8 @@ public class Game {
 		if (isDirection(action)) { result = handleMove(action, player); }
 		isBusy = false; //release lock.
 		return result;
-
 	}
+
 	private static Item hasItem(List<Item> contents, String item) {
 		Item found = null;
 		for(Item i : contents) {
@@ -108,15 +110,15 @@ public class Game {
 	}
 
 	private static String giveItem(List<String> items, Player player) {
-		Area area = map.getArea(player.position().x(),player.position().y());
 		String giveWhat = items.get(0);
 		String toWhat = items.get(2);
-		if(hasItem(player.getBackpack(), giveWhat) == null) {return "You do not have a " + giveWhat + " in your backpack.";}
+		if (hasItem(player.getBackpack(), giveWhat) == null) {return "You do not have a " + giveWhat + " in your backpack.";}
 		if (!items.get(1).equals("to")) {return "I do not understand what you mean";}
-		if(!neutralizeObstacles(player.position().x(), player.position().y(), giveWhat, toWhat)) { return "There is no " + toWhat + " in this room."; }
+		if (!neutralizeObstacles(player.position().x(), player.position().y(), giveWhat, toWhat)) { return "There is no " + toWhat + " in this room."; }
 		return "You have neutralized the obstacle, cool! ";
 	}
 
+	//TODO: This needs to be simplified :O
 	private static boolean neutralizeObstacles(int x, int y, String toNeutralize, String who) {
 		List<Coordinate> areasToNeutralize = new ArrayList<Coordinate>() {
 			{
@@ -139,6 +141,7 @@ public class Game {
 	}
 
 
+	//TODO: Stick to the switchcase style used in handle command(). This will make it clearer.
 	private static String handleItem(String item, Player player, List<Item> contents, String action) {
 		Item toRemove = hasItem(contents, item);
 		if(toRemove == null) {
@@ -158,7 +161,7 @@ public class Game {
 	}
 
 	private static String handleMove(String direction, Player player) {
-		Coordinate newPos = null;
+		Coordinate newPos;
 		switch (direction) {
 			case "north":
 				newPos = new Coordinate(player.position().x() - 1, player.position().y());

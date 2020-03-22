@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Obstacle {
     private boolean obstacleNeutralized;
     private int health;

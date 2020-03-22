@@ -1,11 +1,27 @@
 
-csquid:UselessImportCheck"8Remove this unused import 'com.google.gson.JsonElement'.(ğ†˜³8Ö¸¬Ì.
-`squid:UselessImportCheck"0Remove this unused import 'org.json.JSONObject'.(œÖ´üşÿÿÿÿ8Ö¸¬Ì.
-^squid:UselessImportCheck".Remove this unused import 'java.util.Scanner'.(ÒÜÅ¸úÿÿÿÿ8Ö¸¬Ì.
-Psquid:S1135"2Complete the task associated to this TODO comment.(´Ğò¶8ÌËû.
-bsquid:UselessImportCheck	"7Remove this unused import 'com.google.gson.JsonObject'.(µÊ´½8Ö¸¬Ì.
-Zsquid:UselessImportCheck"/Remove this unused import 'java.util.Iterator'.(¥ÍòÕ8Ö¸¬Ì.
-[squid:UselessImportCheck"0Remove this unused import 'java.io.InputStream'.(¹»º8Ö¸¬Ì.
-bsquid:UselessImportCheck
-"7Remove this unused import 'com.google.gson.JsonParser'.(Œƒ¸Æ8Ö¸¬Ì.
-Ksquid:S1068"-Remove this unused "timestamp" private field.(´Ğò¶8ÌËû.
+L
+java:S1128"/Remove this unused import 'java.util.Iterator'.(¥ÍòÕ8ÃÓ ¹.
+P
+java:S1128".Remove this unused import 'java.util.Scanner'.(ÒÜÅ¸úÿÿÿÿ8ÃÓ ¹.
+[
+java:S3400\"9Remove this method and declare a constant for this value.(Ö§”Óşÿÿÿÿ8ÃÓ ¹.
+O
+java:S1135"2Complete the task associated to this TODO comment.(´Ğò¶8ÃÓ ¹.
+R
+java:S1128"0Remove this unused import 'org.json.JSONObject'.(œÖ´üşÿÿÿÿ8ÃÓ ¹.
+M
+java:S1128"0Remove this unused import 'java.io.InputStream'.(¹»º8ÃÓ ¹.
+J
+java:S1068"-Remove this unused "timestamp" private field.(´Ğò¶8ÃÓ ¹.
+T
+java:S1128	"7Remove this unused import 'com.google.gson.JsonObject'.(µÊ´½8ÃÓ ¹.
+U
+java:S1128"8Remove this unused import 'com.google.gson.JsonElement'.(ğ†˜³8ÃÓ ¹.
+\
+java:S1854K":Remove this useless assignment to local variable "result".(¾ÓÊıÿÿÿÿ8ÃÓ ¹.
+H
+java:S1172["&Remove these unused method parameters.(ŞÎ˜Šşÿÿÿÿ8ÃÓ ¹.
+T
+java:S1128
+"7Remove this unused import 'com.google.gson.JsonParser'.(Œƒ¸Æ8ÃÓ ¹.
+m	java:S128J"LEnd this switch case with an unconditional break, return or throw statement.(Ç…¡Ãÿÿÿÿÿ8ÃÓ ¹.
