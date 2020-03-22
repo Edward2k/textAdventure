@@ -13,19 +13,21 @@ public class Player {
 
     private Parser parser;
     private Printer printer;
+    private Interface clientInterface;
 
-    Player (Socket sock, Coordinate coord) {
+    Player (Socket sock, Coordinate coord, Interface gameInterface) {
         this.coord = coord;
         score = 0;
         moves = 0;
         health = 100;
         parser = new Parser(sock);
         printer = new Printer(sock);
+        clientInterface = gameInterface;
         backpack = new ArrayList<Item>();
     }
 
     public Instruction getInstruction(){
-        return parser.getInstruction();
+        return parser.getInstruction(clientInterface.getInput());
     }
 
     public String getName() {
@@ -40,9 +42,15 @@ public class Player {
 
     public Coordinate position() {return coord;}
 
-    public void output(String s) {printer.output(s);}
+    public void output(String s) {
+//        printer.output(s);
+        clientInterface.append("\n" + s + "\n================================================");
+    }
 
-    public String getLine() {return parser.getLine();}
+    public String getLine() {
+//        return parser.getLine();
+        return clientInterface.getInput();
+    }
 
     public int getHealth () {
         return health;

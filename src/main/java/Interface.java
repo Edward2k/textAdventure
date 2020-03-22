@@ -1,6 +1,5 @@
-package PlayerClient;
-
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -16,19 +15,24 @@ public class Interface {
     }
 
     private void newInterface() {
-        System.out.println("here");
         gamePanel = new JFrame();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension frameSize = new Dimension((int)(screenSize.width/2),(int)(screenSize.height/2));
-        int x = (int)(frameSize.width/2);
-        int y = (int)(frameSize.height/2);
+        Dimension frameSize = new Dimension(screenSize.width/2, screenSize.height/2);
+        int x = frameSize.width/2;
+        int y = frameSize.height/2;
         gamePanel.setBounds(x,y,frameSize.width,frameSize.height);
         messages = new JTextArea(x,y);
         userInput = new JTextField();
+        messages.setLineWrap(true);
+        messages.setWrapStyleWord(true);
         messages.setEditable(false);
 
+        DefaultCaret caret = (DefaultCaret)messages.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
         gamePanel.getContentPane().setLayout(new BorderLayout());
-        gamePanel.getContentPane().add(new JScrollPane(messages),BorderLayout.CENTER);
+        gamePanel.getContentPane().add(new JScrollPane(messages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER),BorderLayout.CENTER);
         gamePanel.getContentPane().add(userInput,BorderLayout.SOUTH);
         gamePanel.setVisible(true);
 
@@ -42,16 +46,18 @@ public class Interface {
     public String getInput() {
         while(true) {
             if (input == null) {
-                System.out.println("");
-                continue;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                }
             } else {break;}
         }
         String text = input;
+        append("\n" + text);
         input = null;
         return text;
     }
-
-    public void setInput() {input = null;}
 
     Action action = new AbstractAction()
     {
