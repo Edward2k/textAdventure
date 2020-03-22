@@ -15,7 +15,7 @@ public class PlayerThread extends Thread{
             welcomePlayer();
             runPlayer();
         } catch (NullPointerException e) {
-            System.err.println("The cleint at Thread " + Thread.currentThread().getName() + " has unexpectedly quit.\nKilling Thread");
+            System.err.println("The client at Thread " + Thread.currentThread().getName() + " has unexpectedly quit.\nKilling Thread");
             Thread.yield();
         }
     }

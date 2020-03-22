@@ -3,15 +3,15 @@
   "map": {
     "4,3": {
       "name": "Computer Room",
-      "description": "At the end of the room you notice that one of the computers is still turned on. When you approach the screen you see that someone left in a hurry. Most of their stuff is still here - multiple books, notebooks and a pocket knife.",
+      "description": "At the end of the room you notice that one of the computers is still turned on. When you approach the screen you see that someone left in a hurry. Most of their stuff is still here.",
       "items": {
         "basicItems": {
-          "2": {
+          "1": {
             "name": "knife",
             "canBe": "get, take, drop",
             "usedTo": ""
           },
-          "3": {
+          "2": {
             "name": "notebook",
             "canBe": "get, take, drop",
             "usedTo": ""
@@ -22,10 +22,10 @@
     },
     "2,0": {
       "name": "Tram Stop",
-      "description": "You're looking for ways to get into the building but there is a security guard blocking the entrance. You are exploring your surroundings and notice a wallet on the ground.",
+      "description": "You're looking for ways to get into the building but there is a security guard blocking the entrance.",
       "items": {
         "basicItems": {
-          "1": {
+          "3": {
             "name": "wallet",
             "canBe": "get, take, drop",
             "usedTo": ""
@@ -44,7 +44,7 @@
     },
     "6,1": {
       "name": "Church",
-      "description": "Hozier? Is that you?! Did somebody finally take you to church or did you take the tram here as well? God, you really are sleep-deprived. Looks like the rats have no respect for a holy place - you think to yourself as you see another rat poison",
+      "description": "Hozier? Is that you?! Did somebody finally take you to church or did you take the tram here as well? God, you really are sleep-deprived. Looks like the rats have no respect for a holy place.",
       "items": {
         "basicItems": {
           "4": {
@@ -110,7 +110,7 @@
     },
     "3,1": {
       "name": "South Side of the Lobby",
-      "description": "Although the lightning is dim you can see a water bottle standing on a table in the south corner of the lobby. And of course, as the whole Amsterdam is, the VU is also dealing with pest infestation - you think to yourself as you spot a rat poison laying on the ground. Thinking of this, thankfully, makes your late night cravings disappear.",
+      "description": "Although the lightning is dim you can see a water bottle standing on a table in the south corner of the lobby. And of course, as the whole Amsterdam is, the VU is also dealing with pest infestation. Thinking of this, thankfully, makes your late night cravings disappear.",
       "items": {
         "basicItems": {
           "8": {
@@ -129,7 +129,7 @@
     },
     "4,1": {
       "name": "Spar",
-      "description":  "What a temptation! A fully stocked Spar with even less security than usual, but the techno music is still on! Maybe a little bit wouldn't hurt - you think to yourself when you notice a slice of pizza out of the corner of your eye.",
+      "description":  "What a temptation! A fully stocked Spar with even less security than usual, but the techno music is still on! Maybe a little bit wouldn't hurt. Maybe there is just a little bit left??",
       "items": {
         "basicItems": {
           "10": {
@@ -143,7 +143,7 @@
     },
     "5,2": {
       "name": "Donkey Kong",
-      "description": "It looks like you have entered a rain forest looking room! The humidity in here makes yor glasses fog up but you easily get used to it. The sound of the birds makes you relax and for a second you even forget all the stress you re going through in this sleep-deprived adventure. LOOK OUT!! There is a sleeping Donkey Kong in the corner about to wake up.",
+      "description": "It looks like you have entered a rain forest looking room! The humidity in here makes yor glasses fog up but you easily get used to it. The sound of the birds makes you relax and for a second you even forget all the stress you are going through in this sleep-deprived adventure. LOOK OUT!! There is a sleeping Donkey Kong in the corner about to wake up.",
       "items": {
         "basicItems": {},
         "containers": {}
@@ -175,7 +175,7 @@
     },
     "5,3": {
       "name": "Maintenance Closet",
-      "description": "You find your self in a very small space. It must be less than 5 square meters in here! It's almost as big as your overpriced Amsterdam studio apartment! As you are no stranger to this confined space you can see that the room you are in is a maintenance closet - there is a broom, a mop, a bleach bottle, plastic gloves... But perhaps the most interesting thing are the night vision goggles on the top of the shelf.",
+      "description": "You find your self in a very small space. It must be less than 5 square meters in here! It's almost as big as your overpriced Amsterdam studio apartment! As you are no stranger to this confined space you can see that the room you are in is a maintenance closet.",
       "items": {
         "basicItems": {
           "12": {
@@ -225,7 +225,7 @@
     },
     "1,5": {
       "name": "Men's Bathroom",
-      "description": "You sure are happy that you had that pizza with you. The dog looks so calm now - you think to yourself as you spot yet another rat poison. Isn't it a bit dangerous to keep it in the bathroom?",
+      "description": "You sure are happy that you had that pizza with you. The dog looks so calm now. Isn't it a bit dangerous to keep it in the bathroom?",
       "items": {
         "basicItems": {
           "17": {
@@ -244,7 +244,7 @@
     },
     "2,3": {
       "name": "TA Office",
-      "description": "What an unfamiliar place, the TA office. You wonder whether they talk about you during their meetings and how you have missed almost all of the practicals. On top of the stack of graded papers, someone has forgotten their TA card - fancy a free coffee?",
+      "description": "What an unfamiliar place, the TA office. You wonder whether they talk about you during their meetings and how you have missed almost all of the practicals. Maybe there is some stuff around here?",
       "items": {
         "basicItems": {
           "18": {
@@ -263,7 +263,7 @@
     },
     "2,4": {
       "name": "Fish Bowl",
-      "description": "Ohh, the fish bowl class, you can never focus on what the lecturer is saying with so many things happening around you. You've never seen this room so empty as you always arrive late to class and there are no seats left. Next to some white board markers you see yet another rat poison, maybe this university should hire someone to deal with this problem professionally. ",
+      "description": "Ohh, the fish bowl class, you can never focus on what the lecturer is saying with so many things happening around you. You've never seen this room so empty as you always arrive late to class and there are no seats left. Next to some white board markers you see a bit of poison bits, maybe this university should hire someone to deal with this problem professionally. ",
       "items": {
         "basicItems": {
           "20": {
@@ -277,7 +277,7 @@
     },
     "1,3": {
       "name": "Student Desk",
-      "description": "Take a moment reflect on your journey. Next to the lounge area you see a coffee machine - thirsty?",
+      "description": "Take a moment to reflect on your journey. Next to the lounge area you see a coffee machine - thirsty?",
       "items": {
         "basicItems": {},
         "containers": {}

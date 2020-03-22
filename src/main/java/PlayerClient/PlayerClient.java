@@ -24,14 +24,12 @@ public class PlayerClient {
         } catch (IOException ex) {
             System.out.println("I/O Error: " + ex.getMessage());
         }
-
     }
 
     public static void main(String[] args) {
         PlayerClient client = new PlayerClient("127.0.0.1", 1234);
         client.execute();
     }
-
 
 }
 
