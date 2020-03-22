@@ -144,20 +144,29 @@ public class Game {
 	//TODO: Stick to the switchcase style used in handle command(). This will make it clearer.
 	private static String handleItem(String item, Player player, List<Item> contents, String action) {
 		Item toRemove = hasItem(contents, item);
+		String result;
 		if(toRemove == null) {
-			if(action.equals("drop")) {return "You cannot drop what you do not have, there is not " + item + " in your backpack.";}
-			else { return "I don't see " + item + " anywhere in here."; }
+			switch(action) {
+				case "drop":
+					result = "You cannot drop what you do not have, there is not " + item + " in your backpack.";
+					break;
+				default:
+					result = "I don't see " + item + " anywhere in here.";
+			}
 		} else {
-			if(action.equals("drop")) {
-				map.getArea(player.position().x(),player.position().y()).addItem(toRemove);
-				player.removeItem(toRemove);
-				return "Your backpack is so much lighter when there is no " + item + " in it.";
-			} else {
-				map.getArea(player.position().x(),player.position().y()).removeItem(toRemove);
-				player.addItem(toRemove);
-				return "Nice! You now have a " + item + " in your backpack";
+			switch (action) {
+				case "drop":
+					map.getArea(player.position().x(),player.position().y()).addItem(toRemove);
+					player.removeItem(toRemove);
+					result = "Your backpack is so much lighter when there is no " + item + " in it.";
+					break;
+				default:
+					map.getArea(player.position().x(),player.position().y()).removeItem(toRemove);
+					player.addItem(toRemove);
+					result = "Nice! You now have a " + item + " in your backpack";
 			}
 		}
+		return result;
 	}
 
 	private static String handleMove(String direction, Player player) {
