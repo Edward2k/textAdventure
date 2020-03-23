@@ -35,9 +35,9 @@ public class Map {
         return false;
     }
 
-    public final boolean hasNoObstacles(Coordinate c) { return map[c.x()][c.y()].canEnter(); }
+    public final boolean hasObstacles(Coordinate c) { return !map[c.x()][c.y()].canEnter(); }
 
-    public Area getArea(int x, int y) { return map[x][y]; }
+    public Area getArea(Coordinate c) { return map[c.x()][c.y()]; }
 
     /*
     * Reading JSON

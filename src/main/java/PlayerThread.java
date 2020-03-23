@@ -16,6 +16,7 @@ public class PlayerThread extends Thread{
             runPlayer();
         } catch (NullPointerException e) {
             System.err.println("The client at Thread " + Thread.currentThread().getName() + " has unexpectedly quit.\nKilling Thread");
+            e.printStackTrace();
             Thread.yield();
         }
     }
@@ -40,5 +41,4 @@ public class PlayerThread extends Thread{
                 player.output(result);
         }
     }
-
 }

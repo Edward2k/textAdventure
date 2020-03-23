@@ -10,6 +10,7 @@ public class Player {
     private int moves;
     private int health;
     private static int MAX_HEALTH = 100;
+    private String lastValidDirection; //This is used to navigate back from an obstacle.
 
     private Parser parser;
     private Printer printer;
@@ -23,6 +24,7 @@ public class Player {
         printer = new Printer(sock);
         clientInterface = gameInterface;
         backpack = new ArrayList<Item>();
+        lastValidDirection = "";
     }
 
     public Instruction getInstruction(){
@@ -67,4 +69,7 @@ public class Player {
     public final int getMoves() {return moves;}
 
     public int getScore() {return moves/(MAX_HEALTH + 1 - health);}
+
+    public void setLastValidDirection(String d) {lastValidDirection = d;}
+    public String getLastValidDirection() {return lastValidDirection;}
 }

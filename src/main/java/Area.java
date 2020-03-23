@@ -20,6 +20,7 @@ public class Area {
     }
 
     public String getDescription() {
+        if (!canEnter()) { return obstacle.getDescription(); }
         if (items.isEmpty()) {return description + "\nThere are no Items in this room.";}
         StringBuilder finalDescription = new StringBuilder(description + "\nIn this room, the following items are present: ");
         for (Item item: items) {
@@ -42,5 +43,6 @@ public class Area {
     public Obstacle getObstacle() { return this.obstacle;}
 
     public void setObstacle(Obstacle obstacle) { this.obstacle = obstacle;}
+
 
 }

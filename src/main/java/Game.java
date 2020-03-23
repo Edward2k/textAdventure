@@ -2,10 +2,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,6 +15,10 @@ public class Game {
 	private static Map map;
 	private static int PORT;
 	private boolean isBusy; //Spin lock in case 2 commands at same time.
+	private static String north = "north";
+	private static String south = "south";
+	private static String west = "west";
+	private static String east = "east";
 
 	Game() {
 		map = new Map();
@@ -77,7 +78,7 @@ public class Game {
 			case "take":
 			case "get":
 			case "pickup":
-				result = handleItem(command.getItems().get(0), player, map.getArea(player.position().x(),player.position().y()).getItems(), action);
+				result = handleItem(command.getItems().get(0), player, map.getArea(player.position()).getItems(), action);
 				break;
 			case "give":
 				result = giveItem(command.getItems(), player);
@@ -114,32 +115,21 @@ public class Game {
 		String toWhat = items.get(2);
 		if (hasItem(player.getBackpack(), giveWhat) == null) {return "You do not have a " + giveWhat + " in your backpack.";}
 		if (!items.get(1).equals("to")) {return "I do not understand what you mean";}
-		if (!neutralizeObstacles(player.position().x(), player.position().y(), giveWhat, toWhat)) { return "There is no " + toWhat + " in this room."; }
+		if (!neutralizeObstacles(player.position(), giveWhat, toWhat)) { return "There is no " + toWhat + " in this room."; }
 		return "You have neutralized the obstacle, cool! ";
 	}
 
 	//TODO: This needs to be simplified :O
-	private static boolean neutralizeObstacles(int x, int y, String toNeutralize, String who) {
-		List<Coordinate> areasToNeutralize = new ArrayList<Coordinate>() {
-			{
-				add(new Coordinate(x + 1, y));
-				add(new Coordinate(x, y - 1));
-				add(new Coordinate(x - 1, y));
-				add(new Coordinate(x, y + 1));
-			}
-		};
-		for(Coordinate c : areasToNeutralize) {
-			if(map.isValidMove(c)) {
-				Area area = map.getArea(c.x(), c.y());
-				if (area.getObstacle() != null && area.getObstacle().getName().equals(who) && area.getObstacle().getHowToNeutralize().equals(toNeutralize)) {
-					area.setObstacle(null);
-					return true;
-				}
-			}
+	private static boolean neutralizeObstacles(Coordinate coord, String toNeutralize, String who) {
+		Area area = map.getArea(coord);
+		if (area.getObstacle() != null && area.getObstacle().getName().equals(who) &&
+				area.getObstacle().getHowToNeutralize().equals(toNeutralize))
+		{
+			area.setObstacle(null);
+			return true;
 		}
 		return false;
 	}
-
 
 	//TODO: Stick to the switchcase style used in handle command(). This will make it clearer.
 	private static String handleItem(String item, Player player, List<Item> contents, String action) {
@@ -156,12 +146,12 @@ public class Game {
 		} else {
 			switch (action) {
 				case "drop":
-					map.getArea(player.position().x(),player.position().y()).addItem(toRemove);
+					map.getArea(player.position()).addItem(toRemove);
 					player.removeItem(toRemove);
 					result = "Your backpack is so much lighter when there is no " + item + " in it.";
 					break;
 				default:
-					map.getArea(player.position().x(),player.position().y()).removeItem(toRemove);
+					map.getArea(player.position()).removeItem(toRemove);
 					player.addItem(toRemove);
 					result = "Nice! You now have a " + item + " in your backpack";
 			}
@@ -188,18 +178,23 @@ public class Game {
 				return(" I do not know to move in the direction '" + direction + "'");
 		}
 
-		if (map.isValidMove(newPos) && map.hasNoObstacles(newPos)) {
+		//If there is an obstacle, you can only go back the way you came.
+		if (map.hasObstacles(player.position()) && !oppositeDirection(player.getLastValidDirection()).equals(direction)) {
+			return "You can only proceed by neutralizing the obstacle or going back the direction you came from: " +
+					"<" + oppositeDirection(player.getLastValidDirection()) + ">";
+		}
+		if (map.isValidMove(newPos)) {
 			player.movePlayer(newPos);
+			player.setLastValidDirection(direction);
 			return map.getDescription(newPos);
 		} else {
-			if (map.isValidMove(newPos)) { return map.getArea(newPos.x(), newPos.y()).getObstacle().getDescription();}
+			if (map.isValidMove(newPos)) { return map.getArea(newPos).getObstacle().getDescription();}
 			return ("There is nothing " + direction + " of where you are now.");
 		}
-
 	}
 
 	private static boolean isDirection(String d) {
-		return d.equals("north") || d.equals("south") || d.equals("west") || d.equals("east");
+		return d.equals(north) || d.equals(south) || d.equals(west) || d.equals(east);
 	}
 
 	private static String getHelpInstructions(Player player) {
@@ -208,8 +203,23 @@ public class Game {
 				"<action> <item> <proposition> <item>. An example would be 'Attack broom with sword'. For movement," +
 				"there are 2 ways to move: 'move' followed by either 'north', 'south, 'east' or 'west'. You can also " +
 				"simply type 'south' or any other direction as a shortcut. It is important to note that all inputs are " +
-				"NOT case sensitive! For a full list of commands, type 'List'. Good luck and have fun in VuORK";
+				"NOT case sensitive! For a full list of commands, type 'List' or 'l'. Good luck and have fun in VuORK";
 	}
 
+	private static String oppositeDirection(String d) {
+		switch(d) {
+			case "north":
+				return south;
+			case "south":
+				return north;
+			case "west":
+				return east;
+			case "east":
+				return west;
+			default:
+				System.err.println("AN INVALID DIRECTION WAS GIVEN TO OPPOSITE DIRECTION"); //TODO: throw error
+		}
+		return "";
+	}
 
 }
