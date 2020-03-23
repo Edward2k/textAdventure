@@ -116,7 +116,7 @@ public class Game {
 		if (hasItem(player.getBackpack(), giveWhat) == null) {return "You do not have a " + giveWhat + " in your backpack.";}
 		if (!items.get(1).equals("to")) {return "I do not understand what you mean";}
 		if (!neutralizeObstacles(player.position(), giveWhat, toWhat)) { return "There is no " + toWhat + " in this room."; }
-		return "You have neutralized the obstacle, cool! ";
+		return "You have neutralized the obstacle, cool! \n" + map.getDescription(player.position());
 	}
 
 	//TODO: This needs to be simplified :O
