@@ -15,6 +15,34 @@ public class Map {
         initMapFile();
     }
 
+    /*
+     * Interface
+     */
+
+    public String getDescription(Coordinate c) {
+        int x = c.x();
+        int y = c.y();
+        String intro = "You are currently in the " + map[x][y].getName() + " \n";
+        return intro + map[x][y].getDescription();
+    }
+
+    public Coordinate getEntryPoint() {return entryPoint;} //makes a copy since coordinate is immutable.
+
+    public final boolean isValidMove(Coordinate c) {
+        if (c.x() >= 0 && c.y() >= 0 && c.x() < mapSize && c.y() < mapSize) {
+            return map[c.x()][c.y()] != null;
+        }
+        return false;
+    }
+
+    public final boolean hasObstacles(Coordinate c) { return !map[c.x()][c.y()].canEnter(); }
+
+    public Area getArea(Coordinate c) { return map[c.x()][c.y()]; }
+
+    /*
+    * Reading JSON
+     */
+
     private void initMapFile() {
         // read resource file and create Java JSON object
         InputStream mapInputStream = getClass().getClassLoader().getResourceAsStream("map.json");
@@ -79,7 +107,6 @@ public class Map {
         addContainers(containers, area);
     }
 
-
     private List<BasicItem> addBasicItems(JSONObject basicItems, Area area) {
         List<BasicItem> items =  new ArrayList<BasicItem>();
         Iterator<String> itemIterator  =  basicItems.keys();
@@ -122,24 +149,4 @@ public class Map {
         }
     }
 
-
-    public String getDescription(Coordinate c) {
-        int x = c.x();
-        int y = c.y();
-        String intro = "You are currently in the " + map[x][y].getName() + " \n";
-        return intro + map[x][y].getDescription();
-    }
-
-    public Coordinate getEntryPoint() {return entryPoint;} //makes a copy since coordinate is immutable.
-
-    public final boolean isValidMove(Coordinate c) {
-        if (c.x() >= 0 && c.y() >= 0 && c.x() < mapSize && c.y() < mapSize) {
-            return map[c.x()][c.y()] != null;
-        }
-        return false;
-    }
-
-    public final boolean hasNoObstacles(Coordinate c) { return map[c.x()][c.y()].canEnter(); }
-
-    public Area getArea(int x, int y) { return map[x][y]; }
 }

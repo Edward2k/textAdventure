@@ -27,3 +27,9 @@ I
 src/main/java/Parser.java,8/f/8f7662e19fdcd0de2fd3c20abefdf629608891ec
 L
 src/main/java/Container.java,a/b/ab6994de3d18e4abf79c5c6acba40b5abcacd6e7
+G
+src/main/java/Area.java,9/c/9c86bbb80d90fba058bc4004efc70ccf32da5087
+M
+src/main/java/Coordinate.java,d/f/df8fde2ace0d0a4e7500deec06f2904947764642
+K
+src/main/java/Obstacle.java,d/6/d653ac5dc7c2d0bad7f69ef17b521e97f2265361

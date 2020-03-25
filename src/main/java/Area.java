@@ -20,7 +20,13 @@ public class Area {
     }
 
     public String getDescription() {
-        return description;
+        if (!canEnter()) { return obstacle.getDescription(); }
+        if (items.isEmpty()) {return description + "\nThere are no Items in this room.";}
+        StringBuilder finalDescription = new StringBuilder(description + "\nIn this room, the following items are present: ");
+        for (Item item: items) {
+            finalDescription.append("a <").append(item.getName()).append(">, ");
+        }
+        return finalDescription.toString();
     }
 
     public boolean canEnter() {
@@ -37,5 +43,6 @@ public class Area {
     public Obstacle getObstacle() { return this.obstacle;}
 
     public void setObstacle(Obstacle obstacle) { this.obstacle = obstacle;}
+
 
 }
