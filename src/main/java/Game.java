@@ -111,11 +111,22 @@ public class Game {
 	}
 
 	private static String giveItem(List<String> items, Player player) {
-		String giveWhat = items.get(0);
-		String toWhat = items.get(2);
-		if (hasItem(player.getBackpack(), giveWhat) == null) {return "You do not have a " + giveWhat + " in your backpack.";}
-		if (!items.get(1).equals("to")) {return "I do not understand what you mean";}
-		if (!neutralizeObstacles(player.position(), giveWhat, toWhat)) { return "There is no " + toWhat + " in this room."; }
+		try {
+			String giveWhat = items.get(0);
+			String toWhat = items.get(2);
+
+			if (!items.get(1).equals("to")) {
+				return "I do not understand what you mean";
+			}
+			if (hasItem(player.getBackpack(), giveWhat) == null) {
+				return "You do not have a " + giveWhat + " in your backpack.";
+			}
+			if (!toWhat.equals(null) && !neutralizeObstacles(player.position(), giveWhat, toWhat)) {
+				return "There is no " + toWhat + " in this room.";
+			}
+		} catch (NullPointerException e) {
+			return "I do not understand what you mean";
+		}
 		return "You have neutralized the obstacle, cool! \n" + map.getDescription(player.position());
 	}
 
