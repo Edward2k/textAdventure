@@ -16,4 +16,8 @@ public class Printer {
         }
     }
 
+    void output(String output) {
+        sender.println(output);
+    }
+
 }

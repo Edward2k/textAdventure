@@ -5,7 +5,7 @@ public class PlayerThread extends Thread{
     private final Game server;
 
     public PlayerThread(Socket socket, Game server, Coordinate start) {
-        this.player = new Player(socket, start, new Interface());
+        this.player = new Player(socket, start);
         this.server = server;
     }
 

@@ -1,3 +1,5 @@
+package PlayerClient;
+
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
@@ -40,7 +42,7 @@ public class Interface {
     }
 
     public void append(String output) {
-        messages.append(output);
+        messages.append("\n" + output + "\n");
     }
 
     public String getInput() {
@@ -54,7 +56,7 @@ public class Interface {
             } else {break;}
         }
         String text = input;
-        append("\n" + text);
+        append(text);
         input = null;
         return text;
     }

@@ -7,9 +7,11 @@ import java.util.Scanner;
 public class WriteThread extends Thread {
     private PrintWriter writer;
     private Socket sock;
+    private Interface inter;
 
-    public WriteThread(Socket socket) {
+    public WriteThread(Socket socket, Interface clientInterface) {
         this.sock = socket;
+        this.inter = clientInterface;
 
         try {
             OutputStream output = socket.getOutputStream();
@@ -22,11 +24,11 @@ public class WriteThread extends Thread {
 
     @Override
     public void run() {
-        Scanner in = new Scanner(System.in);
         String text;
 
         do {
-            text = in.nextLine();
+            text = inter.getInput();
+
             writer.println(text);
 
         } while (!text.equalsIgnoreCase("quit!"));
