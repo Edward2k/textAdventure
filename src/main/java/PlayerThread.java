@@ -24,25 +24,15 @@ public class PlayerThread extends Thread{
     private void welcomePlayer() {
         player.output("To join the VuORK realm, you need some sort of identification. So please, What is your name?");
         player.setName(player.getLine());
-        player.output("Welcome " + player.getName() + " to the world of VuOrk! <Print Help by typing 'Help'>");
+        player.output("Welcome " + player.getName() + " to the world of VuOrk! <Print Help by typing 'Help'> <Send a message to other players by typing 'text' + message>");
         player.output("It's a Saturday night, 3am, and you are coming from a party at Uilenstede. There has been an emergency canvas notification of professor Thilo being held against his will somewhere in the main building of the VU. You will have to save him before the sun rises. Good luck in your adventure!");
         player.output(server.getAreaDescription(player.position()));
-    }
-
-    private void checkChatroom(){
-        if(Game.mailbox() == true){
-            System.err.println("check");
-            player.output(Game.getMessage());
-            System.err.println("get message");
-            // Game.setMessage(false);
-            System.err.println("reset mailbox");
-        }
     }
 
     public final void runPlayer() {
         //Loop prompt
         while(true) {
-            checkChatroom();
+            //checkChatroom();
             Instruction currCommand = player.getInstruction();      //Blocking command waiting for input
             System.err.println("INSTRUCTION : " + currCommand.toString());
             while (server.isGameBusy()) {
@@ -51,5 +41,13 @@ public class PlayerThread extends Thread{
             String result = server.validateCommand(currCommand, player);
             player.output(result);
         }
+    }
+
+    public void output(String message){
+        player.output(message);
+    }
+
+    public String getPlayerName(){
+        return player.getName();
     }
 }

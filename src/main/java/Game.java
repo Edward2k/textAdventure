@@ -7,13 +7,14 @@ public class Game {
 
 	private static Map map;
 	private static int PORT;
+	private static int numUsers = 0;
 	private boolean isBusy; //Spin lock in case 2 commands at same time.
+	private static boolean isNewMessage = false;
 	private static String north = "north";
 	private static String south = "south";
 	private static String west = "west";
 	private static String east = "east";
-	private static String message;
-	private static boolean newMessage = false;
+	private static PlayerThread users[] = new PlayerThread[4];
 
 	Game() {
 		map = new Map();
@@ -31,8 +32,9 @@ public class Game {
 				Socket sock = serverSocket.accept();
 				System.err.println("New user connected.");
 				//open new thread for new socket
-				PlayerThread newUser = new PlayerThread(sock, this, map.getEntryPoint());
-				newUser.start();
+				users[numUsers] = new PlayerThread(sock, this, map.getEntryPoint());
+				users[numUsers].start();
+				numUsers ++;
 			}
 		} catch (IOException e) {
 			System.err.println("Error in server: " + e);
@@ -82,8 +84,7 @@ public class Game {
 				result = "Your score is currently: " + player.getScore();
 				break;
 			case "text":
-				System.err.println("text received");
-				createMessage(command.getItems().toString());
+				setMailbox(true);
 				result = "send message";
 				break;
 			case "help":
@@ -93,6 +94,9 @@ public class Game {
 			default:
 				result = ("I do not understand " + action);
 		}
+
+		//check if message available, if yes: send to all players
+		if(mailbox() == true){ deliverMessage(command, player.getName()); }
 
 		//Movement shortcut
 		if (isDirection(action)) { result = handleMove(action, player); }
@@ -213,8 +217,9 @@ public class Game {
 				"with this realm, you must type a command with the form" +
 				"<action> <item> <proposition> <item>. An example would be 'Attack broom with sword'. For movement," +
 				"there are 2 ways to move: 'move' followed by either 'north', 'south, 'east' or 'west'. You can also " +
-				"simply type 'south' or any other direction as a shortcut. It is important to note that all inputs are " +
-				"NOT case sensitive! For a full list of commands, type 'List' or 'l'. Good luck and have fun in VuORK";
+				"simply type 'south' or any other direction as a shortcut. By typing 'text'<message> you can send a " +
+				"message to your fellow players. It is important to note that all inputs are NOT case sensitive!" +
+				"For a full list of commands, type 'List' or 'l'. Good luck and have fun in VuORK";
 	}
 
 	private static String oppositeDirection(String d) {
@@ -233,27 +238,25 @@ public class Game {
 		return "";
 	}
 
-	private void createMessage(String newMessage){
-		System.err.println("create message");
-		message = newMessage;
-		System.err.println("created");
-		setMessage(true);
-		System.err.println("mailbox = true");
+	//deliver message to all players
+	private static void deliverMessage(Instruction command, String userName){
+		String message = createMessage(command.getItems().toString(), userName);
+		for(int i = 0; i <  numUsers; i++){
+			if(users[i].getPlayerName() != userName){
+				users[i].output(message);
+			}
+		}
+		setMailbox(false);
 	}
 
-	public static String getMessage(){
-		System.err.println("getMessage");
-		return message;
+	private static String createMessage(String temp, String name){
+		temp = temp.replace(",", "").replace("null", "").replace("[", "").replace("]", "");
+		return name.toUpperCase() + ": " + temp;
 	}
 
-	public static boolean mailbox(){
-		System.err.println("mailbox accessed");
-		return newMessage;
-	}
+	//returns true if there is a message available
+	private static boolean mailbox(){ return isNewMessage; }
 
-	public static void setMessage(boolean val){
-		System.err.println("setMEssage");
-		newMessage = val;
-	}
+	private static void setMailbox(boolean val){ isNewMessage = val;}
 
 }
