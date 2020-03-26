@@ -1,14 +1,7 @@
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import org.json.JSONObject;
+import java.util.List;
 
 public class Game {
 
@@ -19,6 +12,8 @@ public class Game {
 	private static String south = "south";
 	private static String west = "west";
 	private static String east = "east";
+	private static String message;
+	private static boolean newMessage = false;
 
 	Game() {
 		map = new Map();
@@ -85,6 +80,11 @@ public class Game {
 				break;
 			case "score":
 				result = "Your score is currently: " + player.getScore();
+				break;
+			case "text":
+				System.err.println("text received");
+				createMessage(command.getItems().toString());
+				result = "send message";
 				break;
 			case "help":
 			case "h":
@@ -231,6 +231,29 @@ public class Game {
 				System.err.println("AN INVALID DIRECTION WAS GIVEN TO OPPOSITE DIRECTION"); //TODO: throw error
 		}
 		return "";
+	}
+
+	private void createMessage(String newMessage){
+		System.err.println("create message");
+		message = newMessage;
+		System.err.println("created");
+		setMessage(true);
+		System.err.println("mailbox = true");
+	}
+
+	public static String getMessage(){
+		System.err.println("getMessage");
+		return message;
+	}
+
+	public static boolean mailbox(){
+		System.err.println("mailbox accessed");
+		return newMessage;
+	}
+
+	public static void setMessage(boolean val){
+		System.err.println("setMEssage");
+		newMessage = val;
 	}
 
 }

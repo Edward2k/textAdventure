@@ -29,16 +29,27 @@ public class PlayerThread extends Thread{
         player.output(server.getAreaDescription(player.position()));
     }
 
+    private void checkChatroom(){
+        if(Game.mailbox() == true){
+            System.err.println("check");
+            player.output(Game.getMessage());
+            System.err.println("get message");
+            // Game.setMessage(false);
+            System.err.println("reset mailbox");
+        }
+    }
+
     public final void runPlayer() {
         //Loop prompt
         while(true) {
-                Instruction currCommand = player.getInstruction();      //Blocking command waiting for input
-                System.err.println("INSTRUCTION : " + currCommand.toString());
-                while (server.isGameBusy()) {
-                }                         //Wait for game to finish other process command.
-                System.err.println("Command executed.");
-                String result = server.validateCommand(currCommand, player);
-                player.output(result);
+            checkChatroom();
+            Instruction currCommand = player.getInstruction();      //Blocking command waiting for input
+            System.err.println("INSTRUCTION : " + currCommand.toString());
+            while (server.isGameBusy()) {
+            }                         //Wait for game to finish other process command.
+            System.err.println("Command executed.");
+            String result = server.validateCommand(currCommand, player);
+            player.output(result);
         }
     }
 }
