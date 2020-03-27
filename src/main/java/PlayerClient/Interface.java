@@ -25,6 +25,7 @@ public class Interface {
         gamePanel.setBounds(x,y,frameSize.width,frameSize.height);
         messages = new JTextArea(x,y);
         userInput = new JTextField();
+
         messages.setLineWrap(true);
         messages.setWrapStyleWord(true);
         messages.setEditable(false);
