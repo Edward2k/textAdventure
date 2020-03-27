@@ -148,31 +148,36 @@ public class Game {
 	}
 
 	//TODO: Stick to the switchcase style used in handle command(). This will make it clearer.
+	//TODO: Ill change it to if else bc in the feedback it says too few cases for switch case statement, and i think the same
 	private static String handleItem(String item, Player player, List<Item> contents, String action) {
 		Item toRemove = hasItem(contents, item);
 		String result;
 		if(toRemove == null) {
-			switch(action) {
-				case "drop":
-					result = "You cannot drop what you do not have, there is not " + item + " in your backpack.";
-					break;
-				default:
-					result = "I don't see " + item + " anywhere in here.";
+			if(action == "drop") {
+				result = "You cannot drop what you do not have, there is not " + item + " in your backpack.";
+			} else {
+				result = "I don't see " + item + " anywhere in here.";
 			}
 		} else {
-			switch (action) {
-				case "drop":
-					map.getArea(player.position()).addItem(toRemove);
-					player.removeItem(toRemove);
-					result = "Your backpack is so much lighter when there is no " + item + " in it.";
-					break;
-				default:
-					map.getArea(player.position()).removeItem(toRemove);
-					player.addItem(toRemove);
-					result = "Nice! You now have a " + item + " in your backpack";
+			if(action == "drop") {
+				result = dropItem(item, toRemove, player);
+			} else {
+				result = takeItem(item, toRemove, player);
 			}
 		}
 		return result;
+	}
+
+	private static String dropItem(String item, Item removeItem, Player player ){
+		map.getArea(player.position()).addItem(removeItem);
+		player.removeItem(removeItem);
+		return "Your backpack is so much lighter when there is no " + item + " in it.";
+	}
+
+	private static String takeItem(String item, Item removeItem, Player player){
+		map.getArea(player.position()).removeItem(removeItem);
+		player.addItem(removeItem);
+		return "Nice! You now have a " + item + " in your backpack";
 	}
 
 	private static String handleMove(String direction, Player player) {
@@ -199,13 +204,17 @@ public class Game {
 			return "You can only proceed by neutralizing the obstacle or going back the direction you came from: " +
 					"<" + oppositeDirection(player.getLastValidDirection()) + ">";
 		}
-		if (map.isValidMove(newPos)) {
-			player.movePlayer(newPos);
+		return checkValidityMove(newPos, direction, player);
+	}
+
+	private static String checkValidityMove(Coordinate position, String direction, Player player){
+		if (map.isValidMove(position)) {
+			player.movePlayer(position);
 			player.setLastValidDirection(direction);
-			return map.getDescription(newPos);
+			return map.getDescription(position);
 		} else {
-			if (map.isValidMove(newPos)) { return map.getArea(newPos).getObstacle().getDescription();}
-			return ("There is nothing " + direction + " of where you are now.");
+			if (map.isValidMove(position)) { return map.getArea(position).getObstacle().getDescription();}
+			return "There is nothing " + direction + " of where you are now.";
 		}
 	}
 
