@@ -8,7 +8,6 @@ public class Game {
 
 	private static Map map;
 	private static int PORT;
-	private static int numUsers = 0;
 	private boolean isBusy; //Spin lock in case 2 commands at same time.
 	private static String north = "north";
 	private static String south = "south";
