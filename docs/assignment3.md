@@ -3,7 +3,12 @@
 ###Summary of changes of Assignment 2
 
 The first feedback to address was the introduction (from the feedback of Assignment 1). More information, about the game *Zork* had to be added. Therefore, the first step for us was to further elaborate on  the games mechanics and objectives.
-The next step we took was to look through the code, add some edge cases/error messages and delete variables that weren't used, such as *moves* and score.  
+
+Second, the features, and quality requirements had to be added. ...//TODO
+
+Third, unused variables and functions inside the code were removed, and error messages for the user were added. A newly implemented message is the one telling tha player that the given instruction is too long. 
+
+Fourth, still haning around from the feedback of assignment 1, the use case diagram was renewed. We hope it is correct now :-).
 
 ### Introduction									
 Author(s): Eduardo Lira
