@@ -16,6 +16,7 @@ public class PlayerThread extends Thread{
             runPlayer();
         } catch (NullPointerException e) {
             System.err.println("The client at Thread " + Thread.currentThread().getName() + " has unexpectedly quit.\nKilling Thread");
+            server.removeThread(this);
             e.printStackTrace();
             Thread.yield();
         }
@@ -32,7 +33,6 @@ public class PlayerThread extends Thread{
     public final void runPlayer() {
         //Loop prompt
         while(true) {
-            //checkChatroom();
             Instruction currCommand = player.getInstruction();      //Blocking command waiting for input
             System.err.println("INSTRUCTION : " + currCommand.toString());
             while (server.isGameBusy()) {
