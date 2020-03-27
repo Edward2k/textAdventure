@@ -69,7 +69,7 @@ public class Game {
 				result = (map.getDescription(player.position()));
 				break;
 			case "list":
-				result = ("Need to implement this list later.");
+				result = listCommands();
 				break;
 			case "drop":
 				result = handleItem(command.getItems().get(0), player, player.getBackpack(), action);
@@ -127,7 +127,7 @@ public class Game {
 			if (hasItem(player.getBackpack(), giveWhat) == null) {
 				return "You do not have a " + giveWhat + " in your backpack.";
 			}
-			if (!toWhat.equals(null) && !neutralizeObstacles(player.position(), giveWhat, toWhat)) {
+			if (toWhat != null && !neutralizeObstacles(player.position(), giveWhat, toWhat)) {
 				return "There is no " + toWhat + " in this room.";
 			}
 		} catch (NullPointerException e) {
@@ -250,10 +250,26 @@ public class Game {
 		}
 	}
 
-	private static String createMessage(String temp, String name){
-		temp = temp.replace(",", "").replace("null", "").replace("[", "").replace("]", "");
-		return name.toUpperCase() + ": " + temp;
+	private static String createMessage(String msg, String name){
+		msg = msg.replace(",", "").replace("null", "").replace("[", "").replace("]", "");
+		return name.toUpperCase() + ": " + msg;
 	}
+
+	private static String listCommands() {
+		return "Below is a list of all valid commands and their arguments: \n" +
+				"move + north/south/east/west. => same as just the argument, move can be ommitted \n" +
+				"look => gives description of Area and all Items present\n" +
+				"list => gives this menu\n" +
+				"drop <item name> => drops itemName from your backpack to the Area\n" +
+				"take/get/pickup <item name> => takes Item from Area and places it in your packpack\n" +
+				"give <item name> to <obstacle/playername> => gives Item to the given name\n" +
+				"score => displays your current score\n" +
+				"text/deliver/shout/broadcast <msg> => will send every other user in the Server msg\n" +
+				"help/h => gives a brief help menu\n" +
+				"More will be implemented in due time\n";
+
+	}
+
 
 
 }
