@@ -157,6 +157,7 @@ public class Game {
 		Item toRemove = hasItem(contents, item);
 		String result;
 		if(toRemove == null) {
+			if(!toRemove.isValidAction(action)) { return "You cannot " + action + " a " + item; }
 			switch(action) {
 				case "drop":
 					result = "You cannot drop what you do not have, there is not " + item + " in your backpack.";
