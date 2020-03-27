@@ -147,8 +147,6 @@ public class Game {
 		return false;
 	}
 
-	//TODO: Stick to the switchcase style used in handle command(). This will make it clearer.
-	//TODO: Ill change it to if else bc in the feedback it says too few cases for switch case statement, and i think the same
 	private static String handleItem(String item, Player player, List<Item> contents, String action) {
 		Item toRemove = hasItem(contents, item);
 		String result;
