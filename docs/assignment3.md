@@ -10,32 +10,6 @@ Third, unused variables and functions inside the code were removed, and error me
 
 Fourth, still haning around from the feedback of assignment 1, the use case diagram was renewed. We hope it is correct now :-).
 
-### Introduction									
-Author(s): Eduardo Lira
-
-Inspiration: [Original Zork game](https://textadventures.co.uk/games/play/5zyoqrsugeopel3ffhz_vq)
-
-For our software project, we have decided to recreate the game Zork. Zork is one of the first Command Line PlayerClient.Interface (CLI), role playing games (RPG). The game is played through the terminal interface, by typing in text commands. There is no such as a graphical user interface with fancy graphics, only text. 
-
-In Zork, a user assumes the role of a protagonist stuck in a post-apocalyptic world. The game starts at an empty house in the forest, and the player must find a way to get inside. After finding a way, the real adventure begins. Items must be collected, trolls must be fought, and rugs must be moved(, etc.). The commands to do so can be given by instructions, such as "move north", "take sword", "trun on lamp", "move rug", etc. To win the game, the protagonist must fight its way through *Zork* world in your terminal, colored by your imagination, in order to find all 20 treasures, and place them in the trophy case. 
-Our recreation of Zork will remodel the game play with: a new setting, a new goal, new commands etcetera. 
-
-After a plethora of discourse with the team, we have decided that our game, titled: **VUORK: Saving Thilo from the Chamber of Secrets**, will take place at the Vrije Universiteit Amsterdam. The user assumes the role of a newly enrolled student (user may choose the name) on his way to a 9AM lecture of Computer Programming. Albeit new, when the user arrives at the main campus of the VU, he notices something is wrong… This is where the game begins. 
-
-After a brief introduction into the game, the user will discover he is alone at the VU, and his lecturer, Thilo, is lost in the Chamber of Secrets. He will then have to gather the puzzle pieces, each with a clue indicating where the next piece of the puzzle is, to find the chamber of secrets; where Thilo is held captive. 
-
-To interact with the VUORK world, the user will use text commands in the CLI to give instructions. The instruction will be in the form “<action> <items…*>”. We will create a parser which will transform that instruction into something our system can understand: If the user types in a command, describing what he is doing/what he wants to do, he/she will get a response from the computer what she/he is now able to see, what has changed or if the move is not valid. Furthermore, instead of having a boring CLI as the realm, we want to add a few Graphical elements into the game. Examples include the players inventory, the current areas explored etc...
-
-With the game briefly explained, we must now consider how to develop this idea in a way that is easily extendable, maintainable and comprehensible. By using the Object-Oriented programming paradigm, we aim to create a system that is easily modifiable, expandable and intuitive for programmers to understand. To help achieve this goal, we will be making use of UML diagrams. 
-
-   				   Figure 1: A use case diagram of VUORK
-
-![VuORK use case diagram](https://i.postimg.cc/SRBV1RM5/Screen-Shot-2020-03-01-at-6-40-11-PM.png)
-
-The remainder of this paper will cover detailed features and quality requirements to help us structure this project (This should be self explanatory). 
-
-**NB**: THE SYSTEM WILL BE INDEPENDENT FROM THE STORY LINE OUTLINED ABOVE. The idea is to create a system that can be *easily* adapted to any other storyline and easy to expand. 
-
 
 ### Implemented feature
 

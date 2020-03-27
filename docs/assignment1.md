@@ -7,7 +7,9 @@ Author(s): Eduardo Lira
 
 Inspiration: [Original Zork game](https://textadventures.co.uk/games/play/5zyoqrsugeopel3ffhz_vq)
 
-For our software project, we have decided to recreate the game Zork. Zork is one of the first Command Line PlayerClient.Interface (CLI), role playing games (RPG). In Zork, a user assumes the role of a protagonist stuck in a post-apocalyptic world. To win the game, the protagonist must find all 20 treasures, and place them in the trophy case. Our recreation of Zork will remodel the game play with: a new setting, a new goal, new commands etcetera. 
+For our software project, we have decided to recreate the game Zork. Zork is one of the first Command Line PlayerClient.Interface (CLI), role playing games (RPG). The game is played through the terminal interface, by typing in text commands. There is no such as a graphical user interface with fancy graphics, only text. 
+
+In Zork, a user assumes the role of a protagonist stuck in a post-apocalyptic world. The game starts at an empty house in the forest, and the player must find a way to get inside. After finding a way, the real adventure begins. Items must be collected, trolls must be fought, and rugs must be moved(, etc.). The commands to do so can be given by instructions, such as "move north", "take sword", "trun on lamp", "move rug", etc. To win the game, the protagonist must fight its way through *Zork* world in your terminal, colored by your imagination, in order to find all 20 treasures, and place them in the trophy case. 
 
 After a plethora of discourse with the team, we have decided that our game, titled: **VUORK: Saving Thilo from the Chamber of Secrets**, will take place at the Vrije Universiteit Amsterdam. The user assumes the role of a newly enrolled student (user may choose the name) on his way to a 9AM lecture of Computer Programming. Albeit new, when the user arrives at the main campus of the VU, he notices something is wrong… This is where the game begins. 
 
