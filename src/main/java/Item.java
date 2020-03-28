@@ -15,8 +15,6 @@ public abstract class Item {
 
     public final String getName() { return name; }
 
-    public final int getID() { return ID; }
-
     public boolean isValidAction(String action) {
         for(String itemCanBe : canBe) {
             if(itemCanBe.equals(action)) { return true; }

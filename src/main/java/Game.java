@@ -8,7 +8,6 @@ public class Game {
 
 	private static Map map;
 	private static int PORT;
-	private static int numUsers = 0;
 	private boolean isBusy; //Spin lock in case 2 commands at same time.
 	private static String north = "north";
 	private static String south = "south";
@@ -131,7 +130,7 @@ public class Game {
 			if (hasItem(player.getBackpack(), giveWhat) == null) {
 				return "You do not have a " + giveWhat + " in your backpack.";
 			}
-			if (!toWhat.equals(null) && !neutralizeObstacles(player.position(), giveWhat, toWhat)) {
+			if (!neutralizeObstacles(player.position(), giveWhat, toWhat)) {
 				return "There is no " + toWhat + " in this room.";
 			}
 		} catch (NullPointerException e) {
@@ -157,7 +156,6 @@ public class Game {
 		Item toRemove = hasItem(contents, item);
 		String result;
 		if(toRemove == null) {
-			if(!toRemove.isValidAction(action)) { return "You cannot " + action + " a " + item; }
 			switch(action) {
 				case "drop":
 					result = "You cannot drop what you do not have, there is not " + item + " in your backpack.";
@@ -166,6 +164,7 @@ public class Game {
 					result = "I don't see " + item + " anywhere in here.";
 			}
 		} else {
+			if(!toRemove.isValidAction(action)) { return "You cannot " + action + " a " + item; }
 			switch (action) {
 				case "drop":
 					map.getArea(player.position()).addItem(toRemove);
@@ -228,7 +227,7 @@ public class Game {
 			}
 			toReturn.append(area.getItemsDescription());
 		} else {
-			if(container.isOpen()) {toReturn.append("The " + item + " has already been moved.s"); }
+			if(container != null && container.isOpen()) {toReturn.append("The " + item + " has already been moved.s"); }
 			else { toReturn.append("I don't see a" + item + " in this room."); }
 		}
 		return toReturn.toString();
