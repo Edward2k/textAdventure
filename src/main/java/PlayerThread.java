@@ -1,6 +1,6 @@
 import java.net.Socket;
 
-public class PlayerThread extends Thread{
+public class PlayerThread extends Thread {
     private final Player player;
     private final Game server;
 

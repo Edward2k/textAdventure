@@ -35,7 +35,7 @@ Class Diagram of VuORK
 
 > Figure representing the Class Diagram of VuORK (Diagram 1) **DESCRIPTIVE**
 
-![Class Diagram of VuORK](https://i.postimg.cc/VkKjKVcN/Class-diagram-Class-diagram-3.png)
+![Class Diagram of VuORK](https://i.postimg.cc/DZX98JfB/Class-diagram-Class-diagram.png)
 
 #### Important 
 
