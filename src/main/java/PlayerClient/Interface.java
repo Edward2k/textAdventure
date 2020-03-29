@@ -20,8 +20,8 @@ public class Interface {
         gamePanel = new JFrame();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension frameSize = new Dimension(screenSize.width/2, screenSize.height/2);
-        int x = frameSize.width/2;
-        int y = frameSize.height/2;
+        int x = 0;
+        int y = 0;
         gamePanel.setBounds(x,y,frameSize.width,frameSize.height);
         messages = new JTextArea(x,y);
         userInput = new JTextField();

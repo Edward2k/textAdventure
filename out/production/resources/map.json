@@ -103,7 +103,9 @@
             "name": "sofa",
             "description": "You are not strong enough - and why would you want to carry a sofa around?",
             "entities": {
-            }
+            },
+            "canBe": "",
+            "usedTo": ""
           }
         }
       }
@@ -160,7 +162,9 @@
             "name": "mirror",
             "description": "You just broke a mirror, why would you do that? Have you never heard of 7 years of bad luck?",
             "entities": {
-            }
+            },
+            "canBe": "",
+            "usedTo": ""
           }
         }
       }
