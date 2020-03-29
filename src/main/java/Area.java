@@ -22,11 +22,17 @@ public class Area {
     public String getDescription() {
         if (!canEnter()) { return obstacle.getDescription(); }
         if (items.isEmpty()) {return description + "\nThere are no Items in this room.";}
-        StringBuilder finalDescription = new StringBuilder(description + "\nIn this room, the following items are present: ");
-        for (Item item: items) {
-            finalDescription.append("a <").append(item.getName()).append(">, ");
-        }
+        StringBuilder finalDescription = new StringBuilder(description + "\n");
+        finalDescription.append(getItemsDescription());
         return finalDescription.toString();
+    }
+
+    public String getItemsDescription() {
+        StringBuilder itemDescription = new StringBuilder("In this room, the following items are present: ");
+        for (Item item: items) {
+            itemDescription.append("a <").append(item.getName()).append(">, ");
+        }
+        return itemDescription.toString();
     }
 
     public boolean canEnter() {

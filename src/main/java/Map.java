@@ -103,7 +103,10 @@ public class Map {
         JSONObject basicItems = items.getJSONObject("basicItems");
         JSONObject containers = items.getJSONObject("containers");
 
-        addBasicItems(basicItems, area);
+        List<BasicItem> itemList = addBasicItems(basicItems, area);
+        for(Item item : itemList) {
+            area.addItem(item);
+        }
         addContainers(containers, area);
     }
 
@@ -116,7 +119,6 @@ public class Map {
                 JSONObject itemContent = new JSONObject(basicItems.get(itemString).toString()); //contains name and coordinate
                 String itemName = itemContent.get("name").toString();
                 BasicItem newItem = new BasicItem(itemName, Integer.parseInt(itemString), getActions(itemContent.get("canBe").toString()), getActions(itemContent.get("usedTo").toString()));
-                area.addItem(newItem);
                 items.add(newItem);
             }
         }
@@ -141,11 +143,11 @@ public class Map {
                 String containerDescription = containerContent.get("description").toString();
                 JSONObject containerEntities = new JSONObject(containerContent.get("entities").toString());
                 List<BasicItem> basicItems = addBasicItems(containerEntities, area);
-                area.addItem(new Container(containerName, Integer.parseInt(containerString), containerDescription, basicItems));
+                area.addItem(new Container(containerName, Integer.parseInt(containerString), containerDescription, basicItems, getActions(containerContent.get("canBe").toString()),  getActions(containerContent.get("usedTo").toString())));
             }
         }
         catch (Exception ex) {
-            System.out.println("BasicItem reading error: " + ex);
+            System.out.println("Container reading error: " + ex);
         }
     }
 

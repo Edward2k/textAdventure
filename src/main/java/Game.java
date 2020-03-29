@@ -91,6 +91,10 @@ public class Game {
 				deliverMessage(command, player.getName());
 				result = "message delivered ";
 				break;
+			case "lift":
+			case "open":
+				result = handleContainer(command.getItems().get(0), player, action);
+				break;
 			case "help":
 			case "h":
 				result = getHelpInstructions(player);
@@ -126,7 +130,7 @@ public class Game {
 			if (hasItem(player.getBackpack(), giveWhat) == null) {
 				return "You do not have a " + giveWhat + " in your backpack.";
 			}
-			if (toWhat != null && !neutralizeObstacles(player.position(), giveWhat, toWhat)) {
+			if (!neutralizeObstacles(player.position(), giveWhat, toWhat)) {
 				return "There is no " + toWhat + " in this room.";
 			}
 		} catch (NullPointerException e) {
@@ -214,6 +218,25 @@ public class Game {
 			if (map.isValidMove(position)) { return map.getArea(position).getObstacle().getDescription();}
 			return "There is nothing " + direction + " of where you are now.";
 		}
+	}
+
+	private static String handleContainer(String item, Player player, String action) {
+		Area area = map.getArea(player.position()); //.getItems()
+		Container container = (Container) hasItem(area.getItems(), item);
+		StringBuilder toReturn = new StringBuilder();
+		if(container != null && !container.isOpen()) {
+			container.toggle();
+			if(!container.isValidAction(action)) { return "You cannot " + action + " a " + item; }
+			toReturn.append(container.getDescription() + "\n");
+			for(Item containerItem : container.getEntities()) {
+				area.addItem(containerItem);
+			}
+			toReturn.append(area.getItemsDescription());
+		} else {
+			if(container != null && container.isOpen()) {toReturn.append("The " + item + " has already been moved.s"); }
+			else { toReturn.append("I don't see a" + item + " in this room."); }
+		}
+		return toReturn.toString();
 	}
 
 	private static boolean isDirection(String d) {

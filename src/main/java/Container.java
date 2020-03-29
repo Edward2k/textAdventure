@@ -1,21 +1,21 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class Container extends Item {
-    private boolean isOpen;
     private List<BasicItem> entities;
     private String description;
+    private boolean isOpen = false;
 
-    Container(String name1, int id, String description, List<BasicItem> items) {
-        super(name1, id);
+    Container(String name1, int id, String description, List<BasicItem> items, List<String> itemCanBe, List<String> itemUsedTo) {
+        super(name1, id, itemCanBe, itemUsedTo);
         this.description = description;
         this.entities = items;
     }
 
-    public void toggle(boolean state) { this.isOpen = state; }
+    public List<BasicItem> getEntities() { return this.entities;}
 
     public String getDescription() { return this.description; }
 
-    public void addItems() {}
+    public void toggle() { this.isOpen = true;}
 
+    public boolean isOpen() {return this.isOpen;}
 }
