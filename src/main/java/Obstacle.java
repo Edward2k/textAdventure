@@ -1,5 +1,5 @@
 public class Obstacle {
-    private boolean obstacleNeutralized;
+    private boolean isNeutralized;
     private int health;
     private String name;
     private String description;
@@ -9,17 +9,17 @@ public class Obstacle {
         this.name = name;
         this.description = description;
         this.health = 100;
-        this.obstacleNeutralized = false;
+        this.isNeutralized = false;
         this.howToNeutralize = neutralize;
     }
 
-    public boolean isNeutralized() {return obstacleNeutralized;}
+    public boolean isNeutralized() {return isNeutralized;}
 
     public int obstacleHealth() {return health;}
 
     public void attackObstacle(int damage) {
         health = health - damage;
-        if(health <= 0) { obstacleNeutralized = true;}
+        if(health <= 0) { isNeutralized = true;}
     }
 
     public String getName() { return this.name;}

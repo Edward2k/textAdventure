@@ -68,7 +68,7 @@ public class Game {
 				result = (map.getDescription(player.position()));
 				break;
 			case "list":
-				result = ("Need to implement this list later.");
+				result = listCommands();
 				break;
 			case "drop":
 				result = handleItem(command.getItems().get(0), player, player.getBackpack(), action);
@@ -151,33 +151,35 @@ public class Game {
 		return false;
 	}
 
-	//TODO: Stick to the switchcase style used in handle command(). This will make it clearer.
 	private static String handleItem(String item, Player player, List<Item> contents, String action) {
 		Item toRemove = hasItem(contents, item);
 		String result;
 		if(toRemove == null) {
-			switch(action) {
-				case "drop":
-					result = "You cannot drop what you do not have, there is not " + item + " in your backpack.";
-					break;
-				default:
-					result = "I don't see " + item + " anywhere in here.";
+			if(action == "drop") {
+				result = "You cannot drop what you do not have, there is not " + item + " in your backpack.";
+			} else {
+				result = "I don't see " + item + " anywhere in here.";
 			}
 		} else {
-			if(!toRemove.isValidAction(action)) { return "You cannot " + action + " a " + item; }
-			switch (action) {
-				case "drop":
-					map.getArea(player.position()).addItem(toRemove);
-					player.removeItem(toRemove);
-					result = "Your backpack is so much lighter when there is no " + item + " in it.";
-					break;
-				default:
-					map.getArea(player.position()).removeItem(toRemove);
-					player.addItem(toRemove);
-					result = "Nice! You now have a " + item + " in your backpack";
+			if(action == "drop") {
+				result = dropItem(item, toRemove, player);
+			} else {
+				result = takeItem(item, toRemove, player);
 			}
 		}
 		return result;
+	}
+
+	private static String dropItem(String item, Item removeItem, Player player ){
+		map.getArea(player.position()).addItem(removeItem);
+		player.removeItem(removeItem);
+		return "Your backpack is so much lighter when there is no " + item + " in it.";
+	}
+
+	private static String takeItem(String item, Item removeItem, Player player){
+		map.getArea(player.position()).removeItem(removeItem);
+		player.addItem(removeItem);
+		return "Nice! You now have a " + item + " in your backpack";
 	}
 
 	private static String handleMove(String direction, Player player) {
@@ -204,13 +206,17 @@ public class Game {
 			return "You can only proceed by neutralizing the obstacle or going back the direction you came from: " +
 					"<" + oppositeDirection(player.getLastValidDirection()) + ">";
 		}
-		if (map.isValidMove(newPos)) {
-			player.movePlayer(newPos);
+		return checkValidityMove(newPos, direction, player);
+	}
+
+	private static String checkValidityMove(Coordinate position, String direction, Player player){
+		if (map.isValidMove(position)) {
+			player.movePlayer(position);
 			player.setLastValidDirection(direction);
-			return map.getDescription(newPos);
+			return map.getDescription(position);
 		} else {
-			if (map.isValidMove(newPos)) { return map.getArea(newPos).getObstacle().getDescription();}
-			return ("There is nothing " + direction + " of where you are now.");
+			if (map.isValidMove(position)) { return map.getArea(position).getObstacle().getDescription();}
+			return "There is nothing " + direction + " of where you are now.";
 		}
 	}
 
@@ -273,10 +279,26 @@ public class Game {
 		}
 	}
 
-	private static String createMessage(String temp, String name){
-		temp = temp.replace(",", "").replace("null", "").replace("[", "").replace("]", "");
-		return name.toUpperCase() + ": " + temp;
+	private static String createMessage(String msg, String name){
+		msg = msg.replace(",", "").replace("null", "").replace("[", "").replace("]", "");
+		return name.toUpperCase() + ": " + msg;
 	}
+
+	private static String listCommands() {
+		return "Below is a list of all valid commands and their arguments: \n" +
+				"move + north/south/east/west. => same as just the argument, move can be ommitted \n" +
+				"look => gives description of Area and all Items present\n" +
+				"list => gives this menu\n" +
+				"drop <item name> => drops itemName from your backpack to the Area\n" +
+				"take/get/pickup <item name> => takes Item from Area and places it in your packpack\n" +
+				"give <item name> to <obstacle/playername> => gives Item to the given name\n" +
+				"score => displays your current score\n" +
+				"text/deliver/shout/broadcast <msg> => will send every other user in the Server msg\n" +
+				"help/h => gives a brief help menu\n" +
+				"More will be implemented in due time\n";
+
+	}
+
 
 
 }

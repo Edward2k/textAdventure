@@ -1,3 +1,3 @@
 
-asquid:S2095*"EUse try-with-resources or close this "Scanner" in a "finally" clause.(É½ï¶øÿÿÿÿ
-Tsquid:UselessImportCheck"0Remove this unused import 'java.io.InputStream'.(¹»º
+g
+java:S2095)"EUse try-with-resources or close this "Scanner" in a "finally" clause.(É½ï¶øÿÿÿÿ8æ“”Ø‘.

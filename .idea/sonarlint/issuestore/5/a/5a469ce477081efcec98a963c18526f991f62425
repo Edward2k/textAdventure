@@ -1,25 +1,21 @@
 
-h
-java:S1192"FDefine a constant instead of duplicating this literal "south" 3 times.(ê¶Ğáşÿÿÿÿ8ü›œ¶.
-P
-java:S1135ç"2Complete the task associated to this TODO comment.(è÷Î€8Şç¡¶.
 n
-java:S1301–"KReplace this "switch" statement by "if" statements to increase readability.(ë´åİşÿÿÿÿ8ûôµµ.
-T
-java:S1128	"7Remove this unused import 'com.google.gson.JsonParser'.(Œƒ¸Æ8ÃÓ ¹.
-T
-java:S1128"7Remove this unused import 'com.google.gson.JsonObject'.(µÊ´½8ÃÓ ¹.
-n
-java:S1301"KReplace this "switch" statement by "if" statements to increase readability.(ë´åİşÿÿÿÿ8ûôµµ.
-R
-java:S1128"0Remove this unused import 'org.json.JSONObject'.(œÖ´üşÿÿÿÿ8ÃÓ ¹.
-U
-java:S1128"8Remove this unused import 'com.google.gson.JsonElement'.(ğ†˜³8ÃÓ ¹.
-M
-java:S1128"0Remove this unused import 'java.io.InputStream'.(¹»º8ÃÓ ¹.
-h
-java:S1192"FDefine a constant instead of duplicating this literal "north" 3 times.(„ª¿üÿÿÿÿ8ü›œ¶.
-U
-java:S1135…"2Complete the task associated to this TODO comment.(ù÷â±ıÿÿÿÿ8ûôµµ.
+java:S1301¤"KReplace this "switch" statement by "if" statements to increase readability.(ë´åİşÿÿÿÿ8ûç×‘.
 P
-java:S1135‘"2Complete the task associated to this TODO comment.(‰ŒÇÉ8ûôµµ.
+java:S1135î"2Complete the task associated to this TODO comment.(è÷Î€8ûç×‘.
+n
+java:S1301œ"KReplace this "switch" statement by "if" statements to increase readability.(ë´åİşÿÿÿÿ8ûç×‘.
+Z
+java:S2589‚"7Remove this expression which always evaluates to "true"(ÿƒÄøÿÿÿÿ8ûç×‘.
+
+java:S2159‚"zRemove this call to "equals"; comparisons against null always return false; consider using '== null' to check for nullity.(ÿƒÄøÿÿÿÿ8ûç×‘.
+h
+java:S1192"FDefine a constant instead of duplicating this literal "north" 3 times.(„ª¿üÿÿÿÿ8ûç×‘.
+N
+java:S1068",Remove this unused "numUsers" private field.(À›¸¦şÿÿÿÿ8âšõ×‘.
+h
+java:S1192"FDefine a constant instead of duplicating this literal "south" 3 times.(ê¶Ğáşÿÿÿÿ8ü›œ¶.
+U
+java:S1135‹"2Complete the task associated to this TODO comment.(ù÷â±ıÿÿÿÿ8ûç×‘.
+P
+java:S1135—"2Complete the task associated to this TODO comment.(‰ŒÇÉ8ûç×‘.
