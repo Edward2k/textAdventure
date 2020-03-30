@@ -415,15 +415,25 @@ Maximum number of words for this section: 4000
 Author(s): `Marta Anna Jansone & Theresa Schantz`
 
 `Sequence Diagram for Server-Side Game Initialisation`
+
 [![Sequence-diagram-valid-command-Server-side-game-initialization-2.png](https://i.postimg.cc/hjbs0ypT/Sequence-diagram-valid-command-Server-side-game-initialization-2.png)](https://postimg.cc/Fdz0rZtH)
+
 `Sequence Diagram for readMapJson subroutine`
+
 [![Sequence-diagram-valid-command-SD-read-Map-Json-2.png](https://i.postimg.cc/yxCd7nHQ/Sequence-diagram-valid-command-SD-read-Map-Json-2.png)](https://postimg.cc/ZBjZc80p)
+
 `Sequence Diagram for addBasicItems subroutine`
+
 [![Sequence-diagram-valid-command-SD-add-Basic-Items-2.png](https://i.postimg.cc/Znt4zRS6/Sequence-diagram-valid-command-SD-add-Basic-Items-2.png)](https://postimg.cc/0MfLp9rN)
+
 `Sequence Diagram for addContainers subroutine`
+
 [![Sequence-diagram-valid-command-SD-add-Containers-2.png](https://i.postimg.cc/7LXbMSSb/Sequence-diagram-valid-command-SD-add-Containers-2.png)](https://postimg.cc/f3twMt2h)
+
 `Sequence Diagram for welcomePlayer subroutine`
+
 [![Sequence-diagram-valid-command-SD-welcome-Player.png](https://i.postimg.cc/VkJcHnyd/Sequence-diagram-valid-command-SD-welcome-Player.png)](https://postimg.cc/DS3DSWwT)
+
 ## Implementation									
 Author(s): `Eduardo Lira, Marta Anna Jansone`
 
