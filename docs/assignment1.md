@@ -22,7 +22,7 @@ With the game briefly explained, we must now consider how to develop this idea i
 
    				   Figure 1: A use case diagram of VUORK
 
-![VuORK use case diagram](https://i.postimg.cc/SRBV1RM5/Screen-Shot-2020-03-01-at-6-40-11-PM.png)
+![VuORK use case diagram](https://i.postimg.cc/MHv8yYTz/Bildschirmfoto-2020-03-30-um-16-05-03.png)
 
 The remainder of this paper will cover detailed features and quality requirements to help us structure this project (This should be self explanatory). 
 
