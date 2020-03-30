@@ -401,7 +401,7 @@ The goal of your sequence diagrams is both descriptive and prescriptive, so put 
 Maximum number of words for this section: 4000
 
 ## Implementation									
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): `Eduardo Lira, Marta Anna Jansone`
 
 In this chapter you will describe the following aspects of your project:
 - the strategy that you followed when moving from the UML models to the implementation code;
