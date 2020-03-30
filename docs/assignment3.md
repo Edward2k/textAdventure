@@ -22,29 +22,29 @@ Fourth, still haning around from the feedback of assignment 1, the use case diag
 Maximum number of words for this section: 1000
 
 ### Application of design patterns
-Author(s): `Florent Brunet de Rochebrune, Eduardo Lire`
+Author(s): `Florent Brunet de Rochebrune, Eduardo Lira`
 
 `Figure representing the UML class diagram in which all the applied design patterns are highlighted graphically (for example with a red rectangle/circle with a reference to the ID of the applied design pattern`
 
 | ID                     | DP1 |
 | ---------------------- | ------------------------------------------------------------ |
-| **Design pattern**     | Command |
-| **Problem**            | Adding or removing a command would require re-hardwiring the player client. |
-| **Solution**           | Creating an Instruction class makes it possible to configure an object with a single request. The Instruction captures all the information needed to trigger an event or action at a later time. |
-| **Intended use**       | This is mainly for the multiplayer part of the game. This allows the remote client to send complete Instruction objects across the network to be executed on the server. |
-| **Constraints**        | N/A |
+| **Design pattern**     | Command Pattern |
+| **Problem**            | The game consists of a server and a client. The client will be sending commands to the server and the server will react with a response. These commands consist of objects which then are directly executed by the server. To add another command, the client and the server will both have to be updated, as the objects are hardcoded. Implementing new methods would be very inflexible and difficult, because it couples the class to a particular request. Adding or removing a command would require re-hardwiring the player client and server. |
+| **Solution**           | We can solve this by creating an Instruction class. This class does not implement a request directly but refers to the server's Command interface to perform a request. The client is then independent of how the request is performed. The server will handle the request and execute the Command, not the client directly. Creating an Instruction class makes it possible to configure an object with a single request. The Instruction captures all the information needed to trigger an event or action at a later time. |
+| **Intended use**       | This is mainly for the multiplayer part of the game. This allows the remote client to send complete Instruction objects across the network to be executed on the server. When adding new commands to the server, only the server has to be updated as the client will only be sending requests in a generic textual form, not a specialised object that is directly executed on the server.<br>This is also a security measure, as it removes any client-side processing.|
+| **Constraints**        | There is no defined way of sending these commands (yet). The next design pattern will go more in-depth for that. |
 
 | ID                     | DP2 |
 | ---------------------- | ------------------------------------------------------------ |
-| **Design pattern**     | Interpreter |
-| **Problem**            | A grammar for a simple language should be specified. |
-| **Solution**           | Making a standardized language for passing commands to the server, so the sentences can be easily interpreted.  |
-| **Intended use**       | When receiving command by the client, they should be in this defined grammar. If they are not, the command should not execute and an error should be displayed. |
-| **Constraints**        | N/A |
+| **Design pattern**     | Interpreter Pattern |
+| **Problem**            | As state above, we now have a way of sending commands to the server without letting the client directly executing commands, but letting it go through a middleman on the server first. The commands are written in text by the player, but do not have a set grammar yet. The server would not know how to interpret a command without this. A grammar or syntax for the language should be specified, preferably easily understandable and extendable. |
+| **Solution**           | A solution of course is making the standardized language for passing commands to the server. We decided to use the following syntax: `<command> <arguments>`. The command is a single string, the arguments can contain more strings separated by a space. The server can interpret the first word as a command and then immediately forward the arguments to respective method. If the command is in the wrong syntax, an error should be displayed. |
+| **Intended use**       | When receiving command by the client, they should be in this defined grammar. An example: The command `give wallet guard` is received by the PlayerThread and then forwarded to the Interpreter. The interpreter then selects the correct handling function, in this case `giveItem` and passes on the arguments. In this function the argument syntax is also checked (if applicable), which in this case is `<giveWhat> to <toWhat>`. The command would fail as the second argument is not "to". |
+| **Constraints**        | The current code assumes `<command> <arguments>`, which is also like simple commands in natural language. E.g. "give x", "drop y", "shout z". If you want to change the command syntax to allow different input, for example more natural language e.g. "I want to give the wallet in my backpack to the guard that is standing at the entrance", this would not be easy. Natural language processing is already a big task on itself, but this would also require a rewrite of both the Interpreter class and the respective methods. |
 
 | ID                     | DP3 |
 | ---------------------- | ------------------------------------------------------------ |
-| **Design pattern**     | Chain-of-responsibility |
+| **Design pattern**     | Chain-of-Responsibility Pattern |
 | **Problem**            | Coupling the sender of a command to its receiver should be avoided. When broadcasting a message to other clients, you do not want a direct connection between all the clients. |
 | **Solution**           | Defining a receiver object deliverMessage having the responsibility to forward the message to the all the clients. |
 | **Intended use**       | When a player broadcasts a message in the server, the message is received at the server, passed on to deliverMessage and via there broadcasted back to all other clients. |
@@ -54,11 +54,11 @@ Author(s): `Florent Brunet de Rochebrune, Eduardo Lire`
 
 | ID                     | DP4 |
 | ---------------------- | ------------------------------------------------------------ |
-| **Design pattern**     | Decorator |
-| **Problem**            | A flexible solution to add commands to the game without altering the source code should be provided. |
-| **Solution**           | Implementing the interface of the extended/decorated Instruction object transparently by forwarding all the requests to it and performing any additional commands before. |
-| **Intended use**       | Adding new command to the game by simply editing the JSON game file. |
-| **Constraints**        | Not yet implemented. |
+| **Design pattern**     | Decorator Pattern |
+| **Problem**            | The current game as-is provides creation of areas, items and obstacles via the input JSON file. Using the built-in commands a player can traverse over the areas, pickup or drop items, use the items on other objects and more. All functionality for the original game design is implemented, the storyline can be altered via the JSON. However, it can be understandable that a different developer or modder wants to add additional functionality – read: commands – to the game, to extend beyond possible in the JSON. Not everyone has the same level of experience with coding, which could be a problem. We should provide a flexible solution to add commands to the game without altering the source code. |
+| **Solution**           | A solution to this would be implementing an extended (decorated) Instruction object. This object should forward any current instructions to the default instruction parser, but, when a different instruction arrives, it should parse it on its own. This parsing object could be initialized via the JSON file, making it easy to create functions for non-programmers. |
+| **Intended use**       | A use-case could could be, for example, the addition of a `destroy` command, with syntax `destroy <item>`. The item would be removed from the backpack and, instead of being dropped, be completely gone. For the current game story that might not be desirable, but that's open and up to the developer. |
+| **Constraints**        | This pattern is not yet implemented but could serve as an idea for future versions. The commands are also based on only currently implemented commands. There are a lot of combinations to be made, but to get deeper functionality, the actual code needs to be edited. |
 
 ## Class diagram									
 Author(s): `Eduardo Lira`
