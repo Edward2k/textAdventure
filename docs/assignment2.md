@@ -423,7 +423,7 @@ The location of the Jar file is:
 
 The video of the gameplay is here: 
 
-![Gif of gamePlay of VuOrk](ass2_demo_gif.gif)
+![Gif of gamePlay of VuOrk](/Users/eduardolira/Desktop/textAdventure/docs/Gifs/Ass2demo.gif)
 
 <hr/>
 

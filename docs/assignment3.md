@@ -294,7 +294,7 @@ A *Coordinate* is a very simple class to group together an <u>x</u> and <u>y</u>
 
 `ClientSide Class Diagram`
 
-<img src="https://i.postimg.cc/j2s3MLTF/Class-diagram-CLASS-DIAGRAM-2.png" alt="Client-Side Class Diagram" style="zoom:60%;" />
+<img src="https://i.postimg.cc/CLxJTqHg/Class-diagram-CLASS-DIAGRAM-2.png" alt="Client-Side Class Diagram" style="zoom:60%;" />
 
 ##### PlayerClient
 
@@ -345,6 +345,10 @@ Why in the heck do we want a GUI for a text-based game? Well, we designed this s
 
 *<u>newInterface(): void</u>* is called by the constructor and creates all the bounds, window etc needed to have the game menu. 
 
+*<u>append(String s): void</u>* this appends s to the messages panel where a player can see Server responses. A diagram of this can be found on the ClientSide Object Diagram section. 
+
+The Interface class is made by the PlayerClient object, and passed down to the 2 Thread objects, read and write. These threads can call getInput() to get input from the interface instead of STDIN, and append(s) to write to the interface instead of STDOUT. 
+
 <hr/>
 
 For a history of the past revision (non-multiplayer), please see Assignmnet2.md. In that document, you will also find revisions prior to final npn-multiplayer verison. 
@@ -370,7 +374,7 @@ In the ServerSide, we saw the **Player** recieving input *Strings* from the **Pa
 
 The Interface is also linked to the read and writer threads. This is needed to direct I/O to the correct panels for the interface. Why we decided to use this interace is better described in <a href="whyInterface">ClassDiagram.Interface</a>. Below is an image of the **Interface** we created: 
 
-<img src="https://i.postimg.cc/vHbZ16dK/Screen-Shot-2020-03-30-at-9-35-39-AM.png" alt="Image of Client Interface" style="zoom:50%;" />
+<img src="https://i.postimg.cc/vHbZ16dK/Screen-Shot-2020-03-30-at-9-35-39-AM.png" alt="Image of Client Interface" style="zoom:30%;" />
 
 ## State machine diagrams									
 Author(s): `name of the team member(s) responsible for this section`
@@ -403,16 +407,53 @@ Maximum number of words for this section: 4000
 ## Implementation									
 Author(s): `Eduardo Lira, Marta Anna Jansone`
 
-In this chapter you will describe the following aspects of your project:
-- the strategy that you followed when moving from the UML models to the implementation code;
-- the key solutions that you applied when implementing your system (for example, how you implemented the syntax highlighting feature of your code snippet manager, how you manage fantasy soccer matches, etc.);
-- the location of the main Java class needed for executing your system in your source code;
-- the location of the Jar file for directly executing your system;
-- the 30-seconds video showing the execution of your system (you can embed the video directly in your md file on GitHub).
+It was surprisingly quick to implement our system after having thoroughly thought it out using UML diagrams. However, as discussed in our development of the class diagram, a lot had to be changed as challenges arised, while trying to implement our design. Our strategy was quite simple: once we were satisfied with the design, we tried to write and implement it. As we encountered issues or areas of improvement, we rethought and edited our design in UML, and implemented that.
 
-IMPORTANT: remember that your implementation must be consistent with your UML models. Also, your implementation must run without the need from any other external software or tool. Failing to meet this requirement means 0 points for the implementation part of your project.
+The greatest challenge of creating a text-adventure game, in our opinion, is how to interpret natural language as structures and objects that exist in a game, and translate them such that the program can understand and handle them. To add to this complexity, having several players on a game at once makes it incredible to reason on how to handle requests. Of course, once you discover a solution, it is obvious, but the mental hurdle of getting there was significant.
 
-Maximum number of words for this section: 2000
+For the rest of the game, it was suprising how taking the time to properly formulate ideas saves time in the long time. The multi-threaded server was very quick to implement after having thought it through. The UML diagrams were followed regerously and were the backbone to this entire project. However, there may still be parts that are unclear about the implementation and that will be described here: 
+
+1) **The spinlock:** The spinlock is essential to ensure the integrity of the game at any time. Without, 2 players sending the same request "take wallet" may lead to undefined behavour. There may be 2 wallets now. There may be a single wallet but both players have references to them. This is very dangerous behaviour and must be properly handled to ensure consistency with the game expected behaviour and actual behaviour. To implement this, each playerThread has the following check: 
+
+```Java
+while (server.isGameBusy()) {}    
+```
+
+The boolean flag, *isGameBusy*, is set to true the instant any thread enters the <u>Game.validateCommand(Player)</u> function. Just before exiting the function, after all modifications have been made, the flag is set to false, letting the Thread that next runs to validate its command. The pattern goes on. 
+
+2) **Items**: When carefully inspecting the {abstract} **Item** class and the **BasicItem** class, you will notice that **BasicItem** is an extension to the **Item** Class, but adds no extra functionality. While this is an odd decision, it is important to remember that we designed this sytem with expandibility in mind. An Item represents any sort of entity and Player can interact with: Hence the canBe and usedTo attributes. This allows the developer to add new sorts of interactibles such as monsters or magic powers. 
+
+3) **PlayerThread**: It was a tough decision; Do we make a new class just to multiThread or do we allow the already existing class **Player** extend the *Runnable* interface? From above, it is obvious we stuck to the prior. We choose this method as it follows the principle of modularity and layers. Much like in a network protocal, changing the implementation of one aspect of the network shouldn't affect the system as long as the interface remains the same to the layers above and below. Equally, if a developer wants to change how the spinlock, works, or how the handshake is created to a **Player**, he/she should be able to do so without needing to change **Player** Object. Why would a **Player** object (conceptually) know how to great him/herself to a server?
+
+4) **Identifying objects:** A big mental hurdle was reasoning how to handle a String input and interpret that as a object. Our solution was as follows: Use *Strings* as names. Then to identify an object, start searching in the field of view of the player. The Parsing is done by the *Parser*, but it is the *Game* object that makes reason of it and decides what to do. We define the field of view as the extent a *Player* can interact with. This is the *Player*'s *backpack* and the *Area* he is in. When an Interaction is needed to be done, the *Game* will need to reason whether this element is in the *Player*'s possession or in the *Area*. If no such *Item* exists that *canBe* or *usedTo* variables match the *Action*, an appropriate error is returned. 
+
+The points above should address the most complex parts about our code base. Of course, questions may still linger, and if so, we hope we have explained enough in this document so that looking at the code should make any remaining questions self-evident. 
+
+The location of the runnable Java class for the SERVER is:
+
+> src/main/java/Game.java
+
+The lovation of the runnable Java class for the CLIENT is: 
+
+> src/main/java/PlayerClient/PlayerClient.java
+
+The location of the Jar file for the SERVER is:
+
+> out/artifacts/GameServer/software-design-vu-2020.jar
+
+The location of the Jar file for the CLIENT is: 
+
+> out/artifacts/PlayerClient/software-design-vu-2020.jar
+
+The location of the JSON file for instantiating our game Map can be found it: 
+
+> out/artifacts/GameServer/map.json
+
+<hr/>
+
+The video of the gameplay is here:
+
+<img src="/Users/eduardolira/Desktop/textAdventure/docs/Gifs/demoGame.gif" alt="GIF of final VuORK" style="zoom:80%;" />
 
 ## References
 
