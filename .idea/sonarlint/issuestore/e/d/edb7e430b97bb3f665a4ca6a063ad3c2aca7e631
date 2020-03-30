@@ -3,6 +3,6 @@ s
 java:S1450
 "XRemove the "gamePanel" field and declare it as a local variable in the relevant methods.(‹ΚΪ’ψÿÿÿÿ
 o
-java:S3252$"YUse static access with "javax.swing.ScrollPaneConstants" for "VERTICAL_SCROLLBAR_ALWAYS".(Ξ©ιό
+java:S3252%"YUse static access with "javax.swing.ScrollPaneConstants" for "VERTICAL_SCROLLBAR_ALWAYS".(Ξ©ιό
 u
-java:S3252%"ZUse static access with "javax.swing.ScrollPaneConstants" for "HORIZONTAL_SCROLLBAR_NEVER".(§¶Όόÿÿÿÿ
+java:S3252&"ZUse static access with "javax.swing.ScrollPaneConstants" for "HORIZONTAL_SCROLLBAR_NEVER".(§¶Όόÿÿÿÿ

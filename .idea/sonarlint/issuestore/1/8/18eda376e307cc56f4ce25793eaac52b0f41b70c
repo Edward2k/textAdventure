@@ -1,14 +1,16 @@
 
+a
+java:S2095b"EUse try-with-resources or close this "Scanner" in a "finally" clause.(‰õó8÷Ä™.
 F
 java:S1128")Remove this unused import 'java.io.File'.(†Ğ¥Å8ÁÓ ¹.
+g
+java:S2095>"EUse try-with-resources or close this "Scanner" in a "finally" clause.(Šå¼ôşÿÿÿÿ8÷Ä™.
+p
+java:S1128"SRemove this unused import 'javax.print.attribute.standard.JobImpressionsCompleted'.(¬‘ù8¨¸Â™.
+i
+java:S1192P"LDefine a constant instead of duplicating this literal "description" 3 times.(×Ë˜Ü8÷Ä™.
 4
 java:S1700
 "Rename field "map"(İ­æÅüÿÿÿÿ8ÁÓ ¹.
-p
-java:S1128"SRemove this unused import 'javax.print.attribute.standard.JobImpressionsCompleted'.(¬‘ù8¨¸Â™.
-g
-java:S2095>"EUse try-with-resources or close this "Scanner" in a "finally" clause.(Šå¼ôşÿÿÿÿ8÷Ä™.
-i
-java:S1192P"LDefine a constant instead of duplicating this literal "description" 3 times.(×Ë˜Ü8÷Ä™.
-a
-java:S2095b"EUse try-with-resources or close this "Scanner" in a "finally" clause.(‰õó8÷Ä™.
+H
+java:S1172q"+Remove this unused method parameter "area".(ù¾8¼­¬º’.

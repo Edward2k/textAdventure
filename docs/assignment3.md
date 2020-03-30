@@ -42,7 +42,7 @@ Maximum number of words for this section: 2000
 ## Class diagram									
 Author(s): `Eduardo Lira`
 
-It is important to note that the decisions behind this design were taken to allow a multiplayer platform that can easily be expanded/modified. The design attempts to keep the principle of modularity and interfaces. At times in the code (especially in the **Game**), code can be very complex. However, by keeping a simple interface, we aim to make the VuORK understandble. 
+It is important to note that the decisions behind this design were taken to allow a multiplayer platform that can easily be expanded/modified. This design attempts to keep the principle of modularity using well-established interfaces. At times in the code (especially in the **Game**), code can be very complex. However, by keeping a simple interface, we aim to make the comprehendible with plenty of ease. 
 
 **NB**. This project has 2 parts: A server and client side. This allows for the networked multiplayer bonus we have created. The ClientSide is very similar to a simple chat client, where a user sends instruction to the Server. The server has *Playerthreads* which reads *Instructions* from the sockets, and asks the *Game* to validate them. The *Game* will always return a string which is then forwarded to the *ClientSide* as a reply. This is a very high-level overview. 
 
@@ -50,7 +50,7 @@ It is important to note that the decisions behind this design were taken to allo
 
 `ServerSide Class Diagram`
 
-![Server-Side class diagram](https://i.postimg.cc/dtxPk8P1/Class-diagram-Class-diagram-1.png)
+![Server-Side class diagram](https://i.postimg.cc/BZcCqhkr/Class-diagram-Class-diagram.png)
 
 <h5 id="Game">Game</h5>
 
@@ -332,9 +332,8 @@ Very similar to ReadThread, but it reads from the Interface text-input and sends
 
 Similar to **Readthread**, this is instantiated by **PlayerClient**, and needs to be linked to the **Interface** to read data. 
 
-##### Interface
-
-Why in the heck do we want a GUI for a text-based game. Well, we designed this design thinking of how this framework could be used by other developers who want to mod the codebase. If a developer wants to create a feature where all Users currently logged into the server and their positions is made in a new window to the left of the text, that is possible. The multiplayer aspect of this game made it a non-conventional text game, and thus called for non-conventional features. 
+<h5 id="whyInterface">Interface
+Why in the heck do we want a GUI for a text-based game? Well, we designed this system thinking of how this framework could be used by other developers who want to modify the codebase. If a developer wants to create a feature where all users currently logged into the server and their positions is made in a new window to the left of the text, that is possible by simply adding a new window. The multiplayer aspect of this game made it a non-conventional text game, and thus called for non-conventional features. 
 
 *<u>messages: JTextArea</u>* is the window ontop of *userInput* which displays messages from the *Socket*
 
@@ -348,19 +347,30 @@ Why in the heck do we want a GUI for a text-based game. Well, we designed this d
 
 <hr/>
 
-For a history of the past revision (non-multiplayer), please see Assignmnet 2.md. There, we have also included a description of versions even prior to that one. 
+For a history of the past revision (non-multiplayer), please see Assignmnet2.md. In that document, you will also find revisions prior to final npn-multiplayer verison. 
 
 ## Object diagrams								
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): `Eduardo Lira`
 
-This chapter contains the description of a "snapshot" of the status of your system during its execution. 
-This chapter is composed of a UML object diagram of your system, together with a textual description of its key elements.
+Below, you will find 2 diagrams showing a "snapshot" of an instance of a VuORK. There are 2 components: *ServerSide* and *ClientSide*. Below are their figures and descriptions respectivly. 
 
-`Figure representing the UML class diagram`
+`SeverSide Object Diagram of 2 Players logged in`
 
-`Textual description`
+<img src="https://i.postimg.cc/Z5jC5QhM/Class-diagram-Object-Diagram.png" alt="SeverSide Object Diagram of 2 Players logged in" style="zoom:150%;" />
 
-Maximum number of words for this section: 1000
+The diagram above shows an instance of a ServerSide hosting 2 players in a very simple **Map**. The **Map** has 2 **Areas**: *Lobby* and *Entrance*. The *Entrance* has no **Items** or **Obstacles** inside of it, and is thus null. In contrast, the *Lobby* has quite a few entities to it. *Lobby* holds a *Closet*, which then holds a *Broom*. The broom is a basic item and *canBe* pickup, burn etc... In the *Lobby*, there is also one last thing, that will prevent any **Player** from seeing the entities in the room: an **Obstacle**. This **Obstacle** has been given the name "guard", and by reading the information inside guard.*howToNeutralize*, we see that the only way to neutralize this **Obstacle** is by bribing him/her. This entire **Map** has an *entryPoint* of *Coordinate(0,1)*. 
+
+Looking torwards the right hand side of the diagram, or the **PlayerThread** side, we see the 2 players early mentioned. Each **Player** is controlled by an individual *Thread*, instantiated on the **PlayerThread** object. Each thread must have been instatiated with a *Socket*, which will be used to instantiate the **Reader** and **Writer** objects. The **Reader** objects hold the *inputStream* while the **Writer** holds the *outputStream*. Looking at 1 Player specifically, Jack, we see he is currently in the **Area** 0,1 of the **Map**. To better understand how an the *Instructions* work, pay attention to the **Instruction** object associated with *Jack's* **Parser**. To get this object, the *String* inputted must have been "Lift carpet", yield an **Instruction** with "lift" as an *action*, and {"carpet",null,null} as the *items*. The **PlayerThread** will recived this object when calling **Player.getInstruction**(), and pass it to the *game.validateInstruction*(<instruction just recieved>, <player the thread controls>). The **Game** will then decide, using the program logic, wether the move is valid, and if so, adjust the attributes of **Player** (Jack) appropriatly. *Mark* is very similar to *Jack*, except *Mark* was instantiated using its appropriate *Socket*, and *Mark* has a *Broom* and *Sword* in his *backpack*. 
+
+`ClientSide Object Diagram`
+
+![ClientSide Object Diagram](https://i.postimg.cc/c4zhjvVC/Class-diagram-Object-Diagram-2-1.png)
+
+In the ServerSide, we saw the **Player** recieving input *Strings* from the **Parser**, which held a connection to *Socket*. The otherside of a *Socket* belongs to the system above, a *ClientSide* System. This system is simply a multiThreaded chat-cleint to the ServerSide. When a user inputs a *String* to send to the *Server*, the Server will recieve this *String*, process it when ready (*game.isbusy* == false). Then, the Server will handle the request, and ALWAYS reply with a *String* indicating failure/success of the action taken. The *Server* may also reply with more verbose information such as **Area** description etc. The asynchronus (multithreaded) approach of the **playerClient** allows the *Server* to send information to the *Client*, without the *Client* have sent a request first. This is especially useful when inter-player interaction takes place. An example of inter-player interaction is talking, or trading. 
+
+The Interface is also linked to the read and writer threads. This is needed to direct I/O to the correct panels for the interface. Why we decided to use this interace is better described in <a href="whyInterface">ClassDiagram.Interface</a>. Below is an image of the **Interface** we created: 
+
+<img src="https://i.postimg.cc/vHbZ16dK/Screen-Shot-2020-03-30-at-9-35-39-AM.png" alt="Image of Client Interface" style="zoom:50%;" />
 
 ## State machine diagrams									
 Author(s): `name of the team member(s) responsible for this section`
