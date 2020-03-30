@@ -414,23 +414,34 @@ Maximum number of words for this section: 4000
 ## Sequence diagrams									
 Author(s): `Marta Anna Jansone & Theresa Schantz`
 
-`Sequence Diagram for Server-Side Game Initialisation`
+The first event described using sequence diagrams is the initialisation of a new game map an a new player joining the game. The game map is created when the server is started and, hence, occurs only once (does not repeat when a new player joins). The represented events in the sequence diagram are visualised from the server side - what action occur when a new player joins the game. 
+This is further represented within 5 sequence diagrams using references from one diagram to another in order to make it more clear. The sequence diagrams include only the project classes (the library functions are excluded).
+
+<h5 id="gameStart">Sequence Diagram for Server-Side Game Initialisation</h5>
 
 [![Sequence-diagram-valid-command-Server-side-game-initialization-2.png](https://i.postimg.cc/hjbs0ypT/Sequence-diagram-valid-command-Server-side-game-initialization-2.png)](https://postimg.cc/Fdz0rZtH)
 
-`Sequence Diagram for readMapJson subroutine`
+When the server is started a new *Game* object is declared. The *Game* object is further responsible for declaring a new object of type Map. The constructor of *Map* calls the function *initMapFile()*, which is responsible for reading in a JSON file that contains all of the attributes (areas, coordinates, items, obstacles) of the map. The next function called is *readCoordinateFromString(string)*, where the function argument is the JSON object denoted by *entryPoint*. The function creates a new object of type *Coordinate* and assigns its' value with the information read from the string. This coordinate is returned to the *initMapFile()* function and assigned to the variable *entryPoint*. Further all of the attributes of the map are assigned, which is described more in detail in the <a href="#readMapJson">Sequence diagram for readMapJson subroutine</a>.
+Once the map has been initialised, the *Game* object calls the function *runServer()*. Within the function *runServer()* the function *getEntryPoint()*, which belongs to the object *Map*, is called. The return value from this function call is then passed on to the initialisation of a new object of the class *PlayerThread*. The object of class *PlayerThread* further creates a new object of class *Player*, which in turn creates two new objects - one of class *Parser* and the other of class *Printer*. Now when the new player has been initialised using the *PlayerThread*, the subroutine *welcomePlayer()* occurs, which is explained more in detail in the <a href="#welcomePlayer">Sequence diagram for welcomePlayer subroutine</a>.
+
+<h5 id="readMapJson">Sequence Diagram for readMapJson subroutine</h5>
 
 [![Sequence-diagram-valid-command-SD-read-Map-Json-2.png](https://i.postimg.cc/yxCd7nHQ/Sequence-diagram-valid-command-SD-read-Map-Json-2.png)](https://postimg.cc/ZBjZc80p)
 
-`Sequence Diagram for addBasicItems subroutine`
+Within the function *initMapFile()* shown in the <a href="#gameStart">diagram above</a> the private function of the class *Map* is called. The next function call is also of a private function belonging to the same class - the function *readCoordinateFromString(string)* is again called, however, this time the argument passed is the coordinate of the specific area being initialised. The function returns an object of class *Coordinate* and it is assigned to the variable *areaCoordinate*. Next the two functions *x()* and *y()*, belonging to the object of class *Coordinate* are called. Both return the corresponding *x* and *y* values of the *areaCoordinate* that was just initialised. Using these coordinates a new object of class *Area* is created. Further, using the information within the JSON file a new object of class *Obstacle* is also created. Then using the function *setObstacle(Obstacle)* of the class *Area* the just created obstacle is assigned to the *Area* previously created. 
+Next, the private function *addAreaItems(Area, JSONObject)* of the class *Map* is called. This function first calls the private subroutine/function *addBasicItems()*, which is explained in more detail in <a href="#readMapJson">Sequence diagram for addBasicItems subroutine</a>. The return value from the *addBasicItems* is a list of all of the items that have to be added to the specific *Area*. Therefore, the next fragment is a loop that iterates the number of times as there are items in the list returned. In each iteration the function *addItem(Item)* of the class *Area* is called. Within the next fragment the function *addContainers()* is called, this is explained in more detail in <a href="#readMapJson">Sequence Diagram for addContainers subroutine</a>. 
+
+<h5 id="addBasicItems">Sequence Diagram for addBasicItems subroutine</h5>
 
 [![Sequence-diagram-valid-command-SD-add-Basic-Items-2.png](https://i.postimg.cc/Znt4zRS6/Sequence-diagram-valid-command-SD-add-Basic-Items-2.png)](https://postimg.cc/0MfLp9rN)
 
-`Sequence Diagram for addContainers subroutine`
+The *addBasicItems(JSONObject, Area)* function is called within the function *addAreaItems()* showed in a <a href="#readMapJson">siquence diagram above</a>
+
+<h5 id="addContainers">Sequence Diagram for addContainers subroutine</h5>
 
 [![Sequence-diagram-valid-command-SD-add-Containers-2.png](https://i.postimg.cc/7LXbMSSb/Sequence-diagram-valid-command-SD-add-Containers-2.png)](https://postimg.cc/f3twMt2h)
 
-`Sequence Diagram for welcomePlayer subroutine`
+<h5 id="welcomePlayer">Sequence Diagram for welcomePlayer subroutine</h5>
 
 [![Sequence-diagram-valid-command-SD-welcome-Player.png](https://i.postimg.cc/VkJcHnyd/Sequence-diagram-valid-command-SD-welcome-Player.png)](https://postimg.cc/DS3DSWwT)
 
