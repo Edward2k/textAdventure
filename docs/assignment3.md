@@ -453,7 +453,7 @@ The location of the JSON file for instantiating our game Map can be found it:
 
 The video of the gameplay is here:
 
-<img src="/Users/eduardolira/Desktop/textAdventure/docs/Gifs/demoGame.gif" alt="GIF of final VuORK" style="zoom:80%;" />
+<img src="Gifs/demoGame.gif" alt="GIF of final VuORK" style="zoom:80%;" />
 
 ## References
 
