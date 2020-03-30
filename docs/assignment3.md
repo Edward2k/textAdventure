@@ -377,19 +377,18 @@ The goal of your state machine diagrams is both descriptive and prescriptive, so
 Maximum number of words for this section: 4000
 
 ## Sequence diagrams									
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): `Marta Anna Jansone & Theresa Schantz`
 
-This chapter contains the specification of at least 2 UML sequence diagrams of your system, together with a textual description of all its elements. Here you have to focus on specific situations you want to describe. For example, you can describe the interaction of player when performing a key part of the videogame, during a typical execution scenario, in a special case that may happen (e.g., an error situation), when finalizing a fantasy soccer game, etc.
-
-For each sequence diagram you have to provide:
-- a title representing the specific situation you want to describe;
-- a figure representing the sequence diagram;
-- a textual description of all its elements in a narrative manner (you do not need to structure your description into tables in this case). We expect a detailed description of all the interaction partners, their exchanged messages, and the fragments of interaction where they are involved. For each sequence diagram we expect a description of about 300-500 words.
-
-The goal of your sequence diagrams is both descriptive and prescriptive, so put the needed level of detail here, finding the right trade-off between understandability of the models and their precision.
-
-Maximum number of words for this section: 4000
-
+`Sequence Diagram for Server-Side Game Initialisation`
+[![Sequence-diagram-valid-command-Server-side-game-initialization-2.png](https://i.postimg.cc/hjbs0ypT/Sequence-diagram-valid-command-Server-side-game-initialization-2.png)](https://postimg.cc/Fdz0rZtH)
+`Sequence Diagram for readMapJson subroutine`
+[![Sequence-diagram-valid-command-SD-read-Map-Json-2.png](https://i.postimg.cc/yxCd7nHQ/Sequence-diagram-valid-command-SD-read-Map-Json-2.png)](https://postimg.cc/ZBjZc80p)
+`Sequence Diagram for addBasicItems subroutine`
+[![Sequence-diagram-valid-command-SD-add-Basic-Items-2.png](https://i.postimg.cc/Znt4zRS6/Sequence-diagram-valid-command-SD-add-Basic-Items-2.png)](https://postimg.cc/0MfLp9rN)
+`Sequence Diagram for addContainers subroutine`
+[![Sequence-diagram-valid-command-SD-add-Containers-2.png](https://i.postimg.cc/7LXbMSSb/Sequence-diagram-valid-command-SD-add-Containers-2.png)](https://postimg.cc/f3twMt2h)
+`Sequence Diagram for welcomePlayer subroutine`
+[![Sequence-diagram-valid-command-SD-welcome-Player.png](https://i.postimg.cc/VkJcHnyd/Sequence-diagram-valid-command-SD-welcome-Player.png)](https://postimg.cc/DS3DSWwT)
 ## Implementation									
 Author(s): `name of the team member(s) responsible for this section`
 
