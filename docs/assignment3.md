@@ -22,27 +22,48 @@ Fourth, still haning around from the feedback of assignment 1, the use case diag
 Maximum number of words for this section: 1000
 
 ### Application of design patterns
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): `Florent Brunet de Rochebrune, Eduardo Lire`
 
 `Figure representing the UML class diagram in which all the applied design patterns are highlighted graphically (for example with a red rectangle/circle with a reference to the ID of the applied design pattern`
 
-For each application of any design pattern you have to provide a table conforming to the template below.
-
-| ID                     | DP1                                                          |
+| ID                     | DP1 |
 | ---------------------- | ------------------------------------------------------------ |
-| **Design pattern**     | Name of the applied pattern                                  |
-| **Problem**            | A paragraph describing the problem you want to solve         |
-| **Solution**           | A paragraph describing why with the application of the design pattern you solve the identified problem |
-| **Intended use**       | A paragraph describing how you intend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time |
-| **Constraints**        | Any additional constraints that the application of the design pattern is imposing, if any |
-| **Additional remarks** | Optional, only if needed                                     |
+| **Design pattern**     | Command |
+| **Problem**            | Adding or removing a command would require re-hardwiring the player client. |
+| **Solution**           | Creating an Instruction class makes it possible to configure an object with a single request. The Instruction captures all the information needed to trigger an event or action at a later time. |
+| **Intended use**       | This is mainly for the multiplayer part of the game. This allows the remote client to send complete Instruction objects across the network to be executed on the server. |
+| **Constraints**        | N/A |
 
-Maximum number of words for this section: 2000
+| ID                     | DP2 |
+| ---------------------- | ------------------------------------------------------------ |
+| **Design pattern**     | Interpreter |
+| **Problem**            | A grammar for a simple language should be specified. |
+| **Solution**           | Making a standardized language for passing commands to the server, so the sentences can be easily interpreted.  |
+| **Intended use**       | When receiving command by the client, they should be in this defined grammar. If they are not, the command should not execute and an error should be displayed. |
+| **Constraints**        | N/A |
+
+| ID                     | DP3 |
+| ---------------------- | ------------------------------------------------------------ |
+| **Design pattern**     | Chain-of-responsibility |
+| **Problem**            | Coupling the sender of a command to its receiver should be avoided. When broadcasting a message to other clients, you do not want a direct connection between all the clients. |
+| **Solution**           | Defining a receiver object deliverMessage having the responsibility to forward the message to the all the clients. |
+| **Intended use**       | When a player broadcasts a message in the server, the message is received at the server, passed on to deliverMessage and via there broadcasted back to all other clients. |
+| **Constraints**        | N/A |
+
+// TODO adding commands via JSON
+
+| ID                     | DP4 |
+| ---------------------- | ------------------------------------------------------------ |
+| **Design pattern**     | Decorator |
+| **Problem**            | A flexible solution to add commands to the game without altering the source code should be provided. |
+| **Solution**           | Implementing the interface of the extended/decorated Instruction object transparently by forwarding all the requests to it and performing any additional commands before. |
+| **Intended use**       | Adding new command to the game by simply editing the JSON game file. |
+| **Constraints**        | Not yet implemented. |
 
 ## Class diagram									
 Author(s): `Eduardo Lira`
 
-It is important to note that the decisions behind this design were taken to allow a multiplayer platform that can easily be expanded/modified. The design attempts to keep the principle of modularity and interfaces. At times in the code (especially in the **Game**), code can be very complex. However, by keeping a simple interface, we aim to make the VuORK understandble. 
+It is important to note that the decisions behind this design were taken to allow a multiplayer platform that can easily be expanded/modified. This design attempts to keep the principle of modularity using well-established interfaces. At times in the code (especially in the **Game**), code can be very complex. However, by keeping a simple interface, we aim to make the comprehendible with plenty of ease. 
 
 **NB**. This project has 2 parts: A server and client side. This allows for the networked multiplayer bonus we have created. The ClientSide is very similar to a simple chat client, where a user sends instruction to the Server. The server has *Playerthreads* which reads *Instructions* from the sockets, and asks the *Game* to validate them. The *Game* will always return a string which is then forwarded to the *ClientSide* as a reply. This is a very high-level overview. 
 
@@ -50,7 +71,7 @@ It is important to note that the decisions behind this design were taken to allo
 
 `ServerSide Class Diagram`
 
-![Server-Side class diagram](https://i.postimg.cc/dtxPk8P1/Class-diagram-Class-diagram-1.png)
+![Server-Side class diagram](https://i.postimg.cc/BZcCqhkr/Class-diagram-Class-diagram.png)
 
 <h5 id="Game">Game</h5>
 
@@ -294,7 +315,7 @@ A *Coordinate* is a very simple class to group together an <u>x</u> and <u>y</u>
 
 `ClientSide Class Diagram`
 
-<img src="https://i.postimg.cc/j2s3MLTF/Class-diagram-CLASS-DIAGRAM-2.png" alt="Client-Side Class Diagram" style="zoom:60%;" />
+<img src="https://i.postimg.cc/CLxJTqHg/Class-diagram-CLASS-DIAGRAM-2.png" alt="Client-Side Class Diagram" style="zoom:60%;" />
 
 ##### PlayerClient
 
@@ -332,9 +353,8 @@ Very similar to ReadThread, but it reads from the Interface text-input and sends
 
 Similar to **Readthread**, this is instantiated by **PlayerClient**, and needs to be linked to the **Interface** to read data. 
 
-##### Interface
-
-Why in the heck do we want a GUI for a text-based game. Well, we designed this design thinking of how this framework could be used by other developers who want to mod the codebase. If a developer wants to create a feature where all Users currently logged into the server and their positions is made in a new window to the left of the text, that is possible. The multiplayer aspect of this game made it a non-conventional text game, and thus called for non-conventional features. 
+<h5 id="whyInterface">Interface
+Why in the heck do we want a GUI for a text-based game? Well, we designed this system thinking of how this framework could be used by other developers who want to modify the codebase. If a developer wants to create a feature where all users currently logged into the server and their positions is made in a new window to the left of the text, that is possible by simply adding a new window. The multiplayer aspect of this game made it a non-conventional text game, and thus called for non-conventional features. 
 
 *<u>messages: JTextArea</u>* is the window ontop of *userInput* which displays messages from the *Socket*
 
@@ -346,21 +366,36 @@ Why in the heck do we want a GUI for a text-based game. Well, we designed this d
 
 *<u>newInterface(): void</u>* is called by the constructor and creates all the bounds, window etc needed to have the game menu. 
 
+*<u>append(String s): void</u>* this appends s to the messages panel where a player can see Server responses. A diagram of this can be found on the ClientSide Object Diagram section. 
+
+The Interface class is made by the PlayerClient object, and passed down to the 2 Thread objects, read and write. These threads can call getInput() to get input from the interface instead of STDIN, and append(s) to write to the interface instead of STDOUT. 
+
 <hr/>
 
-For a history of the past revision (non-multiplayer), please see Assignmnet 2.md. There, we have also included a description of versions even prior to that one. 
+For a history of the past revision (non-multiplayer), please see Assignmnet2.md. In that document, you will also find revisions prior to final npn-multiplayer verison. 
 
 ## Object diagrams								
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): `Eduardo Lira`
 
-This chapter contains the description of a "snapshot" of the status of your system during its execution. 
-This chapter is composed of a UML object diagram of your system, together with a textual description of its key elements.
+Below, you will find 2 diagrams showing a "snapshot" of an instance of a VuORK. There are 2 components: *ServerSide* and *ClientSide*. Below are their figures and descriptions respectivly. 
 
-`Figure representing the UML class diagram`
+`SeverSide Object Diagram of 2 Players logged in`
 
-`Textual description`
+<img src="https://i.postimg.cc/Z5jC5QhM/Class-diagram-Object-Diagram.png" alt="SeverSide Object Diagram of 2 Players logged in" style="zoom:150%;" />
 
-Maximum number of words for this section: 1000
+The diagram above shows an instance of a ServerSide hosting 2 players in a very simple **Map**. The **Map** has 2 **Areas**: *Lobby* and *Entrance*. The *Entrance* has no **Items** or **Obstacles** inside of it, and is thus null. In contrast, the *Lobby* has quite a few entities to it. *Lobby* holds a *Closet*, which then holds a *Broom*. The broom is a basic item and *canBe* pickup, burn etc... In the *Lobby*, there is also one last thing, that will prevent any **Player** from seeing the entities in the room: an **Obstacle**. This **Obstacle** has been given the name "guard", and by reading the information inside guard.*howToNeutralize*, we see that the only way to neutralize this **Obstacle** is by bribing him/her. This entire **Map** has an *entryPoint* of *Coordinate(0,1)*. 
+
+Looking torwards the right hand side of the diagram, or the **PlayerThread** side, we see the 2 players early mentioned. Each **Player** is controlled by an individual *Thread*, instantiated on the **PlayerThread** object. Each thread must have been instatiated with a *Socket*, which will be used to instantiate the **Reader** and **Writer** objects. The **Reader** objects hold the *inputStream* while the **Writer** holds the *outputStream*. Looking at 1 Player specifically, Jack, we see he is currently in the **Area** 0,1 of the **Map**. To better understand how an the *Instructions* work, pay attention to the **Instruction** object associated with *Jack's* **Parser**. To get this object, the *String* inputted must have been "Lift carpet", yield an **Instruction** with "lift" as an *action*, and {"carpet",null,null} as the *items*. The **PlayerThread** will recived this object when calling **Player.getInstruction**(), and pass it to the *game.validateInstruction*(<instruction just recieved>, <player the thread controls>). The **Game** will then decide, using the program logic, wether the move is valid, and if so, adjust the attributes of **Player** (Jack) appropriatly. *Mark* is very similar to *Jack*, except *Mark* was instantiated using its appropriate *Socket*, and *Mark* has a *Broom* and *Sword* in his *backpack*. 
+
+`ClientSide Object Diagram`
+
+![ClientSide Object Diagram](https://i.postimg.cc/c4zhjvVC/Class-diagram-Object-Diagram-2-1.png)
+
+In the ServerSide, we saw the **Player** recieving input *Strings* from the **Parser**, which held a connection to *Socket*. The otherside of a *Socket* belongs to the system above, a *ClientSide* System. This system is simply a multiThreaded chat-cleint to the ServerSide. When a user inputs a *String* to send to the *Server*, the Server will recieve this *String*, process it when ready (*game.isbusy* == false). Then, the Server will handle the request, and ALWAYS reply with a *String* indicating failure/success of the action taken. The *Server* may also reply with more verbose information such as **Area** description etc. The asynchronus (multithreaded) approach of the **playerClient** allows the *Server* to send information to the *Client*, without the *Client* have sent a request first. This is especially useful when inter-player interaction takes place. An example of inter-player interaction is talking, or trading. 
+
+The Interface is also linked to the read and writer threads. This is needed to direct I/O to the correct panels for the interface. Why we decided to use this interace is better described in <a href="whyInterface">ClassDiagram.Interface</a>. Below is an image of the **Interface** we created: 
+
+<img src="https://i.postimg.cc/vHbZ16dK/Screen-Shot-2020-03-30-at-9-35-39-AM.png" alt="Image of Client Interface" style="zoom:30%;" />
 
 ## State machine diagrams									
 Author(s): `name of the team member(s) responsible for this section`
@@ -390,18 +425,55 @@ Author(s): `Marta Anna Jansone & Theresa Schantz`
 `Sequence Diagram for welcomePlayer subroutine`
 [![Sequence-diagram-valid-command-SD-welcome-Player.png](https://i.postimg.cc/VkJcHnyd/Sequence-diagram-valid-command-SD-welcome-Player.png)](https://postimg.cc/DS3DSWwT)
 ## Implementation									
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): `Eduardo Lira, Marta Anna Jansone`
 
-In this chapter you will describe the following aspects of your project:
-- the strategy that you followed when moving from the UML models to the implementation code;
-- the key solutions that you applied when implementing your system (for example, how you implemented the syntax highlighting feature of your code snippet manager, how you manage fantasy soccer matches, etc.);
-- the location of the main Java class needed for executing your system in your source code;
-- the location of the Jar file for directly executing your system;
-- the 30-seconds video showing the execution of your system (you can embed the video directly in your md file on GitHub).
+It was surprisingly quick to implement our system after having thoroughly thought it out using UML diagrams. However, as discussed in our development of the class diagram, a lot had to be changed as challenges arised, while trying to implement our design. Our strategy was quite simple: once we were satisfied with the design, we tried to write and implement it. As we encountered issues or areas of improvement, we rethought and edited our design in UML, and implemented that.
 
-IMPORTANT: remember that your implementation must be consistent with your UML models. Also, your implementation must run without the need from any other external software or tool. Failing to meet this requirement means 0 points for the implementation part of your project.
+The greatest challenge of creating a text-adventure game, in our opinion, is how to interpret natural language as structures and objects that exist in a game, and translate them such that the program can understand and handle them. To add to this complexity, having several players on a game at once makes it incredible to reason on how to handle requests. Of course, once you discover a solution, it is obvious, but the mental hurdle of getting there was significant.
 
-Maximum number of words for this section: 2000
+For the rest of the game, it was suprising how taking the time to properly formulate ideas saves time in the long time. The multi-threaded server was very quick to implement after having thought it through. The UML diagrams were followed regerously and were the backbone to this entire project. However, there may still be parts that are unclear about the implementation and that will be described here: 
+
+1) **The spinlock:** The spinlock is essential to ensure the integrity of the game at any time. Without, 2 players sending the same request "take wallet" may lead to undefined behavour. There may be 2 wallets now. There may be a single wallet but both players have references to them. This is very dangerous behaviour and must be properly handled to ensure consistency with the game expected behaviour and actual behaviour. To implement this, each playerThread has the following check: 
+
+```Java
+while (server.isGameBusy()) {}    
+```
+
+The boolean flag, *isGameBusy*, is set to true the instant any thread enters the <u>Game.validateCommand(Player)</u> function. Just before exiting the function, after all modifications have been made, the flag is set to false, letting the Thread that next runs to validate its command. The pattern goes on. 
+
+2) **Items**: When carefully inspecting the {abstract} **Item** class and the **BasicItem** class, you will notice that **BasicItem** is an extension to the **Item** Class, but adds no extra functionality. While this is an odd decision, it is important to remember that we designed this sytem with expandibility in mind. An Item represents any sort of entity and Player can interact with: Hence the canBe and usedTo attributes. This allows the developer to add new sorts of interactibles such as monsters or magic powers. 
+
+3) **PlayerThread**: It was a tough decision; Do we make a new class just to multiThread or do we allow the already existing class **Player** extend the *Runnable* interface? From above, it is obvious we stuck to the prior. We choose this method as it follows the principle of modularity and layers. Much like in a network protocal, changing the implementation of one aspect of the network shouldn't affect the system as long as the interface remains the same to the layers above and below. Equally, if a developer wants to change how the spinlock, works, or how the handshake is created to a **Player**, he/she should be able to do so without needing to change **Player** Object. Why would a **Player** object (conceptually) know how to great him/herself to a server?
+
+4) **Identifying objects:** A big mental hurdle was reasoning how to handle a String input and interpret that as a object. Our solution was as follows: Use *Strings* as names. Then to identify an object, start searching in the field of view of the player. The Parsing is done by the *Parser*, but it is the *Game* object that makes reason of it and decides what to do. We define the field of view as the extent a *Player* can interact with. This is the *Player*'s *backpack* and the *Area* he is in. When an Interaction is needed to be done, the *Game* will need to reason whether this element is in the *Player*'s possession or in the *Area*. If no such *Item* exists that *canBe* or *usedTo* variables match the *Action*, an appropriate error is returned. 
+
+The points above should address the most complex parts about our code base. Of course, questions may still linger, and if so, we hope we have explained enough in this document so that looking at the code should make any remaining questions self-evident. 
+
+The location of the runnable Java class for the SERVER is:
+
+> src/main/java/Game.java
+
+The lovation of the runnable Java class for the CLIENT is: 
+
+> src/main/java/PlayerClient/PlayerClient.java
+
+The location of the Jar file for the SERVER is:
+
+> out/artifacts/GameServer/software-design-vu-2020.jar
+
+The location of the Jar file for the CLIENT is: 
+
+> out/artifacts/PlayerClient/software-design-vu-2020.jar
+
+The location of the JSON file for instantiating our game Map can be found it: 
+
+> out/artifacts/GameServer/map.json
+
+<hr/>
+
+The video of the gameplay is here:
+
+<img src="Gifs/demoGame.gif" alt="GIF of final VuORK" style="zoom:80%;" />
 
 ## References
 

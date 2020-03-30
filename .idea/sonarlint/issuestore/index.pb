@@ -33,3 +33,11 @@ M
 src/main/java/Coordinate.java,d/f/df8fde2ace0d0a4e7500deec06f2904947764642
 K
 src/main/java/Obstacle.java,d/6/d653ac5dc7c2d0bad7f69ef17b521e97f2265361
+G
+src/main/java/Item.java,f/a/faa55b86c279657733e834c3fe1d30333e23456a
+L
+src/main/java/BasicItem.java,f/3/f3e0ebb2cdc91d46b55d44aea0ecf8970eef6a39
+N
+src/main/java/Instruction.java,8/5/8537c5786dade53e097f768b04ac85ff4349a4f2
+Y
+)src/main/java/PlayerClient/Interface.java,e/d/edb7e430b97bb3f665a4ca6a063ad3c2aca7e631
