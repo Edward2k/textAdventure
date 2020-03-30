@@ -24,7 +24,7 @@ Maximum number of words for this section: 1000
 ### Application of design patterns
 Author(s): `Florent Brunet de Rochebrune, Eduardo Lira`
 
-`Figure representing the UML class diagram in which all the applied design patterns are highlighted graphically (for example with a red rectangle/circle with a reference to the ID of the applied design pattern`
+![Design Patterns in Class Diagram](https://i.imgur.com/e8hsvPX.png)
 
 | ID                     | DP1 |
 | ---------------------- | ------------------------------------------------------------ |
