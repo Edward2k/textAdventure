@@ -22,22 +22,43 @@ Fourth, still haning around from the feedback of assignment 1, the use case diag
 Maximum number of words for this section: 1000
 
 ### Application of design patterns
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): `Florent Brunet de Rochebrune, Eduardo Lire`
 
 `Figure representing the UML class diagram in which all the applied design patterns are highlighted graphically (for example with a red rectangle/circle with a reference to the ID of the applied design pattern`
 
-For each application of any design pattern you have to provide a table conforming to the template below.
-
-| ID                     | DP1                                                          |
+| ID                     | DP1 |
 | ---------------------- | ------------------------------------------------------------ |
-| **Design pattern**     | Name of the applied pattern                                  |
-| **Problem**            | A paragraph describing the problem you want to solve         |
-| **Solution**           | A paragraph describing why with the application of the design pattern you solve the identified problem |
-| **Intended use**       | A paragraph describing how you intend to use at run-time the objects involved in the applied design patterns (you can refer to small sequence diagrams here if you want to detail how the involved parties interact at run-time |
-| **Constraints**        | Any additional constraints that the application of the design pattern is imposing, if any |
-| **Additional remarks** | Optional, only if needed                                     |
+| **Design pattern**     | Command |
+| **Problem**            | Adding or removing a command would require re-hardwiring the player client. |
+| **Solution**           | Creating an Instruction class makes it possible to configure an object with a single request. The Instruction captures all the information needed to trigger an event or action at a later time. |
+| **Intended use**       | This is mainly for the multiplayer part of the game. This allows the remote client to send complete Instruction objects across the network to be executed on the server. |
+| **Constraints**        | N/A |
 
-Maximum number of words for this section: 2000
+| ID                     | DP2 |
+| ---------------------- | ------------------------------------------------------------ |
+| **Design pattern**     | Interpreter |
+| **Problem**            | A grammar for a simple language should be specified. |
+| **Solution**           | Making a standardized language for passing commands to the server, so the sentences can be easily interpreted.  |
+| **Intended use**       | When receiving command by the client, they should be in this defined grammar. If they are not, the command should not execute and an error should be displayed. |
+| **Constraints**        | N/A |
+
+| ID                     | DP3 |
+| ---------------------- | ------------------------------------------------------------ |
+| **Design pattern**     | Chain-of-responsibility |
+| **Problem**            | Coupling the sender of a command to its receiver should be avoided. When broadcasting a message to other clients, you do not want a direct connection between all the clients. |
+| **Solution**           | Defining a receiver object deliverMessage having the responsibility to forward the message to the all the clients. |
+| **Intended use**       | When a player broadcasts a message in the server, the message is received at the server, passed on to deliverMessage and via there broadcasted back to all other clients. |
+| **Constraints**        | N/A |
+
+// TODO adding commands via JSON
+
+| ID                     | DP4 |
+| ---------------------- | ------------------------------------------------------------ |
+| **Design pattern**     | Decorator |
+| **Problem**            | A flexible solution to add commands to the game without altering the source code should be provided. |
+| **Solution**           | Implementing the interface of the extended/decorated Instruction object transparently by forwarding all the requests to it and performing any additional commands before. |
+| **Intended use**       | Adding new command to the game by simply editing the JSON game file. |
+| **Constraints**        | Not yet implemented. |
 
 ## Class diagram									
 Author(s): `Eduardo Lira`
