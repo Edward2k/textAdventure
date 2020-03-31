@@ -398,21 +398,57 @@ The Interface is also linked to the read and writer threads. This is needed to d
 <img src="https://i.postimg.cc/vHbZ16dK/Screen-Shot-2020-03-30-at-9-35-39-AM.png" alt="Image of Client Interface" style="zoom:30%;" />
 
 ## State machine diagrams									
-Author(s): `name of the team member(s) responsible for this section`
+Author(s): `Marta Anna Jansone, Irene Garcia-Fortea Garcia, Florent Brunet de Rochebrune`
+
+<h5>State-Machine Diagram for Getting Inputs for Player</h5>
+
+> State machine diagram of Game (Diagram 3) **DESCRIPTIVE**
 
 [![State-Machine-Diagram-game-class.png](https://i.postimg.cc/cHtqYYT2/State-Machine-Diagram-game-class.png)](https://postimg.cc/1nSY18kr)
 
+The diagram above shows the State Machine Diagram of the event that is executing a command. After starting the process, the system waits for a user input. After the input has been received, the function *getCommand()* executes. 
+
+In the next step we move to the state that the command has been received. The command needs to be checked, whether it is a valid command that the system accepts in *validateCommand()*. 
+
+If the command is not valid, an error message is printed and the program returns to the idle state, waiting for a command. 
+
+If the command is valid, the command needs to be executed (“*Execute Command*”). There, changes will be made to the Item or Player (Described in the *Execute Command* figure). After the changes have been made, the system goes back to the idle state, waiting for a new command to process, unless the user types “quit”. Then, the game terminates. 
+
+The *Execute Command* state works as the following: After checking the command for validity, it will be matched matching it with each of the following existing commands: move, help, look, list, drop, take/get/pickup, give, score and text/deliver/broadcast. 
+
+If the command is move: the player will be moved into the wanted direction (input by the player).
+
+If the command is help: a help message will be printed to the user.
+
+If the command is look: the description of the *Area*, in that the *Player* is currently in, will be printed to the user.
+
+If the command is list: a list of available commands will be displayed to the user.
+
+If the command is drop: the player will drop the *Item* (input by the player) from the backpack into the current *Area*.
+
+If the command is take/get/pickup: the object from the current *Area* will be placed into the backpack (if the *Area* has it).
+
+If the command is give: the player will give the *Item* to the *Obstacle* in the current *Area*. E.g. wallet to guard.
+
+If the command is score: the score of the user will be printed.
+
+If the command is text/deliver/broadcast: the input message will be sent to every other *Player* currently in the server.
+
+<h5>State-Machine Diagram for Player Movement</h5>
+
+> Figure representing the state machine diagram of the class Map (Diagram 4) **DESCRIPTIVE**
+
 [![State-Machine-Diagram-map-class.png](https://i.postimg.cc/RCf5Z7Wn/State-Machine-Diagram-map-class.png)](https://postimg.cc/0r8HtJd8)
-This chapter contains the specification of at least 2 UML state machines of your system, together with a textual description of all their elements. Also, remember that classes the describe only data structures (e.g., Coordinate, Position) do not need to have an associated state machine since they can be seen as simple "data containers" without behaviour (they have only stateless objects).
 
-For each state machine you have to provide:
-- the name of the class for which you are representing the internal behavior;
-- a figure representing the part of state machine;
-- a textual description of all its states, transitions, activities, etc. in a narrative manner (you do not need to structure your description into tables in this case). We expect 3-4 lines of text for describing trivial or very simple state machines (e.g., those with one to three states), whereas you will provide longer descriptions (e.g., ~500 words) when describing more complex state machines.
+Diagram (4) illustrates the machine state diagram of the class *Map*,  in which the result of the users command triggers certain movements depending on such commands, which will be described next.
 
-The goal of your state machine diagrams is both descriptive and prescriptive, so put the needed level of detail here, finding the right trade-off between understandability of the models and their precision.
+Starting from the initial pseudo state the user will enter its desired direction to move in which the choice pseudostate performs a selection depending on the direction input. The alternatives are consisting of a set of four directions in a form of simple states with their name compartments determining their directions (*North, East, South* and *West*)   as well as an *Else* state in the form of error-handling given the *Player*’s direction input would not be valid.
 
-Maximum number of words for this section: 4000
+In the case of such direction not being one of the possibilities, for example, *North-East*, it would enter the *Else* State in which it would return a message to the *Player*, determining their desired direction to take is unfortunately not valid, in which the user will be able to input another command which would hopefully be one of the valid options which are *North, South, East, West*. 
+
+If the command followed such terms the selection of simple states composing the previously stated directions are coordinated by their  internal activities compartments showing their coordinates, which will correspondingly be shifted depending on their component type (x or y) and values (+1,-1) due to Coordinate being an immutable object. 
+
+Following this, the action then transitions into another choice  pseudostate in which it is then determined whether or not the move is valid in terms of the *Area* chosen being existent as their could be obstacles (a wall) that would make the move into that direction unable to be performed, in that case the function  would terminate enclosing the area in that direction doesn’t exist and it would then enter into the final state in which it would be signified that the enclosing region is then completed. If on the other hand the move is valid in that *Area*, the choice pseudostate would leas the *Player*’s coordinate position to be updated in the simple state which would result in the *Player*’s desired action to be performed successfully.
 
 ## Sequence diagrams									
 Author(s): `Marta Anna Jansone & Theresa Schantz`
