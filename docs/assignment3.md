@@ -505,7 +505,7 @@ The last step returns the description from the *Game* back to the *PlayerThread*
 [![Sequence-diagram-valid-command-new-valid-command.png](https://i.postimg.cc/FHgRwG53/Sequence-diagram-valid-command-new-valid-command.png)](https://postimg.cc/dh3wy20V)
 
 ## Implementation									
-Author(s): `Eduardo Lira, Marta Anna Jansone`
+Author(s): `Eduardo Lira, Marta Anna Jansone, Irene Garcia-Fortea Garcia`
 
 It was surprisingly quick to implement our system after having thoroughly thought it out using UML diagrams. However, as discussed in our development of the class diagram, a lot had to be changed as challenges arised, while trying to implement our design. Our strategy was quite simple: once we were satisfied with the design, we tried to write and implement it. As we encountered issues or areas of improvement, we rethought and edited our design in UML, and implemented that.
 
