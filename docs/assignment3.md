@@ -398,7 +398,7 @@ The Interface is also linked to the read and writer threads. This is needed to d
 <img src="https://i.postimg.cc/vHbZ16dK/Screen-Shot-2020-03-30-at-9-35-39-AM.png" alt="Image of Client Interface" style="zoom:30%;" />
 
 ## State machine diagrams									
-Author(s): `Marta Anna Jansone, Irene Garcia-Fortea Garcia, Florent Brunet de Rochebrune`
+Author(s): `Irene Garcia-Fortea Garcia, Florent Brunet de Rochebrune`
 
 <h5>State-Machine Diagram for Getting Inputs for Player</h5>
 
