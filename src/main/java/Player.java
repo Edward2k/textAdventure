@@ -46,10 +46,6 @@ public class Player {
 
     public String getLine() { return parser.getLine(); }
 
-    public int getHealth () {
-        return health;
-    }
-
     public List<Item> getBackpack () {
         return backpack;
     }
@@ -57,8 +53,6 @@ public class Player {
     public void addItem(Item i) { backpack.add(i); }
 
     public final void removeItem(Item i) { backpack.remove(i); }
-
-    public final int getMoves() {return moves;}
 
     public int getScore() {return moves/(MAX_HEALTH + 1 - health);}
 

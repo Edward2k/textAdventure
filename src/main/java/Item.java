@@ -2,7 +2,6 @@ import java.util.List;
 
 public abstract class Item {
     private final String name;
-    private final int ID;
     private final List<String> canBe;
     private final List<String> usedTo;
 
