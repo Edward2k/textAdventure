@@ -453,7 +453,7 @@ If the command is text/deliver/broadcast: the input message will be sent to ever
 
 [![State-Machine-Diagram-map-class.png](https://i.postimg.cc/RCf5Z7Wn/State-Machine-Diagram-map-class.png)](https://postimg.cc/0r8HtJd8)
 
-Diagram (4) illustrates the machine state diagram of the class *Map*, in which the user's command input triggers certain movements or does nothing, which will be described next.
+Diagram (6) illustrates the machine state diagram of the class *Map*, in which the user's command input triggers certain movements or does nothing, which will be described next.
 
 Starting from the initial pseudo state the machine will start in an idle state, waiting for input from the user.. After there is a trigger for input, a selection based on the direction input will be evaluated. The choices are consisting of a set of four directions in a form of simple states with their name compartments determining their directions (*North*, *East*, *South* and *West*) as well as an *Else* state in the form of error-handling given the *Player*’s direction input would not be valid.
 
