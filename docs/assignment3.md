@@ -400,6 +400,9 @@ The Interface is also linked to the read and writer threads. This is needed to d
 ## State machine diagrams									
 Author(s): `name of the team member(s) responsible for this section`
 
+[![State-Machine-Diagram-game-class.png](https://i.postimg.cc/cHtqYYT2/State-Machine-Diagram-game-class.png)](https://postimg.cc/1nSY18kr)
+
+[![State-Machine-Diagram-map-class.png](https://i.postimg.cc/RCf5Z7Wn/State-Machine-Diagram-map-class.png)](https://postimg.cc/0r8HtJd8)
 This chapter contains the specification of at least 2 UML state machines of your system, together with a textual description of all their elements. Also, remember that classes the describe only data structures (e.g., Coordinate, Position) do not need to have an associated state machine since they can be seen as simple "data containers" without behaviour (they have only stateless objects).
 
 For each state machine you have to provide:
