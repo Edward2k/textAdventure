@@ -69,7 +69,7 @@ It is important to note that the decisions behind this design were taken to allo
 
 **NB**. These descriptions only discuss the parts that are most important to get a decent understanding of the functioning of each class. Explaining all methods would not only be very verbose, but quite redundant. We have carefully chosen these as they greatly resemble the ommited methods. 
 
-`ServerSide Class Diagram`
+`>ServerSide Class Diagram (Diagram 1)
 
 ![Server-Side class diagram](https://i.postimg.cc/BZcCqhkr/Class-diagram-Class-diagram.png)
 
@@ -313,7 +313,7 @@ A *Coordinate* is a very simple class to group together an <u>x</u> and <u>y</u>
 
 *Coordinate* has very simple relations. *Coordinate* is contained in exactly 1 *Player*, or exactly 1 *Map*. There can exist any number of coordinates, however, these coordinates must be unique and their references can not be shared upon the *Map* and *Player*.
 
-`ClientSide Class Diagram`
+>ClientSide Class Diagram (Diagram 2)
 
 <img src="https://i.postimg.cc/CLxJTqHg/Class-diagram-CLASS-DIAGRAM-2.png" alt="Client-Side Class Diagram" style="zoom:60%;" />
 
@@ -379,7 +379,7 @@ Author(s): `Eduardo Lira`
 
 Below, you will find 2 diagrams showing a "snapshot" of an instance of a VuORK. There are 2 components: *ServerSide* and *ClientSide*. Below are their figures and descriptions respectivly. 
 
-`SeverSide Object Diagram of 2 Players logged in`
+> SeverSide Object Diagram of 2 Players logged in (Diagram 3)
 
 <img src="https://i.postimg.cc/Z5jC5QhM/Class-diagram-Object-Diagram.png" alt="SeverSide Object Diagram of 2 Players logged in" style="zoom:150%;" />
 
@@ -387,7 +387,7 @@ The diagram above shows an instance of a ServerSide hosting 2 players in a very 
 
 Looking torwards the right hand side of the diagram, or the **PlayerThread** side, we see the 2 players early mentioned. Each **Player** is controlled by an individual *Thread*, instantiated on the **PlayerThread** object. Each thread must have been instatiated with a *Socket*, which will be used to instantiate the **Reader** and **Writer** objects. The **Reader** objects hold the *inputStream* while the **Writer** holds the *outputStream*. Looking at 1 Player specifically, Jack, we see he is currently in the **Area** 0,1 of the **Map**. To better understand how an the *Instructions* work, pay attention to the **Instruction** object associated with *Jack's* **Parser**. To get this object, the *String* inputted must have been "Lift carpet", yield an **Instruction** with "lift" as an *action*, and {"carpet",null,null} as the *items*. The **PlayerThread** will recived this object when calling **Player.getInstruction**(), and pass it to the *game.validateInstruction*(<instruction just recieved>, <player the thread controls>). The **Game** will then decide, using the program logic, wether the move is valid, and if so, adjust the attributes of **Player** (Jack) appropriatly. *Mark* is very similar to *Jack*, except *Mark* was instantiated using its appropriate *Socket*, and *Mark* has a *Broom* and *Sword* in his *backpack*. 
 
-`ClientSide Object Diagram`
+>ClientSide Object Diagram(Diagram 4)
 
 ![ClientSide Object Diagram](https://i.postimg.cc/c4zhjvVC/Class-diagram-Object-Diagram-2-1.png)
 
@@ -402,7 +402,7 @@ Author(s): `Irene Garcia-Fortea Garcia, Florent Brunet de Rochebrune`
 
 <h5>State-Machine Diagram for Getting Inputs for Player</h5>
 
-> State machine diagram of Game (Diagram 3) **DESCRIPTIVE**
+> State machine diagram of Game (Diagram 5) **DESCRIPTIVE**
 
 [![State-Machine-Diagram-game-class.png](https://i.postimg.cc/cHtqYYT2/State-Machine-Diagram-game-class.png)](https://postimg.cc/1nSY18kr)
 
@@ -436,7 +436,7 @@ If the command is text/deliver/broadcast: the input message will be sent to ever
 
 <h5>State-Machine Diagram for Player Movement</h5>
 
-> Figure representing the state machine diagram of the class Map (Diagram 4) **DESCRIPTIVE**
+> Figure representing the state machine diagram of the class Map (Diagram 6) **DESCRIPTIVE**
 
 [![State-Machine-Diagram-map-class.png](https://i.postimg.cc/RCf5Z7Wn/State-Machine-Diagram-map-class.png)](https://postimg.cc/0r8HtJd8)
 
@@ -458,33 +458,33 @@ Author(s): `Marta Anna Jansone & Theresa Schantz`
 The first event described using sequence diagrams is the initialisation of a new game map an a new player joining the game. The game map is created when the server is started and, hence, occurs only once (does not repeat when a new player joins). The represented events in the sequence diagram are visualised from the server side - what action occur when a new player joins the game. 
 This is further represented within 5 sequence diagrams using references from one diagram to another in order to make it more clear. The sequence diagrams include only the project classes (the library functions are excluded).
 
-<h5 id="gameStart">Sequence Diagram for Server-Side Game Initialisation</h5>
+>Sequence Diagram for Server-Side Game Initialisation (Diagram 7)
 
 [![Sequence-diagram-valid-command-Server-side-game-initialization-2.png](https://i.postimg.cc/02p76hds/Sequence-diagram-valid-command-Server-side-game-initialization-2.png)](https://postimg.cc/CzxRXPQP)
 
 When the server is started a new *Game* object is declared. The *Game* object is further responsible for declaring a new object of type Map. The constructor of *Map* calls the function *initMapFile()*, which is responsible for reading in a JSON file that contains all of the attributes (areas, coordinates, items, obstacles) of the map. The next function called is *readCoordinateFromString(string)*, where the function argument is the JSON object denoted by *entryPoint*. The function creates a new object of type *Coordinate* and assigns its' value with the information read from the string. This coordinate is returned to the *initMapFile()* function and assigned to the variable *entryPoint*. Further all of the attributes of the map are assigned, which is described more in detail in the <a href="#readMapJson">Sequence diagram for readMapJson subroutine</a>.
 Once the map has been initialised, the *Game* object calls the function *runServer()*. Within the function *runServer()* the function *getEntryPoint()*, which belongs to the object *Map*, is called. The return value from this function call is then passed on to the initialisation of a new object of the class *PlayerThread*. The object of class *PlayerThread* further creates a new object of class *Player*, which in turn creates two new objects - one of class *Parser* and the other of class *Printer*. Now when the new player has been initialised using the *PlayerThread*, the function *welcomePlayer()* is called, which is explained more in detail in the <a href="#welcomePlayer">Sequence diagram for welcomePlayer subroutine</a>.
 
-<h5 id="readMapJson">Sequence Diagram for readMapJson subroutine</h5>
+>Sequence Diagram for readMapJson subroutine (Diagram 8)
 
 [![Sequence-diagram-valid-command-SD-read-Map-Json-2.png](https://i.postimg.cc/RCp75cSk/Sequence-diagram-valid-command-SD-read-Map-Json-2.png)](https://postimg.cc/4nt7pHhP)
 
 Within the function *initMapFile()* shown in the <a href="#gameStart">diagram above</a> the private function of the class *Map* is called. The next function call is also of a private function belonging to the same class - the function *readCoordinateFromString(string)* is again called, however, this time the argument passed is the coordinate of the specific area being initialised. The function returns an object of class *Coordinate* and it is assigned to the variable *areaCoordinate*. Next the two functions *x()* and *y()*, belonging to the object of class *Coordinate* are called. Both return the corresponding *x* and *y* values of the *areaCoordinate* that was just initialised. Using these coordinates a new object of class *Area* is created. Further, using the information within the JSON file a new object of class *Obstacle* is also created. Then using the function *setObstacle(Obstacle)* of the class *Area* the just created obstacle is assigned to the *Area* previously created. 
 Next, the private function *addAreaItems(Area, JSONObject)* of the class *Map* is called. The arguments passed to this function are *Area* and a JSONObject, because of that before calling this function the functions *x()* and *y()* are called again in order to get the *Area* corresponding to the coordinate. This function first calls the private subroutine/function *addBasicItems()*, which is explained in more detail in <a href="#readMapJson">Sequence diagram for addBasicItems subroutine</a>. The return value from the *addBasicItems* is a list of all of the items that have to be added to the specific *Area*. Therefore, the next fragment is a loop that iterates the number of times as there are items in the list returned. In each iteration the function *addItem(Item)* of the class *Area* is called. Within the next fragment the function *addContainers()* is called, this is explained in more detail in <a href="#readMapJson">Sequence Diagram for addContainers subroutine</a>. 
 
-<h5 id="addBasicItems">Sequence Diagram for addBasicItems subroutine</h5>
+>Sequence Diagram for addBasicItems subroutine (Diagram 9)
 
 [![Sequence-diagram-valid-command-SD-add-Basic-Items-2.png](https://i.postimg.cc/Mp3213qs/Sequence-diagram-valid-command-SD-add-Basic-Items-2.png)](https://postimg.cc/QF7y3bB5)
 
 The *addBasicItems(JSONObject, Area)* function is called within the function *addAreaItems()* showed in a <a href="#readMapJson">sequence diagram above</a>. Within this function call the private function *getActions()* is called twice - the arguments of the function are strings from the JSON file corresponding to objects *"canBe"* and *"usedTo"*. The function *getActions()* returns a list of strings where these actions are taken from the JSON file. Using the information read from the file a new object of class *BasicItem*, belonging to an abstract class *Item* is created. The sequence of events just described is repeated in a while loop, while the JSON file still has objects in it. All of the created objects of *BasicItem* are appended to a list of items and this list is the return value from the function call *addBasicItems()*.
 
-<h5 id="addContainers">Sequence Diagram for addContainers subroutine</h5>
+>Sequence Diagram for addContainers subroutine (Diagram 10)
 
 [![Sequence-diagram-valid-command-SD-add-Containers-2.png](https://i.postimg.cc/BnXwfSfg/Sequence-diagram-valid-command-SD-add-Containers-2.png)](https://postimg.cc/rD29SLm0)
 
 The *addContainers(JSONObject, Area)* function is called within the function *addAreaItems()* showed in a <a href="#readMapJson">sequence diagram above</a>. As each container stores a list of basic items within it - the first event that occurs is the function *addBasicItems* is called, which is described in more detail in the <a href="#addBasicItems">sequence diagram above</a>. Further, a similar thing as described before happens again - each container also has a list of strings of *canBe* and *usedTo*. Therefore, the function *getActions()* is again called twice. Using he information gathered from the JSON file and the function calls to retrieve information from it a new object of class *Container*, belonging to an abstract class *Item* is created. The object of class *Container* is then added to the specific object of class *Area* using the function *addItem(Item)*. The sequence of events just described is repeated in a while loop, while the JSON file still has objects in it.
 
-<h5 id="welcomePlayer">Sequence Diagram for welcomePlayer subroutine</h5>
+>Sequence Diagram for welcomePlayer subroutine (Diagram 11)
 
 [![Sequence-diagram-valid-command-SD-welcome-Player.png](https://i.postimg.cc/dQ79rXHx/Sequence-diagram-valid-command-SD-welcome-Player.png)](https://postimg.cc/s1rSRnRY)
 
@@ -503,7 +503,7 @@ If it was checked whether the new possible position would be a valid move in *is
 The last step returns the description from the *Game*s *validateCommand* call finally back to the *PlayerThread* and stores it as the *result*. The result is then printed to the user screen with the *Player*s *output* function, which in turn passes the *result* to the *Printer*. This process is repeated an undefined number of times, until (hopefully) Thilo can be saved. 
 
 
-`Sequence Diagram of the valid command move`
+> Sequence Diagram of the valid command move (Diagram 12)
 
 [![Sequence-diagram-valid-command-new-valid-command.png](https://i.postimg.cc/FHgRwG53/Sequence-diagram-valid-command-new-valid-command.png)](https://postimg.cc/dh3wy20V)
 
