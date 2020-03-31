@@ -7,11 +7,10 @@ import java.util.Scanner;
 
 public class Parser {
 
-	private static final int MAX_WORDS_PER_INSTRUCTION = 3;
+	private static final int MAX_WORDS_PER_INSTRUCTION = 18;
 	private static final int START_OF_ITEMS = 1;
 	private static final int ACTION_WORD_POSITION = 0;
 	private BufferedReader input;
-	private boolean lengthIsOk = true;
 
 	public Parser(Socket s) {
 		try {
@@ -42,17 +41,10 @@ public class Parser {
 		Scanner lineScanner = new Scanner(line);
 		String[] command = new String[MAX_WORDS_PER_INSTRUCTION];
 		int i = 0;
-		try {
 			while (lineScanner.hasNext()) {
 				command[i++] = lineScanner.next();
 			}
 			return command;
-		} catch (ArrayIndexOutOfBoundsException e){
-			lengthIsOk = false;
-			String[] message = new String[1];
-			message[0] = "";
-			return message;
-		}
 	}
 
 	protected Instruction getInstruction() {
@@ -63,14 +55,6 @@ public class Parser {
 		String act = parts[ACTION_WORD_POSITION]; //Get first element for action
 		parts = Arrays.copyOfRange(parts, START_OF_ITEMS, MAX_WORDS_PER_INSTRUCTION); //Each command can have max 4 words.
 		return new Instruction(act, parts);
-	}
-
-	public boolean instructionLengthValid(){
-		return lengthIsOk;
-	}
-
-	public void setInstructionLengthValid(boolean instructionLengthValid){
-		lengthIsOk = instructionLengthValid;
 	}
 
 }

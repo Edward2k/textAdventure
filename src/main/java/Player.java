@@ -46,8 +46,6 @@ public class Player {
 
     public final void removeItem(Item i) { backpack.remove(i); }
 
-    public boolean instructionLengthValid(){ return parser.instructionLengthValid(); }
-
     public int getScore() {return moves/(MAX_HEALTH + 1 - health);}
 
     public String getLine() { return parser.getLine(); }
@@ -62,5 +60,4 @@ public class Player {
 
     public void setLastValidDirection(String d) {lastValidDirection = d;}
 
-    public void setInstructionLengthValid(boolean instructionLengthValid){ parser.setInstructionLengthValid(instructionLengthValid); }
 }
