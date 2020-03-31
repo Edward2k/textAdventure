@@ -1,8 +1,6 @@
 # Assignment 3
 
-Maximum number of words for this document: 18000
-
-**IMPORTANT**: In this assignment you will fully model and impement your system. The idea is that you improve your UML models and Java implementation by (i) applying (a subset of) the studied design patterns and (ii) adding any relevant implementation-specific details (e.g., classes with “technical purposes” which are not part of the domain of the system). The goal here is to improve the system in terms of maintainability, readability, evolvability, etc.    
+Words in this document: 11069
 
 **Format**: establish formatting conventions when describing your models in this document. For example, you style the name of each class in bold, whereas the attributes, operations, and associations as underlined text, objects are in italic, etc.
 
@@ -366,8 +364,10 @@ Very similar to ReadThread, but it reads from the Interface text-input and sends
 
 Similar to **Readthread**, this is instantiated by **PlayerClient**, and needs to be linked to the **Interface** to read data. 
 
-<h5 id="whyInterface">Interface
+<h5 id="whyInterface">Interface</h5>
+
 Why in the heck do we want a GUI for a text-based game? Well, we designed this system thinking of how this framework could be used by other developers who want to modify the codebase. If a developer wants to create a feature where all users currently logged into the server and their positions is made in a new window to the left of the text, that is possible by simply adding a new window. The multiplayer aspect of this game made it a non-conventional text game, and thus called for non-conventional features. 
+
 
 *<u>messages: JTextArea</u>* is the window ontop of *userInput* which displays messages from the *Socket*
 
@@ -506,17 +506,17 @@ The *welcomePlayer()* function is called from the object of class *PlayerThread*
 Next, the *PlayerThread* calls the public function *getName()* belonging to the class *Player*, the return value from this function is a string which is used to again perform the sequence of outputting a message to the game interface. The message printed includes the player's name and a description of the game. Further the public function *position()* of class *Player* is called, the function returns an object of class *Coordinate*, which is further passed on as an argument to the next function call - *getAreaDescription()*. *getAreaDescription()* is a public function of class *Game*. This function within the *Game* object further calls the public function belonging to class *Map* - *getDescription()*. The *getDescription()* function first makes two function calls to class *Coordinate* - *x()* and *y()*, which return the corresponding *x* and *y* coordinates of the *Area* of interest. Using the coordinates the specific object *Area* is located within the object *Map*. Then the function *getName()* is called specifically on the *Area* just located. The function call return a string of the name of the area. 
 Next, the *Map* calls the public function *getDescription()* belonging to the *Area*. Within the class *Area* function call *getDescription()* the private function *canEnter()* is called. This function further calls the function *isNeutralized()* belonging to the class *Obstacle* to see whether the player can move to this area - whether the obstacle is still present. The function call *canEnter()* returns a boolean variable. After the function return of *canEnter()* an alternative fragment follows - if the *canEnter()* returns false the string that will be returned back to the *PlayerThread* is from the function call *getDescription()* belonging to the class *Obstacle*, if the *canEnter()* returns true - the string returned to the *PlayerThread* will be from the private function call *getItemsDecription()* within the class *Area*. Within this function the function *getName()* belonging to the abstract class *Item* is called within a loop for as many times as there are items within the area. The string is then returned from the *getItemsDescription()* function of *Area* (or the *getDescription()* function of *Obstacle*) to the previous function call of *Map*, which is then returned to *Game*, which is then finally returned back to *PlayerThread*. The final message is again printed using the sequence of *output()* functions discussed 
 
-### Valid Command: Move
+###### Valid Command: Move
+
+>Sequence Diagram Valid Command: Move (Diagram 12)
+
+[![Sequence-diagram-valid-command-valid-command-1.png](https://i.postimg.cc/fbHvdP7v/Sequence-diagram-valid-command-valid-command-1.png)](https://postimg.cc/v1V9F3N1)
 
 The second event described in the sequence diagram above is the command processing, for the case that the *act* variable, given by the user is *move*. The program will constantly loop, outputting instructions and reading commands from the user. 
 The PlayerThread class will start the whole process by calling *getInstruction* from the *Player* and the *Player* will then call *getInstruction* from the *Parser*. *Player.getInstrcution* is therefore only a pass-on function here. The Parser gets input with the *Scanner* and produces a new *Instruction* with this input.This *Instruction* will be passed back to the *PlayerThread* via the *Player* and stored in the *currCommand* variable. Then the *validateCommand* function in the *Game* class, called by the *PlayerThread*, is executed. The big process starts here.The *Game* asks the *Instruction* to return the *action* variable from the given command. Next, it is checked whether the *action* is a direction. If it is, the *handleMove* of the *Player* class is executed. Here, a new coordinate (from the class of the same name *Coordinate*) is set. Depending on the given direction the x- or y-coordinate will be in- or decreased. After that, this *newPos* is returned to the *Player* and stored there. Next, it is checked whether there are obstacles in the *newPos* of the *Player*. This is done by calling the function *hasObstacles()* from the *Map*. The *Map* needs to get the position from the *Player*, before it can return something. This, and the next step *oppositeDirection* is checked, that if there is an obstacle in the new position, the player must have the opportunity to go back the way he came. 
 If it was checked whether the new possible position would be a valid move in *isValidMove* and if it returns *true*, the player is finally actually being moved to the new position. In the steps before, the position was only theoretically moved and checked whether it is possible. The variable *lastValidDirection* is set to the direction in the function *setLastValidDirection* and stored in the *Player*. Then, the *Game* gets the description of the new position from the *Map* via the *Printer* and the *Player, and returns it back to the *Printer* so it can be printed to the user on the terminal with the *output* function. If the *isValidMove* function returns *false*, an error message will be printed to the user with the *Printer* via the *Player.output* call. 
 The last step returns the description from the *Game* back to the *PlayerThread* and stores it as the *result*. The result is then printed to the user screen with the *Player*s *output* function, which in turn passes the *result* to the *Printer*. This process is repeated an undefined number of times, until (hopefully) Thilo can be saved. 
 This is only the procedure of the command *move*. Other commands will have a much simpler sequence diagram, as they require less processing. Commands such as *score* or *look* will only return the values of variables or the description of what the player is able to see in the current position, respectively.
-
->Sequence Diagram Valid Command: Move (Diagram 12)
-
-[![Sequence-diagram-valid-command-valid-command-1.png](https://i.postimg.cc/fbHvdP7v/Sequence-diagram-valid-command-valid-command-1.png)](https://postimg.cc/v1V9F3N1)
 
 ## Implementation									
 Author(s): `Eduardo Lira, Marta Anna Jansone, Irene Garcia-Fortea Garcia`
@@ -573,5 +573,5 @@ The video of the gameplay is here:
 
 ## References
 
-References, if needed.
+None. 
 
