@@ -52,10 +52,6 @@ public class Game {
 
 	public String getAreaDescription(Coordinate c) {return map.getDescription(c);}
 
-	/*
-	 ** Move this somewhere else. Not here.
-	 */
-
 	public String validateCommand(Instruction command, Player player) {
 		isBusy = true; //enable lock.
 		String action = command.getAction();
@@ -155,13 +151,13 @@ public class Game {
 		Item toRemove = hasItem(contents, item);
 		String result;
 		if(toRemove == null) {
-			if(action == "drop") {
+			if(action.equals("drop")) {
 				result = "You cannot drop what you do not have, there is not " + item + " in your backpack.";
 			} else {
 				result = "I don't see " + item + " anywhere in here.";
 			}
 		} else {
-			if(action == "drop") {
+			if(action.equals("drop")) {
 				result = dropItem(item, toRemove, player);
 			} else {
 				result = takeItem(item, toRemove, player);
