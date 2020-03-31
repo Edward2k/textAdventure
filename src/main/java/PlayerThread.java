@@ -33,13 +33,17 @@ public class PlayerThread extends Thread {
     public final void runPlayer() {
         //Loop prompt
         while(true) {
-            Instruction currCommand = player.getInstruction();      //Blocking command waiting for input
-            System.err.println("INSTRUCTION : " + currCommand.toString());
-            while (server.isGameBusy()) {
-            }                         //Wait for game to finish other process command.
-            System.err.println("Command executed.");
-            String result = server.validateCommand(currCommand, player);
-            player.output(result);
+            try{
+                Instruction currCommand = player.getInstruction();      //Blocking command waiting for input
+                System.err.println("INSTRUCTION : " + currCommand.toString());
+                while (server.isGameBusy()) {
+                }                         //Wait for game to finish other process command.
+                System.err.println("Command executed.");
+                String result = server.validateCommand(currCommand, player);
+                player.output(result);
+            } catch(ArrayIndexOutOfBoundsException e){
+                player.output("OoO0oPSs! It seems like your input is too long. Please try again, and use a max of 3 words.");
+            }
         }
     }
 
@@ -50,4 +54,5 @@ public class PlayerThread extends Thread {
     public String getPlayerName(){
         return player.getName();
     }
+
 }

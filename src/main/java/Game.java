@@ -95,6 +95,7 @@ public class Game {
 			case "h":
 				result = getHelpInstructions(player);
 				break;
+
 			default:
 				result = ("I do not understand " + action);
 		}

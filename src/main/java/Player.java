@@ -38,17 +38,9 @@ public class Player {
         coord = c;
     }
 
-    public void setName(String n) {this.name = n;}
-
     public Coordinate position() {return coord;}
 
     public void output(String s) { printer.output(s); }
-
-    public String getLine() { return parser.getLine(); }
-
-    public List<Item> getBackpack () {
-        return backpack;
-    }
 
     public void addItem(Item i) { backpack.add(i); }
 
@@ -56,6 +48,16 @@ public class Player {
 
     public int getScore() {return moves/(MAX_HEALTH + 1 - health);}
 
+    public String getLine() { return parser.getLine(); }
+
+    public List<Item> getBackpack () {
+        return backpack;
+    }
+
+    public String getLastValidDirection() { return lastValidDirection; }
+
+    public void setName(String n) {this.name = n;}
+
     public void setLastValidDirection(String d) {lastValidDirection = d;}
-    public String getLastValidDirection() {return lastValidDirection;}
+
 }
