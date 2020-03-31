@@ -38,11 +38,17 @@ public class Player {
         coord = c;
     }
 
-    public void setName(String n) {this.name = n;}
-
     public Coordinate position() {return coord;}
 
     public void output(String s) { printer.output(s); }
+
+    public void addItem(Item i) { backpack.add(i); }
+
+    public final void removeItem(Item i) { backpack.remove(i); }
+
+    public boolean instructionLengthValid(){ return parser.instructionLengthValid(); }
+
+    public int getScore() {return moves/(MAX_HEALTH + 1 - health);}
 
     public String getLine() { return parser.getLine(); }
 
@@ -50,12 +56,11 @@ public class Player {
         return backpack;
     }
 
-    public void addItem(Item i) { backpack.add(i); }
+    public String getLastValidDirection() { return lastValidDirection; }
 
-    public final void removeItem(Item i) { backpack.remove(i); }
-
-    public int getScore() {return moves/(MAX_HEALTH + 1 - health);}
+    public void setName(String n) {this.name = n;}
 
     public void setLastValidDirection(String d) {lastValidDirection = d;}
-    public String getLastValidDirection() {return lastValidDirection;}
+
+    public void setInstructionLengthValid(boolean instructionLengthValid){ parser.setInstructionLengthValid(instructionLengthValid); }
 }
