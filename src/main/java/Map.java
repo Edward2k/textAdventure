@@ -103,14 +103,14 @@ public class Map {
         JSONObject basicItems = items.getJSONObject("basicItems");
         JSONObject containers = items.getJSONObject("containers");
 
-        List<BasicItem> itemList = addBasicItems(basicItems, area);
+        List<BasicItem> itemList = addBasicItems(basicItems);
         for(Item item : itemList) {
             area.addItem(item);
         }
         addContainers(containers, area);
     }
 
-    private List<BasicItem> addBasicItems(JSONObject basicItems, Area area) {
+    private List<BasicItem> addBasicItems(JSONObject basicItems) {
         List<BasicItem> items =  new ArrayList<BasicItem>();
         Iterator<String> itemIterator  =  basicItems.keys();
         try{
