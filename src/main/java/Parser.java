@@ -41,10 +41,16 @@ public class Parser {
 		Scanner lineScanner = new Scanner(line);
 		String[] command = new String[MAX_WORDS_PER_INSTRUCTION];
 		int i = 0;
-		while(lineScanner.hasNext()) {
-			command[i++] = lineScanner.next();
+		try {
+			while (lineScanner.hasNext()) {
+				command[i++] = lineScanner.next();
+			}
+			return command;
+		} catch (ArrayIndexOutOfBoundsException e){
+			String[] message = new String[1];
+			message[0] = "OoO0oPSs! It seems like your input is too long. Please try again, and use a max of " + MAX_WORDS_PER_INSTRUCTION + " words.";
+			return message;
 		}
-		return command;
 	}
 
 	protected Instruction getInstruction() {
