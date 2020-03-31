@@ -25,7 +25,7 @@ With the game briefly explained, we must now consider how to develop this idea i
 ![VuORK use case diagram](https://i.postimg.cc/MHv8yYTz/Bildschirmfoto-2020-03-30-um-16-05-03.png)
 
 
-###Storyline
+### Storyline
 
 Our text adventure game is situated at the VU University, in which you will embark in a journey which goal is to rescue professor Thilo who is held against his will in the university's basement. The game is set at night time in which the player is a student coming back from a party at Uilenstede and suddenly receives a canvas notification of the event occured. The player will have to obtain a series of objects to fight back specific warnings, situated in different parts of the university in order to be able to win the game and save Thilo.
 
