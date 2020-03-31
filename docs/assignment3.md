@@ -65,8 +65,6 @@ Author(s): `Florent Brunet de Rochebrune, Eduardo Lira`
 | **Intended use**       | When a player sends a command request to the server, it will go through the chain-of-responsibility. Depending on run-time conditions, the correct handler will be chosen. Let's take for example the `shout` command, the arguments of the command should be sent by the server to all other receivers as a broadcasted message. The Player class will receive the command, as it is the head, and forward it to the PlayerThread. It is not their responsibility to handle it, so it will keep forwarding it to the server. The server can then call the respective method to handle this request. <br> Another example is when the player joins the realm for the first time. It is then the PlayerThread's responsibility to receive the request and handle the receiving of the player's username. <br>When an incorrect command is sent over the chain, the request will end up in the last part, in our case the server. The server has a handler for incorrect requests and will reply with an error message. |
 | **Constraints**        | N/A |
 
-// TODO adding commands via JSON
-
 | ID                     | DP4 |
 | ---------------------- | ------------------------------------------------------------ |
 | **Design pattern**     | Decorator Pattern |

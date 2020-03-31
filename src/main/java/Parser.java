@@ -41,7 +41,7 @@ public class Parser {
 		Scanner lineScanner = new Scanner(line);
 		String[] command = new String[MAX_WORDS_PER_INSTRUCTION];
 		int i = 0;
-		while(lineScanner.hasNext()) {
+		while (lineScanner.hasNext()) {
 			command[i++] = lineScanner.next();
 		}
 		return command;
