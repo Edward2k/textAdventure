@@ -412,7 +412,7 @@ In the next step we move to the state that the command has been received. The co
 
 If the command is not valid, an error message is printed and the program returns to the idle state, waiting for a command. 
 
-If the command is valid, the command needs to be executed (“*Execute Command*”). There, changes will be made to the Item or Player (Described in the *Execute Command* figure). After the changes have been made, the system goes back to the idle state, waiting for a new command to process, unless the user types “quit”. Then, the game terminates. 
+If the command is valid, the command needs to be executed ("*Execute Command*"). There, changes will be made to the Item or Player (Described in the *Execute Command* figure). After the changes have been made, the system goes back to the idle state, waiting for a new command to process, unless the user types “quit”. Then, the game terminates. 
 
 The *Execute Command* state works as the following: After checking the command for validity, it will be matched matching it with each of the following existing commands: move, help, look, list, drop, take/get/pickup, give, score and text/deliver/broadcast. 
 
@@ -440,15 +440,15 @@ If the command is text/deliver/broadcast: the input message will be sent to ever
 
 [![State-Machine-Diagram-map-class.png](https://i.postimg.cc/RCf5Z7Wn/State-Machine-Diagram-map-class.png)](https://postimg.cc/0r8HtJd8)
 
-Diagram (4) illustrates the machine state diagram of the class *Map*,  in which the result of the users command triggers certain movements depending on such commands, which will be described next.
+Diagram (4) illustrates the machine state diagram of the class *Map*, in which the user's command input triggers certain movements or does nothing, which will be described next.
 
-Starting from the initial pseudo state the user will enter its desired direction to move in which the choice pseudostate performs a selection depending on the direction input. The alternatives are consisting of a set of four directions in a form of simple states with their name compartments determining their directions (*North, East, South* and *West*)   as well as an *Else* state in the form of error-handling given the *Player*’s direction input would not be valid.
+Starting from the initial pseudo state the machine will start in an idle state, waiting for input from the user.. After there is a trigger for input, a selection based on the direction input will be evaluated. The choices are consisting of a set of four directions in a form of simple states with their name compartments determining their directions (*North*, *East*, *South* and *West*) as well as an *Else* state in the form of error-handling given the *Player*’s direction input would not be valid.
 
-In the case of such direction not being one of the possibilities, for example, *North-East*, it would enter the *Else* State in which it would return a message to the *Player*, determining their desired direction to take is unfortunately not valid, in which the user will be able to input another command which would hopefully be one of the valid options which are *North, South, East, West*. 
+In the case of such direction not being one of the possibilities, for example, *North-East*, or if the move is not valid in terms of the *Area* chosen being non-existent as their could be obstacles (a wall) that would make the move into that direction unable to be performed, the function would terminate enclosing the area in that direction doesn’t exist and it would then enter into the final state in which it would be signified that the enclosing region is then completed. After this it would enter the *printInvalidMove* state in which it would return a message to the *Player*, determining their desired direction to take is unfortunate1ly not valid, in which the user will be able to input another command which would hopefully be one of the valid options which are *North, South, East, West*. The machine will also return to the idle state, waiting for input again.
 
-If the command followed such terms the selection of simple states composing the previously stated directions are coordinated by their  internal activities compartments showing their coordinates, which will correspondingly be shifted depending on their component type (x or y) and values (+1,-1) due to Coordinate being an immutable object. 
+If the command followed such terms the selection of simple states composing the previously stated directions are coordinated by their internal activities compartments showing their coordinates, which will correspondingly be shifted depending on their component type (x or y) and values (+1,-1) due to Coordinate being an immutable object. 
 
-Following this, the action then transitions into another choice  pseudostate in which it is then determined whether or not the move is valid in terms of the *Area* chosen being existent as their could be obstacles (a wall) that would make the move into that direction unable to be performed, in that case the function  would terminate enclosing the area in that direction doesn’t exist and it would then enter into the final state in which it would be signified that the enclosing region is then completed. If on the other hand the move is valid in that *Area*, the choice pseudostate would leas the *Player*’s coordinate position to be updated in the simple state which would result in the *Player*’s desired action to be performed successfully.
+Finally we end up in the updating player position state, which updates the *Player*’s coordinate position with the value set in the previous state. When this is done you reach the final state.
 
 ## Sequence diagrams									
 Author(s): `Marta Anna Jansone & Theresa Schantz`
