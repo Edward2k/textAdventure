@@ -136,7 +136,6 @@ public class Game {
 		return "You have neutralized the obstacle, cool! \n" + map.getDescription(player.position());
 	}
 
-	//TODO: This needs to be simplified :O
 	private static boolean neutralizeObstacles(Coordinate coord, String toNeutralize, String who) {
 		Area area = map.getArea(coord);
 		if (area.getObstacle() != null && area.getObstacle().getName().equals(who) &&
