@@ -3,6 +3,7 @@ import java.net.Socket;
 public class PlayerThread extends Thread {
     private final Player player;
     private final Game server;
+    private static final int MAX_WORDS_PER_INSTRUCTION = 18;
 
     public PlayerThread(Socket socket, Game server, Coordinate start) {
         this.player = new Player(socket, start);
@@ -42,7 +43,7 @@ public class PlayerThread extends Thread {
                 String result = server.validateCommand(currCommand, player);
                 player.output(result);
             } catch(ArrayIndexOutOfBoundsException e){
-                player.output("OoO0oPSs! It seems like your input is too long. Please try again, and use a max of 3 words.");
+                player.output("OoO0oPSs! It seems like your input is too long. Please try again, and use a max of" + MAX_WORDS_PER_INSTRUCTION + " words.");
             }
         }
     }
