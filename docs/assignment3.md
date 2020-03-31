@@ -28,6 +28,9 @@ Starting Assignment 3 it was important to look at the given feedback our group r
         Input length checking: if the input given by the user is too long, an error message will now be thrown to the user, telling him that the input is too long. By adding this, the user will know what to look out for when giving the next command and the system won't crash
     </li>
     <li>
+        Sequence diagram: besides other changes that had to be made in order to adjust the diagram to the new game implementation, we got rid of the first alt statement, since it did not add any special behavior. 
+    </li>
+    <li>
         unused variables: variables that were not used during assignment 2 were completely removed or finally implemented. Health and moves now have a purpose and are being used. Health was completely removed as it did not match our expectation of the game anymore
     </li>
 </ul>
@@ -514,7 +517,7 @@ The last step returns the description from the *Game* back to the *PlayerThread*
 
 >Sequence Diagram Valid Command: Move (Diagram 12)
 
-[![Sequence-diagram-valid-command-new-valid-command.png](https://i.postimg.cc/FHgRwG53/Sequence-diagram-valid-command-new-valid-command.png)](https://postimg.cc/dh3wy20V)
+[![Sequence-diagram-valid-command-valid-command-1.png](https://i.postimg.cc/fbHvdP7v/Sequence-diagram-valid-command-valid-command-1.png)](https://postimg.cc/v1V9F3N1)
 
 ## Implementation									
 Author(s): `Eduardo Lira, Marta Anna Jansone, Irene Garcia-Fortea Garcia`
