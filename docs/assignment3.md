@@ -11,14 +11,25 @@ Author(s): `Theresa Schantz`
 
 Starting Assignment 3 it was important to look at the given feedback our group received for Assignment 2, in order to improve our project. For this it was very nice to get in touch with the functionality github provides. 
 <ul>
-    <li>Use case diagram. For this, we made a completely new diagram, trying a very different approach. Hopefully, this is correct now :P 
-    <li>Unclear functional requirements: we edited the functional and quality requirements and added more details in order to obtain more clarity. Also, bonus assignment goals were changed and we got rid of the possible function displaying the backpack. New sorting of quality and feature requirements was also done </li>
-    <li>Undetailed Introduction: We added a more detailed description of the game mechanics, game play and an extra description of the storyline contained in our game</li>
-    <li>Class diagram: in the feedback inconsistency with the UML standards were criticised. These were fixed, multiplicities and new classes were added, since during the implementation new questions arose, that were solved by implementing new classes</li>
+    <li>
+        Use case diagram. For this, we made a completely new diagram, trying a very different approach. Hopefully, this is correct now :P 
+    </li>
+    <li>
+        Unclear functional requirements: we edited the functional and quality requirements and added more details in order to obtain more clarity. Also, bonus assignment goals were changed and we got rid of the possible function displaying the backpack. New sorting of quality and feature requirements was also done 
+    </li>
+    <li>
+        Undetailed Introduction: We added a more detailed description of the game mechanics, game play and an extra description of the storyline contained in our game
+    </li>
+    <li>
+        Class diagram: in the feedback inconsistency with the UML standards were criticised. These were fixed, multiplicities and new classes were added, since during the implementation new questions arose, that were solved by implementing new classes
+    </li>
     <li>State Machine Diagram: the state machine diagram was completely renewed, as it was a lot of work required to adjust it with the game mechanics</li>
-    <li>Input length checking: if the input given by the user is too long, an error message will now be thrown to the user, telling him that the input is too long. By adding this, the user will know what to look out for when giving the next command and the system won't crash</li>
-    <li>unused variables: variables that were not used during assignment 2 were completely removed or finally implemented. Health and moves now have a purpose and are being used. Health was completely removed as it did not match our expectation of the game anymore</li>
-    <li></li>
+    <li>
+        Input length checking: if the input given by the user is too long, an error message will now be thrown to the user, telling him that the input is too long. By adding this, the user will know what to look out for when giving the next command and the system won't crash
+    </li>
+    <li>
+        unused variables: variables that were not used during assignment 2 were completely removed or finally implemented. Health and moves now have a purpose and are being used. Health was completely removed as it did not match our expectation of the game anymore
+    </li>
 </ul>
 
 
