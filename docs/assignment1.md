@@ -3,7 +3,7 @@
 Word count: 3030 words
 
 ## Introduction									
-Author(s): Eduardo Lira
+Author(s): `Eduardo Lira, Theresa Schantz, Irene Garcia-Fortea Garcia`
 
 Inspiration: [Original Zork game](https://textadventures.co.uk/games/play/5zyoqrsugeopel3ffhz_vq)
 
@@ -20,10 +20,12 @@ Following and summing up, if the user types in a command, describing what he is 
 
 With the game briefly explained, we must now consider how to develop this idea in a way that is easily extendable, maintainable and comprehensible. By using the Object-Oriented programming paradigm, we aim to create a system that is easily modifiable, expandable and intuitive for programmers to understand. To help achieve this goal, we will be making use of UML diagrams. 
 
-   				   Figure 1: A use case diagram of VUORK
+>A use case diagram of VUORK
 
 ![VuORK use case diagram](https://i.postimg.cc/MHv8yYTz/Bildschirmfoto-2020-03-30-um-16-05-03.png)
-Storyline
+
+
+###Storyline
 
 Our text adventure game is situated at the VU University, in which you will embark in a journey which goal is to rescue professor Thilo who is held against his will in the university's basement. The game is set at night time in which the player is a student coming back from a party at Uilenstede and suddenly receives a canvas notification of the event occured. The player will have to obtain a series of objects to fight back specific warnings, situated in different parts of the university in order to be able to win the game and save Thilo.
 
