@@ -3,7 +3,7 @@
 Word count: 1827 words
 
 ## Introduction									
-Author(s): Eduardo Lira
+Author(s): ´Eduardo Lira, Theresa Schantz & Irene Garcia´
 
 Inspiration: [Original Zork game](https://textadventures.co.uk/games/play/5zyoqrsugeopel3ffhz_vq)
 

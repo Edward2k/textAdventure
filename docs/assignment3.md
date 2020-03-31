@@ -9,15 +9,17 @@ Maximum number of words for this document: 18000
 ### Summary of changes of Assignment 2
 Author(s): `name of the team member(s) responsible for this section`
 
-##### This is not a bullet point list. Also, lacking a lot of detail. Ex, 2nd point, we had to change features because of incalrities, not just add them. Point 3 was not feedback? It is important to note that this section is for changes FOR FEEDBACK GIVEN IN ASS2. 
-
-The first feedback to address was the introduction (from the feedback of Assignment 1). More information, about the game *Zork* had to be added. Therefore, the first step for us was to further elaborate on  the games mechanics and objectives.
-
-Second, the features, and quality requirements had to be added. ...//TODO
-
-Third, unused variables and functions inside the code were removed, and error messages for the user were added. A newly implemented message is the one telling tha player that the given instruction is too long. 
-
-Fourth, still haning around from the feedback of assignment 1, the use case diagram was renewed. We hope it is correct now :-).
+Starting Assignment 3 it was important to look at the given feedback our group received for Assignment 2, in order to improve our project. For this it was very nice to get in touch with the functionality github provides. 
+<ul>
+    <li>Use case diagram. For this, we made a completely new diagram, trying a very different approach. Hopefully, this is correct now :P 
+    <li>Unclear functional requirements: we edited the functional and quality requirements and added more details in order to obtain more clarity. Also, bonus assignment goals were changed and we got rid of the possible function displaying the backpack. New sorting of quality and feature requirements was also done </li>
+    <li>Undetailed Introduction: We added a more detailed description of the game mechanics, game play and an extra description of the storyline contained in our game</li>
+    <li>Class diagram: in the feedback inconsistency with the UML standards were criticised. These were fixed, multiplicities and new classes were added, since during the implementation new questions arose, that were solved by implementing new classes</li>
+    <li>State Machine Diagram: the state machine diagram was completely renewed, as it was a lot of work required to adjust it with the game mechanics</li>
+    <li>Input length checking: if the input given by the user is too long, an error message will now be thrown to the user, telling him that the input is too long. By adding this, the user will know what to look out for when giving the next command and the system won't crash</li>
+    <li>unused variables: variables that were not used during assignment 2 were completely removed or finally implemented. Health and moves now have a purpose and are being used. Health was completely removed as it did not match our expectation of the game anymore</li>
+    <li></li>
+</ul>
 
 Maximum number of words for this section: 1000
 
