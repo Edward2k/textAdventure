@@ -68,7 +68,7 @@ Author(s): Eduardo Lira, Irene Garcia-Fortea Garcia, Florent Brunet de Rochebrun
 | QR3 | Quick     responses to user input     | Responsiveness | The system must always respond to any input. It shall, thus, not be possible for the user to be able to input 2 seperate commands without a response from the system. The system should respond immediatly. |
 | QR4 | Extensible world | Maintainability | The code should be well structured and organized; and the universe should not be closed. It should be an open story plot so more levels can be added later. Readable code will make it easier to implement such. |
 | QR5 | User friendly | Usability | An introduction should explain how to play the game and how to give commands. The syntax shall be intuitive for any player. The help of text-based GUI will help give a visual display of current inventory, current layout of the explored map etc. |
-| QR6 | Always respond to user inputs | Reliability | All commands shall be idempotent; If a player drops an item, that item shall be dropped. |
+| QR6 | Always respond to user inputs | Idempotence | All commands shall be idempotent; If a player drops an item, that item shall be dropped. |
 | QR7 | Available actions | Availability | When an action is possible, it shall be able to be executed when requested by the user. |
 | QR8 | User privacy & System security | Security | Not collecting any personal userdata. GDPR compliant. |
 
