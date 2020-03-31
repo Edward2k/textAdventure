@@ -142,7 +142,7 @@ public class Map {
                 String containerName = containerContent.get("name").toString(); // the name of the container
                 String containerDescription = containerContent.get("description").toString();
                 JSONObject containerEntities = new JSONObject(containerContent.get("entities").toString());
-                List<BasicItem> basicItems = addBasicItems(containerEntities, area);
+                List<BasicItem> basicItems = addBasicItems(containerEntities);
                 area.addItem(new Container(containerName, Integer.parseInt(containerString), containerDescription, basicItems, getActions(containerContent.get("canBe").toString()),  getActions(containerContent.get("usedTo").toString())));
             }
         }

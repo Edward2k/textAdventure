@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
 
-public class git Instruction {
+public class Instruction {
     private String action;
     private List<String> items;
 
