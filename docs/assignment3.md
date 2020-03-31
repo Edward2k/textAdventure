@@ -24,7 +24,7 @@ Maximum number of words for this section: 1000
 ### Application of design patterns
 Author(s): `Florent Brunet de Rochebrune, Eduardo Lira`
 
-![Design Patterns in Class Diagram](https://i.imgur.com/e8hsvPX.png)
+![Design Patterns in Class Diagram](https://i.imgur.com/15e2WKT.png)
 
 | ID                     | DP1 |
 | ---------------------- | ------------------------------------------------------------ |
